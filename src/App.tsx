@@ -1,60 +1,66 @@
-import React from "react";
+import React, {useState} from "react";
 import "./App.css";
 import {Autocomplete, TextField} from "@mui/material";
-import useSWR from "swr";
+import {Municipality, useFetchMunicipalities} from "./hooks";
 
-type ExternalMunicipality = {NOMBRE_CAPITAL: string};
+type MunicipalitySearchProps = {
+  onChange: Function;
+};
 
-const fetcher = (url: string) => fetch(url).then((result) => result.json());
-
-function useFetchMunicipalities() {
-  const {data} = useSWR(
-    "https://www.el-tiempo.net/api/json/v2/provincias/08/municipios",
-    fetcher,
-    {suspense: true}
-  );
-
-  const externalMunicipalities = Object.entries(data.municipios) as unknown as [
-    key: string,
-    value: ExternalMunicipality
-  ][];
-
-  return externalMunicipalities.map((externalMunicipality) => {
-    return {
-      label: externalMunicipality[1]["NOMBRE_CAPITAL"],
-      locationId: externalMunicipality[0],
-    };
-  });
-}
-
-function LocationSearcher() {
+function MunicipalitySearch({onChange}: MunicipalitySearchProps) {
   return (
     <Autocomplete
       disablePortal
-      sx={{width: 300}}
-      renderInput={(params) => <TextField {...params} label="Location" />}
+      sx={{width: 600}}
+      renderInput={(params) => <TextField {...params} label="Municipality" />}
       options={useFetchMunicipalities()}
+      getOptionLabel={(option) => `${option.name} - ${option.provinceName}`}
+      filterOptions={(options, state) =>
+        options.filter((option) =>
+          option.name.toLowerCase().startsWith(state.inputValue.toLowerCase())
+        )
+      }
+      isOptionEqualToValue={(option, value) =>
+        option.municipalityId === value.municipalityId
+      }
+      onChange={(event, value: Municipality | null) => onChange(value)}
     />
   );
 }
 
+type CardProps = {
+  municipalityName: string;
+};
+
+function Card({municipalityName}: CardProps) {
+  return <h1>{municipalityName}</h1>;
+}
+
 const App = () => {
+  const [municipalities, setMunicipalities] = useState<Municipality[]>([]);
+
+  function addNewCard(municipality: Municipality) {
+    if (municipality) {
+      const updatedCards = Array.from(municipalities);
+      updatedCards.push(municipality);
+      setMunicipalities(updatedCards);
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <LocationSearcher />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <>
+        <header className="App-header">
+          <MunicipalitySearch onChange={addNewCard} />
+        </header>
+        <ul>
+          {municipalities.map((municipality) => (
+            <li key={municipality.municipalityId}>
+              <Card municipalityName={municipality.municipalityId} />
+            </li>
+          ))}
+        </ul>
+      </>
     </div>
   );
 };
