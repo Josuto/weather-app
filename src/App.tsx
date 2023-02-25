@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import "./styles/App.css";
-import {Grid} from "@mui/material";
+import Grid from "@mui/material/Grid";
 import {MunicipalitySearch} from "./components/MunicipalitySearch";
 import {MunicipalityCard} from "./components/MunicipalityCard";
 import {Municipality} from "./types/Municipality";
@@ -19,8 +19,7 @@ function App() {
   function removeMunicipality(municipality: Municipality) {
     if (municipality) {
       const updatedMunicipalities = municipalities.filter(
-        (currentMunicipality) =>
-          currentMunicipality.municipalityId !== municipality.municipalityId
+        (currentMunicipality) => currentMunicipality.id !== municipality.id
       );
       setMunicipalities(updatedMunicipalities);
     }
@@ -36,7 +35,7 @@ function App() {
           {municipalities.map((municipality, index) => (
             <Grid key={index} item xs={4}>
               <MunicipalityCard
-                key={municipality.municipalityId}
+                key={municipality.id}
                 municipality={municipality}
                 onClose={removeMunicipality}
               />

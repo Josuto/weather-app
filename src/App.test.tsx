@@ -6,10 +6,10 @@ import userEvent from "@testing-library/user-event";
 
 const municipalities: Municipality[] = [
   {
+    id: "00001",
     name: "Some municipality",
-    provinceName: "Some province",
     provinceId: "01",
-    municipalityId: "00001",
+    provinceName: "Some province",
   },
 ];
 

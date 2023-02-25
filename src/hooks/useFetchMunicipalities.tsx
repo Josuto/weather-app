@@ -20,10 +20,10 @@ export function useFetchMunicipalities(): Municipality[] {
   return municipalities
     .map((municipality) => {
       return {
+        id: municipality["CODIGOINE"].slice(0, 5),
         name: municipality["NOMBRE"],
-        provinceName: municipality["NOMBRE_PROVINCIA"],
         provinceId: municipality["CODPROV"],
-        municipalityId: municipality["CODIGOINE"].slice(0, 5),
+        provinceName: municipality["NOMBRE_PROVINCIA"],
       };
     })
     .sort((municipality1, municipality2) => {

@@ -20,9 +20,7 @@ export function MunicipalitySearch({onChange}: MunicipalitySearchProps) {
           option.name.toLowerCase().startsWith(state.inputValue.toLowerCase())
         )
       }
-      isOptionEqualToValue={(option, value) =>
-        option.municipalityId === value.municipalityId
-      }
+      isOptionEqualToValue={(option, value) => option.id === value.id}
       onChange={(event, value: Municipality | null) => onChange(value)}
     />
   );

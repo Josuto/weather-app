@@ -1,6 +1,6 @@
 export type Municipality = {
+  id: string;
   name: string;
-  provinceName: string;
   provinceId: string;
-  municipalityId: string;
+  provinceName: string;
 };
