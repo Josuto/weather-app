@@ -1,5 +1,5 @@
 import {Autocomplete, TextField} from "@mui/material";
-import {useFetchMunicipalities} from "../hooks/useFetchMunicipalities";
+import {useFetchMunicipalities} from "../hooks/UseFetchMunicipalities";
 import React from "react";
 import {Municipality} from "../types/Municipality";
 
@@ -11,7 +11,7 @@ export function MunicipalitySearch({onChange}: MunicipalitySearchProps) {
   return (
     <Autocomplete
       disablePortal
-      sx={{width: 600}}
+      sx={{width: 1}}
       renderInput={(params) => <TextField {...params} label="Municipality" />}
       options={useFetchMunicipalities()}
       getOptionLabel={(option) => `${option.name} - ${option.provinceName}`}

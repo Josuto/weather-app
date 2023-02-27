@@ -1,14 +1,15 @@
 import React, {useState} from "react";
 import "./styles/App.css";
-import Grid from "@mui/material/Grid";
 import {MunicipalitySearch} from "./components/MunicipalitySearch";
 import {MunicipalityCard} from "./components/MunicipalityCard";
 import {Municipality} from "./types/Municipality";
+import {Container, Grid} from "@mui/material";
+import {MunicipalityWithWeatherData} from "./types/MunicipalityWithWeatherData";
 
 function App() {
-  const [municipalities, setMunicipalities] = useState<Municipality[]>([]);
+  const [municipalities, setMunicipalities] = useState<MunicipalityWithWeatherData[]>([]);
 
-  function addMunicipality(municipality: Municipality) {
+  function addMunicipality(municipality: MunicipalityWithWeatherData) {
     if (municipality) {
       const updatedMunicipalities = Array.from(municipalities);
       updatedMunicipalities.push(municipality);
@@ -26,24 +27,22 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <>
-        <header className="App-header">
-          <MunicipalitySearch onChange={addMunicipality} />
-        </header>
-        <Grid container spacing={2}>
-          {municipalities.map((municipality, index) => (
-            <Grid key={index} item xs={4}>
-              <MunicipalityCard
-                key={municipality.id}
-                municipality={municipality}
-                onClose={removeMunicipality}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </>
-    </div>
+    <>
+      <Container maxWidth={"sm"} sx={{pt: 5, pb: 10}}>
+        <MunicipalitySearch onChange={addMunicipality} />
+      </Container>
+      <Grid container spacing={2} sx={{px: 5}}>
+        {municipalities.map((municipality, index) => (
+          <Grid key={index} item xs={4}>
+            <MunicipalityCard
+              key={municipality.id}
+              municipality={municipality}
+              onClose={removeMunicipality}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 }
 

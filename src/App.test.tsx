@@ -1,10 +1,10 @@
-import React from "react";
 import {render, screen} from "@testing-library/react";
 import App from "./App";
 import {Municipality} from "./types/Municipality";
 import userEvent from "@testing-library/user-event";
+import {MunicipalityWithWeatherDataOrError} from "./types/MunicipalityWithWeatherData";
 
-const municipalities: Municipality[] = [
+const mockMunicipalities: Municipality[] = [
   {
     id: "00001",
     name: "Some municipality",
@@ -13,8 +13,24 @@ const municipalities: Municipality[] = [
   },
 ];
 
-jest.mock("./hooks/useFetchMunicipalities", () => ({
-  useFetchMunicipalities: () => municipalities,
+const mockMunicipalityWithWeatherData: MunicipalityWithWeatherDataOrError = {
+  data: {
+    temperature: {
+      actual: "5",
+      max: "10",
+      min: "2",
+    },
+    ...mockMunicipalities[0],
+  },
+  error: undefined,
+};
+
+jest.mock("./hooks/UseFetchMunicipalities", () => ({
+  useFetchMunicipalities: () => mockMunicipalities,
+}));
+
+jest.mock("./hooks/UseFetchMunicipalityWithWeatherData", () => ({
+  useFetchMunicipalityWithWeatherData: () => mockMunicipalityWithWeatherData,
 }));
 
 async function selectMunicipalityFromSearchBar(): Promise<void> {

@@ -2,6 +2,7 @@ import {Card, CardContent, CardHeader, IconButton, Typography} from "@mui/materi
 import React from "react";
 import {Municipality} from "../types/Municipality";
 import {Close} from "@mui/icons-material";
+import {useFetchMunicipalityWithWeatherData} from "../hooks/UseFetchMunicipalityWithWeatherData";
 
 type MunicipalityCardProps = {
   municipality: Municipality;
@@ -9,6 +10,9 @@ type MunicipalityCardProps = {
 };
 
 export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps) {
+  const municipalityWeatherDataOrError =
+    useFetchMunicipalityWithWeatherData(municipality);
+
   return (
     <Card>
       <CardHeader
@@ -18,9 +22,14 @@ export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps)
           </IconButton>
         }
       />
-      <CardContent>
+      <CardContent sx={{textAlign: "center"}}>
         <Typography variant={"h5"}>{municipality.name}</Typography>
         <Typography variant={"subtitle1"}>{municipality.provinceName}</Typography>
+        {municipalityWeatherDataOrError.error && <Typography>Loading error</Typography>}
+        {!municipalityWeatherDataOrError.data && <Typography>Loading...</Typography>}
+        <Typography variant={"subtitle1"}>
+          {municipalityWeatherDataOrError.data.temperature.actual}
+        </Typography>
       </CardContent>
     </Card>
   );
