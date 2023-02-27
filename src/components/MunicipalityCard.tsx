@@ -23,13 +23,17 @@ export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps)
         }
       />
       <CardContent sx={{textAlign: "center"}}>
-        <Typography variant={"h5"}>{municipality.name}</Typography>
-        <Typography variant={"subtitle1"}>{municipality.provinceName}</Typography>
         {municipalityWeatherDataOrError.error && <Typography>Loading error</Typography>}
         {!municipalityWeatherDataOrError.data && <Typography>Loading...</Typography>}
-        <Typography variant={"subtitle1"}>
-          {municipalityWeatherDataOrError.data.temperature.actual}
-        </Typography>
+        {municipalityWeatherDataOrError.data && (
+          <>
+            <Typography variant={"h5"}>{municipality.name}</Typography>
+            <Typography variant={"subtitle1"}>{municipality.provinceName}</Typography>
+            <Typography variant={"subtitle1"}>
+              {municipalityWeatherDataOrError.data?.temperature.actual}
+            </Typography>
+          </>
+        )}
       </CardContent>
     </Card>
   );

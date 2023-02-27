@@ -17,15 +17,21 @@ export function useFetchMunicipalityWithWeatherData(
 
   const {data, error} = useSWR(municipalityWeatherDataFetchUrl, fetcher);
 
-  return {
-    data: {
-      temperature: {
-        actual: data?.temperatura_actual,
-        max: data?.temperaturas.max,
-        min: data?.temperaturas.min,
+  if (data) {
+    return {
+      data: {
+        temperature: {
+          actual: data?.temperatura_actual,
+          max: data?.temperaturas.max,
+          min: data?.temperaturas.min,
+        },
+        ...municipality,
       },
-      ...municipality,
-    },
+      error: error,
+    };
+  }
+  return {
+    data: undefined,
     error: error,
   };
 }

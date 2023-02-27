@@ -11,6 +11,6 @@ export type WeatherData = {
 export type MunicipalityWithWeatherData = Municipality & WeatherData;
 
 export type MunicipalityWithWeatherDataOrError = {
-  data: MunicipalityWithWeatherData;
+  data: MunicipalityWithWeatherData | undefined;
   error: any;
 };
