@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {Municipality} from "../types/Municipality";
 import {Close, Favorite, FavoriteBorder} from "@mui/icons-material";
 import {useFetchMunicipalityWithWeatherData} from "../hooks/UseFetchMunicipalityWithWeatherData";
+import {MunicipalityWithWeatherDataOrError} from "../types/MunicipalityWithWeatherData";
 
 type AMunicipality = {
   municipality: Municipality;
@@ -11,16 +12,20 @@ type AMunicipality = {
 function MunicipalityCardStoreButton({municipality}: AMunicipality) {
   const [isSaved, setSaved] = useState(false);
 
+  function handleMunicipalityStorage(isSaved: boolean, municipality: Municipality): void {
+    if (!isSaved) {
+      const municipalityIdentifiers = JSON.stringify(municipality.getIdentifiers());
+      localStorage.setItem(municipality.id, municipalityIdentifiers);
+    } else {
+      localStorage.removeItem(municipality.id);
+    }
+  }
+
   return (
     <IconButton
       aria-label={isSaved ? "Discard" : "Save"}
       onClick={() => {
-        if (!isSaved) {
-          const municipalityIdentifiers = JSON.stringify(municipality.getIdentifiers());
-          localStorage.setItem(municipality.id, municipalityIdentifiers);
-        } else {
-          localStorage.removeItem(municipality.id);
-        }
+        handleMunicipalityStorage(isSaved, municipality);
         setSaved(!isSaved);
       }}
     >
@@ -30,14 +35,29 @@ function MunicipalityCardStoreButton({municipality}: AMunicipality) {
   );
 }
 
+function MunicipalityCardContent({data, error}: MunicipalityWithWeatherDataOrError) {
+  if (error) {
+    return <Typography>Loading error</Typography>;
+  }
+  if (!data) {
+    return <Typography>Loading...</Typography>;
+  }
+  return (
+    <>
+      <Typography variant={"h5"}>{data!.name}</Typography>
+      <Typography variant={"subtitle1"}>{data!.provinceName}</Typography>
+      <Typography variant={"subtitle1"}>{data!.temperature.actual}</Typography>
+    </>
+  );
+}
+
 type MunicipalityCardProps = {
   municipality: Municipality;
   onClose: Function;
 };
 
 export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps) {
-  const municipalityWeatherDataOrError =
-    useFetchMunicipalityWithWeatherData(municipality);
+  const {data, error} = useFetchMunicipalityWithWeatherData(municipality);
 
   return (
     <Card>
@@ -52,18 +72,7 @@ export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps)
         }
       />
       <CardContent sx={{textAlign: "center"}}>
-        {municipalityWeatherDataOrError.error && <Typography>Loading error</Typography>}
-        {!municipalityWeatherDataOrError.error &&
-          !municipalityWeatherDataOrError.data && <Typography>Loading...</Typography>}
-        {municipalityWeatherDataOrError.data && (
-          <>
-            <Typography variant={"h5"}>{municipality.name}</Typography>
-            <Typography variant={"subtitle1"}>{municipality.provinceName}</Typography>
-            <Typography variant={"subtitle1"}>
-              {municipalityWeatherDataOrError.data?.temperature.actual}
-            </Typography>
-          </>
-        )}
+        <MunicipalityCardContent data={data} error={error} />
       </CardContent>
     </Card>
   );

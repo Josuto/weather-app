@@ -35,7 +35,7 @@ export class Municipality {
 
 export const municipalityFixture = ({
   ...props
-}: Partial<Municipality> = {}): Municipality => {
+}: Partial<MunicipalityType> = {}): Municipality => {
   const defaults = new Municipality({
     id: "00001",
     name: "Some municipality",
