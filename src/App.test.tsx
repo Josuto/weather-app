@@ -1,36 +1,19 @@
 import {render, screen} from "@testing-library/react";
 import App from "./App";
-import {Municipality} from "./types/Municipality";
+import {municipalityFixture} from "./types/Municipality";
 import userEvent from "@testing-library/user-event";
-import {MunicipalityWithWeatherDataOrError} from "./types/MunicipalityWithWeatherData";
+import {municipalityWithWeatherDataOrErrorFixture} from "./types/MunicipalityWithWeatherData";
 
-const mockMunicipalities: Municipality[] = [
-  {
-    id: "00001",
-    name: "Some municipality",
-    provinceId: "01",
-    provinceName: "Some province",
-  },
-];
-
-const mockMunicipalityWithWeatherData: MunicipalityWithWeatherDataOrError = {
-  data: {
-    temperature: {
-      actual: "5",
-      max: "10",
-      min: "2",
-    },
-    ...mockMunicipalities[0],
-  },
-  error: undefined,
-};
+const mockMunicipalities = [municipalityFixture()];
+const mockMunicipalityWithWeatherDataOrError =
+  municipalityWithWeatherDataOrErrorFixture();
 
 jest.mock("./hooks/UseFetchMunicipalities", () => ({
   useFetchMunicipalities: () => mockMunicipalities,
 }));
 
 jest.mock("./hooks/UseFetchMunicipalityWithWeatherData", () => ({
-  useFetchMunicipalityWithWeatherData: () => mockMunicipalityWithWeatherData,
+  useFetchMunicipalityWithWeatherData: () => mockMunicipalityWithWeatherDataOrError,
 }));
 
 async function selectMunicipalityFromSearchBar(): Promise<void> {
@@ -56,6 +39,7 @@ describe("Given the weather app", () => {
       render(<App />);
 
       await selectMunicipalityFromSearchBar();
+
       const municipalityCards = screen.queryAllByText("Some municipality");
       expect(municipalityCards).toHaveLength(1);
     });
@@ -70,6 +54,7 @@ describe("Given the weather app", () => {
         name: "Close",
       });
       userEvent.click(municipalityCardCloseButton);
+
       const municipalityCards = screen.queryAllByText("Some municipality");
       expect(municipalityCards).toHaveLength(0);
     });

@@ -18,21 +18,16 @@ export function useFetchMunicipalities(): Municipality[] {
   }).data;
 
   return municipalities
-    .map((municipality) => {
-      return {
-        id: municipality["CODIGOINE"].slice(0, 5),
-        name: municipality["NOMBRE"],
-        provinceId: municipality["CODPROV"],
-        provinceName: municipality["NOMBRE_PROVINCIA"],
-      };
-    })
-    .sort((municipality1, municipality2) => {
-      if (municipality1.name < municipality2.name) {
-        return -1;
-      }
-      if (municipality2.name < municipality1.name) {
-        return 1;
-      }
-      return 0;
-    });
+    .map(
+      (municipality) =>
+        new Municipality({
+          id: municipality["CODIGOINE"].slice(0, 5),
+          name: municipality["NOMBRE"],
+          provinceId: municipality["CODPROV"],
+          provinceName: municipality["NOMBRE_PROVINCIA"],
+        })
+    )
+    .sort((municipality1, municipality2) =>
+      municipality1.name.localeCompare(municipality2.name)
+    );
 }

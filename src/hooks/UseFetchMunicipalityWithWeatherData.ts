@@ -1,6 +1,9 @@
 import {Municipality} from "../types/Municipality";
 import useSWR from "swr";
-import {MunicipalityWithWeatherDataOrError} from "../types/MunicipalityWithWeatherData";
+import {
+  MunicipalityWithWeatherData,
+  MunicipalityWithWeatherDataOrError,
+} from "../types/MunicipalityWithWeatherData";
 
 const MUNICIPALITY_WEATHER_DATA_URL =
   "https://www.el-tiempo.net/api/json/v2/provincias/{provinceId}/municipios/{id}";
@@ -19,14 +22,14 @@ export function useFetchMunicipalityWithWeatherData(
 
   if (data) {
     return {
-      data: {
+      data: new MunicipalityWithWeatherData({
         temperature: {
           actual: data?.temperatura_actual,
           max: data?.temperaturas.max,
           min: data?.temperaturas.min,
         },
         ...municipality,
-      },
+      }),
       error: error,
     };
   }
