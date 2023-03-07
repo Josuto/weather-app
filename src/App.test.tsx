@@ -3,6 +3,7 @@ import App from "./App";
 import {municipalityFixture} from "./types/Municipality";
 import userEvent from "@testing-library/user-event";
 import {municipalityWithWeatherDataOrErrorFixture} from "./types/MunicipalityWithWeatherData";
+import {remove, save} from "./util/BrowserStorage";
 
 const mockMunicipalities = [municipalityFixture()];
 const mockMunicipalityWithWeatherDataOrError =
@@ -40,12 +41,12 @@ describe("Given the weather app", () => {
     describe("and a municipality has been previously saved", () => {
       beforeEach(() => {
         const municipality = municipalityFixture();
-        localStorage.setItem(municipality.id, JSON.stringify(municipality));
+        save(municipality);
       });
 
       afterEach(() => {
         const municipality = municipalityFixture();
-        localStorage.removeItem(municipality.id);
+        remove(municipality.id);
       });
 
       it("should include a municipalities search bar and one municipality", async () => {

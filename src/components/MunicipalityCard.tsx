@@ -4,20 +4,20 @@ import {Municipality} from "../types/Municipality";
 import {Close, Favorite, FavoriteBorder} from "@mui/icons-material";
 import {useFetchMunicipalityWithWeatherData} from "../hooks/UseFetchMunicipalityWithWeatherData";
 import {MunicipalityWithWeatherDataOrError} from "../types/MunicipalityWithWeatherData";
+import {get, remove, save} from "../util/BrowserStorage";
 
 type AMunicipality = {
   municipality: Municipality;
 };
 
 function MunicipalityCardStoreButton({municipality}: AMunicipality) {
-  const [isSaved, setSaved] = useState(false);
+  const [isSaved, setSaved] = useState(!!get(municipality.id));
 
   function handleMunicipalityStorage(isSaved: boolean, municipality: Municipality): void {
     if (!isSaved) {
-      const municipalityIdentifiers = JSON.stringify(municipality);
-      localStorage.setItem(municipality.id, municipalityIdentifiers);
+      save(municipality);
     } else {
-      localStorage.removeItem(municipality.id);
+      remove(municipality.id);
     }
   }
 
@@ -44,9 +44,9 @@ function MunicipalityCardContent({data, error}: MunicipalityWithWeatherDataOrErr
   }
   return (
     <>
-      <Typography variant={"h5"}>{data!.name}</Typography>
-      <Typography variant={"subtitle1"}>{data!.provinceName}</Typography>
-      <Typography variant={"subtitle1"}>{data!.temperature.actual}</Typography>
+      <Typography variant={"h5"}>{data.name}</Typography>
+      <Typography variant={"subtitle1"}>{data.provinceName}</Typography>
+      <Typography variant={"subtitle1"}>{data.temperature.actual}</Typography>
     </>
   );
 }
