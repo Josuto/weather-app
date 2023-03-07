@@ -4,12 +4,12 @@ import {MunicipalitySearch} from "./components/MunicipalitySearch";
 import {MunicipalityCard} from "./components/MunicipalityCard";
 import {Municipality} from "./types/Municipality";
 import {Container, Grid} from "@mui/material";
-import {MunicipalityWithWeatherData} from "./types/MunicipalityWithWeatherData";
 
 function App() {
-  const [municipalities, setMunicipalities] = useState<MunicipalityWithWeatherData[]>([]);
+  // const savedMunicipalities = useBrowserStore();
+  const [municipalities, setMunicipalities] = useState<Municipality[]>([]);
 
-  function addMunicipality(municipality: MunicipalityWithWeatherData) {
+  function addMunicipality(municipality: Municipality) {
     if (municipality) {
       const updatedMunicipalities = Array.from(municipalities);
       updatedMunicipalities.push(municipality);
