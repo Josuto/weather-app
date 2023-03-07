@@ -1,13 +1,3 @@
-export class MunicipalityIdentifiers {
-  readonly municipalityId: string;
-  readonly provinceId: string;
-
-  constructor(identifiers: {id: string; provinceId: string}) {
-    this.municipalityId = identifiers.id;
-    this.provinceId = identifiers.provinceId;
-  }
-}
-
 export type MunicipalityType = {
   id: string;
   name: string;
@@ -26,10 +16,6 @@ export class Municipality {
     this.name = municipality.name;
     this.provinceId = municipality.provinceId;
     this.provinceName = municipality.provinceName;
-  }
-
-  getIdentifiers(): MunicipalityIdentifiers {
-    return new MunicipalityIdentifiers({...this});
   }
 }
 

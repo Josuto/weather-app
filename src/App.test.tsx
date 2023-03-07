@@ -38,12 +38,17 @@ describe("Given the weather app", () => {
     });
 
     describe("and a municipality has been previously saved", () => {
-      it("should include a municipalities search bar and one municipality", async () => {
+      beforeEach(() => {
         const municipality = municipalityFixture();
-        localStorage.setItem(
-          municipality.id,
-          JSON.stringify(municipality.getIdentifiers())
-        );
+        localStorage.setItem(municipality.id, JSON.stringify(municipality));
+      });
+
+      afterEach(() => {
+        const municipality = municipalityFixture();
+        localStorage.removeItem(municipality.id);
+      });
+
+      it("should include a municipalities search bar and one municipality", async () => {
         render(<App />);
 
         const municipalitySearch = screen.getByRole("combobox");

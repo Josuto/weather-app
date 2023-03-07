@@ -4,10 +4,12 @@ import {MunicipalitySearch} from "./components/MunicipalitySearch";
 import {MunicipalityCard} from "./components/MunicipalityCard";
 import {Municipality} from "./types/Municipality";
 import {Container, Grid} from "@mui/material";
+import {useBrowserStore} from "./hooks/UseBrowserStore";
 
 function App() {
-  // const savedMunicipalities = useBrowserStore();
-  const [municipalities, setMunicipalities] = useState<Municipality[]>([]);
+  const savedMunicipalities = useBrowserStore();
+  const [municipalities, setMunicipalities] =
+    useState<Municipality[]>(savedMunicipalities);
 
   function addMunicipality(municipality: Municipality) {
     if (municipality) {

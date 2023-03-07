@@ -33,9 +33,7 @@ describe("Given a municipality card", () => {
       const saveButton = screen.queryByRole("button", {name: "Save"});
       expect(saveButton).not.toBeInTheDocument();
 
-      const expectedMunicipalityIdentifiers = JSON.stringify(
-        municipality.getIdentifiers()
-      );
+      const expectedMunicipalityIdentifiers = JSON.stringify(municipality);
       expect(localStorage.getItem(municipality.id)).toStrictEqual(
         expectedMunicipalityIdentifiers
       );

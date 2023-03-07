@@ -14,7 +14,7 @@ function MunicipalityCardStoreButton({municipality}: AMunicipality) {
 
   function handleMunicipalityStorage(isSaved: boolean, municipality: Municipality): void {
     if (!isSaved) {
-      const municipalityIdentifiers = JSON.stringify(municipality.getIdentifiers());
+      const municipalityIdentifiers = JSON.stringify(municipality);
       localStorage.setItem(municipality.id, municipalityIdentifiers);
     } else {
       localStorage.removeItem(municipality.id);
