@@ -1,7 +1,23 @@
-import {Card, CardContent, CardHeader, IconButton, Typography} from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, {useState} from "react";
 import {Municipality} from "../types/Municipality";
-import {Close, Favorite, FavoriteBorder} from "@mui/icons-material";
+import {
+  Air,
+  Close,
+  Favorite,
+  FavoriteBorder,
+  Opacity,
+  Umbrella,
+} from "@mui/icons-material";
 import {useFetchMunicipalityWithWeatherData} from "../hooks/UseFetchMunicipalityWithWeatherData";
 import {MunicipalityWithWeatherDataOrError} from "../types/MunicipalityWithWeatherData";
 import {get, remove, save} from "../util/BrowserStorage";
@@ -37,16 +53,70 @@ function MunicipalityCardStoreButton({municipality}: AMunicipality) {
 
 function MunicipalityCardContent({data, error}: MunicipalityWithWeatherDataOrError) {
   if (error) {
-    return <Typography>Loading error</Typography>;
+    return <Typography variant={"h1"}>Loading error</Typography>;
   }
   if (!data) {
-    return <Typography>Loading...</Typography>;
+    return <Typography variant={"h1"}>Loading...</Typography>;
   }
   return (
     <>
-      <Typography variant={"h5"}>{data.name}</Typography>
-      <Typography variant={"subtitle1"}>{data.provinceName}</Typography>
-      <Typography variant={"subtitle1"}>{data.temperature.actual}</Typography>
+      <Box pb={2}>
+        <Typography variant={"h1"}>{data.name}</Typography>
+        <Typography variant={"h2"}>{data.provinceName}</Typography>
+      </Box>
+      <Stack direction={{xs: "column", sm: "row"}} alignItems={"center"}>
+        <Stack
+          sx={{width: {sm: "50%"}}}
+          direction={"row"}
+          divider={<Divider orientation="vertical" flexItem />}
+          spacing={2}
+          justifyContent={"center"}
+          pb={{xs: 2, sm: 0}}
+        >
+          <Box>
+            <Box>
+              <Opacity />
+            </Box>
+            <Box>
+              <Typography variant={"body2"}>{data.humidity}%</Typography>
+            </Box>
+          </Box>
+          <Box>
+            <Box>
+              <Air />
+            </Box>
+            <Box>
+              <Typography variant={"body2"}>{data.wind} km/h</Typography>
+            </Box>
+          </Box>
+          <Box>
+            <Box>
+              <Umbrella />
+            </Box>
+            <Box>
+              <Typography variant={"body2"}>{data.rainProbability || 0}%</Typography>
+            </Box>
+          </Box>
+        </Stack>
+        <Box sx={{width: {sm: "50%"}}}>
+          <Box>
+            <Typography variant={"h3"}>{data.temperature.actual}&#176;</Typography>
+          </Box>
+          <Stack
+            direction={"row"}
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+            justifyContent={"center"}
+          >
+            <Box>
+              <Typography variant={"body2"}>{data.temperature.max}&#176;</Typography>
+            </Box>
+            <Box>
+              <Typography variant={"body2"}>{data.temperature.min}&#176;</Typography>
+            </Box>
+          </Stack>
+        </Box>
+      </Stack>
     </>
   );
 }

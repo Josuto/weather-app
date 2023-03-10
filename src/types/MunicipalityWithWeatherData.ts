@@ -29,16 +29,25 @@ const temperatureFixture = ({...props}: Partial<TemperatureType> = {}): Temperat
 
 export type WeatherDataType = {
   temperature: TemperatureType;
+  humidity: string;
+  wind: string;
+  rainProbability: string;
 };
 
 export type MunicipalityWithWeatherDataType = MunicipalityType & WeatherDataType;
 
 export class MunicipalityWithWeatherData extends Municipality {
   readonly temperature: Temperature;
+  readonly humidity: string;
+  readonly wind: string;
+  readonly rainProbability: string;
 
   constructor(municipalityWithWeatherData: MunicipalityWithWeatherDataType) {
     super(municipalityWithWeatherData);
     this.temperature = new Temperature(municipalityWithWeatherData.temperature);
+    this.humidity = municipalityWithWeatherData.humidity;
+    this.wind = municipalityWithWeatherData.wind;
+    this.rainProbability = municipalityWithWeatherData.rainProbability;
   }
 }
 
@@ -48,6 +57,9 @@ export const municipalityWithWeatherDataFixture = ({
   const defaults = new MunicipalityWithWeatherData({
     ...municipalityFixture(),
     temperature: {...temperatureFixture()},
+    humidity: "47",
+    wind: "30",
+    rainProbability: "5",
   });
   return new MunicipalityWithWeatherData({...defaults, ...props});
 };

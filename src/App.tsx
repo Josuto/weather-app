@@ -33,7 +33,12 @@ function App() {
       <Container maxWidth={"sm"} sx={{pt: 5, pb: 10}}>
         <MunicipalitySearch onChange={addMunicipality} />
       </Container>
-      <Grid container spacing={2} sx={{px: 5}}>
+      <Grid
+        container
+        direction={{xs: "column", sm: "row"}}
+        spacing={2}
+        sx={{px: {xs: 2.5, sm: 5}}}
+      >
         {municipalities.map((municipality, index) => (
           <Grid key={index} item xs={4}>
             <MunicipalityCard
