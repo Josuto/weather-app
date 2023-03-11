@@ -80,13 +80,13 @@ const theme = createTheme({
       paddingBottom: 1,
     },
     body1: {
-      fontSize: "0.875rem",
+      fontSize: "0.975rem",
       fontWeight: 400,
       lineHeight: 1.5,
       letterSpacing: 0.15,
     },
     body2: {
-      fontSize: "0.75rem",
+      fontSize: "0.95rem",
       fontWeight: 400,
       lineHeight: 1.4,
       letterSpacing: 0.15,
