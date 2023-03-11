@@ -10,6 +10,7 @@ type MunicipalitySearchProps = {
 export function MunicipalitySearch({onChange}: MunicipalitySearchProps) {
   return (
     <Autocomplete
+      color={"primary.main"}
       disablePortal
       sx={{width: 1}}
       renderInput={(params) => <TextField {...params} label="Municipality" />}

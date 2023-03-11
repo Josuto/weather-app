@@ -16,6 +16,7 @@ import {
   Favorite,
   FavoriteBorder,
   Opacity,
+  Thermostat,
   Umbrella,
 } from "@mui/icons-material";
 import {useFetchMunicipalityWithWeatherData} from "../hooks/UseFetchMunicipalityWithWeatherData";
@@ -45,8 +46,8 @@ function MunicipalityCardStoreButton({municipality}: AMunicipality) {
         setSaved(!isSaved);
       }}
     >
-      {!isSaved && <FavoriteBorder />}
-      {isSaved && <Favorite />}
+      {!isSaved && <FavoriteBorder color={"secondary"} />}
+      {isSaved && <Favorite color={"secondary"} />}
     </IconButton>
   );
 }
@@ -60,11 +61,15 @@ function MunicipalityCardContent({data, error}: MunicipalityWithWeatherDataOrErr
   }
   return (
     <>
-      <Box pb={2}>
-        <Typography variant={"h1"}>{data.name}</Typography>
-        <Typography variant={"h2"}>{data.provinceName}</Typography>
+      <Box pb={2} bgcolor={"primary.main"}>
+        <Typography variant={"h1"} color={"primary.contrastText"}>
+          {data.name}
+        </Typography>
+        <Typography variant={"h2"} color={"primary.contrastText"}>
+          {data.provinceName}
+        </Typography>
       </Box>
-      <Stack direction={{xs: "column", sm: "row"}} alignItems={"center"}>
+      <Stack pt={4} direction={{xs: "column", sm: "row"}} alignItems={"center"}>
         <Stack
           sx={{width: {sm: "50%"}}}
           direction={"row"}
@@ -99,20 +104,27 @@ function MunicipalityCardContent({data, error}: MunicipalityWithWeatherDataOrErr
           </Box>
         </Stack>
         <Box sx={{width: {sm: "50%"}}}>
-          <Box>
-            <Typography variant={"h3"}>{data.temperature.actual}&#176;</Typography>
-          </Box>
-          <Stack
-            direction={"row"}
-            divider={<Divider orientation="vertical" flexItem />}
-            spacing={2}
-            justifyContent={"center"}
-          >
+          <Stack direction={"row"} spacing={1} justifyContent={"center"}>
             <Box>
-              <Typography variant={"body2"}>{data.temperature.max}&#176;</Typography>
+              <Thermostat />
             </Box>
             <Box>
-              <Typography variant={"body2"}>{data.temperature.min}&#176;</Typography>
+              <Box>
+                <Typography variant={"h3"}>{data.temperature.actual}&#176;</Typography>
+              </Box>
+              <Stack
+                direction={"row"}
+                divider={<Divider orientation="vertical" flexItem />}
+                spacing={2}
+                justifyContent={"center"}
+              >
+                <Box>
+                  <Typography variant={"body2"}>{data.temperature.max}&#176;</Typography>
+                </Box>
+                <Box>
+                  <Typography variant={"body2"}>{data.temperature.min}&#176;</Typography>
+                </Box>
+              </Stack>
             </Box>
           </Stack>
         </Box>
@@ -132,16 +144,17 @@ export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps)
   return (
     <Card>
       <CardHeader
+        sx={{pb: 0, backgroundColor: "primary.main"}}
         action={
           <>
             <MunicipalityCardStoreButton municipality={municipality} />
             <IconButton aria-label={"Close"} onClick={() => onClose(municipality)}>
-              <Close />
+              <Close color={"secondary"} />
             </IconButton>
           </>
         }
       />
-      <CardContent sx={{textAlign: "center"}}>
+      <CardContent sx={{textAlign: "center", p: 0}}>
         <MunicipalityCardContent data={data} error={error} />
       </CardContent>
     </Card>
