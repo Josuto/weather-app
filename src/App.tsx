@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import "./styles/App.css";
 import {MunicipalitySearch} from "./components/MunicipalitySearch";
 import {MunicipalityCard} from "./components/MunicipalityCard";
 import {Municipality} from "./types/Municipality";
