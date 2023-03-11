@@ -119,10 +119,14 @@ function MunicipalityCardContent({data, error}: MunicipalityWithWeatherDataOrErr
                 justifyContent={"center"}
               >
                 <Box>
-                  <Typography variant={"body2"}>{data.temperature.max}&#176;</Typography>
+                  <Typography variant={"body2"} sx={{color: "#ff9800"}}>
+                    {data.temperature.max}&#176;
+                  </Typography>
                 </Box>
                 <Box>
-                  <Typography variant={"body2"}>{data.temperature.min}&#176;</Typography>
+                  <Typography variant={"body2"} sx={{color: "#757ce8"}}>
+                    {data.temperature.min}&#176;
+                  </Typography>
                 </Box>
               </Stack>
             </Box>
