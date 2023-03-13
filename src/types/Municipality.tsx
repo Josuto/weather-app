@@ -1,12 +1,10 @@
-import {RemoveMethods} from "../util/RemoveMethods";
-
 export class Municipality {
   readonly id!: string;
   readonly name!: string;
   readonly provinceId!: string;
   readonly provinceName!: string;
 
-  constructor(municipality: RemoveMethods<Municipality>) {
+  constructor(municipality: Municipality) {
     Object.assign(this, municipality);
   }
 }

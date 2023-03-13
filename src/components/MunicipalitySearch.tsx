@@ -16,11 +16,11 @@ export function MunicipalitySearch({onChange}: MunicipalitySearchProps) {
       renderInput={(params) => <TextField {...params} label="Municipality" />}
       options={useFetchMunicipalities()}
       getOptionLabel={(option) => `${option.name} - ${option.provinceName}`}
-      filterOptions={(options, state) =>
-        options.filter((option) =>
-          option.name.toLowerCase().startsWith(state.inputValue.toLowerCase())
-        )
-      }
+      // filterOptions={(options, state) =>
+      //   options.filter((option) =>
+      //     option.name.toLowerCase().startsWith(state.inputValue.toLowerCase())
+      //   )
+      // }
       isOptionEqualToValue={(option, value) => option.id === value.id}
       onChange={(event, value: Municipality | null) => onChange(value)}
     />

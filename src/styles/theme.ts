@@ -79,7 +79,7 @@ const theme = createTheme({
       letterSpacing: 0.15,
     },
     body2: {
-      fontSize: "0.95rem",
+      fontSize: "0.65rem",
       fontWeight: 400,
       lineHeight: 1.4,
       letterSpacing: 0.15,

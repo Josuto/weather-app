@@ -85,7 +85,7 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
             <Opacity />
           </Box>
           <Box>
-            <Typography variant={"body2"}>{data.humidity}%</Typography>
+            <Typography variant={"body1"}>{data.humidity}%</Typography>
           </Box>
         </Box>
         <Box>
@@ -93,7 +93,7 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
             <Air />
           </Box>
           <Box>
-            <Typography variant={"body2"}>{data.wind} km/h</Typography>
+            <Typography variant={"body1"}>{data.wind} km/h</Typography>
           </Box>
         </Box>
         <Box>
@@ -101,7 +101,7 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
             <Umbrella />
           </Box>
           <Box>
-            <Typography variant={"body2"}>{data.rainProbability || 0}%</Typography>
+            <Typography variant={"body1"}>{data.rainProbability || 0}%</Typography>
           </Box>
         </Box>
       </Stack>
@@ -128,12 +128,12 @@ function MunicipalityCardContentRightContent(data: MunicipalityWithWeatherData) 
               justifyContent={"center"}
             >
               <Box>
-                <Typography variant={"body2"} sx={{color: "#ff9800"}}>
+                <Typography variant={"body1"} sx={{color: "#ff9800"}}>
                   {data.temperature.max}&#176;
                 </Typography>
               </Box>
               <Box>
-                <Typography variant={"body2"} sx={{color: "#757ce8"}}>
+                <Typography variant={"body1"} sx={{color: "#757ce8"}}>
                   {data.temperature.min}&#176;
                 </Typography>
               </Box>

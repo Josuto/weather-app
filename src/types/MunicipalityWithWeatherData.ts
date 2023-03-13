@@ -1,12 +1,11 @@
 import {Municipality, municipalityFixture} from "./Municipality";
-import {RemoveMethods} from "../util/RemoveMethods";
 
 class Temperature {
   readonly actual!: string;
   readonly max!: string;
   readonly min!: string;
 
-  constructor(temperature: RemoveMethods<Temperature>) {
+  constructor(temperature: Temperature) {
     Object.assign(this, temperature);
   }
 }
@@ -26,7 +25,7 @@ export class MunicipalityWithWeatherData extends Municipality {
   readonly wind!: string;
   readonly rainProbability!: string;
 
-  constructor(municipalityWithWeatherData: RemoveMethods<MunicipalityWithWeatherData>) {
+  constructor(municipalityWithWeatherData: MunicipalityWithWeatherData) {
     super(municipalityWithWeatherData);
     Object.assign(this, municipalityWithWeatherData);
   }
