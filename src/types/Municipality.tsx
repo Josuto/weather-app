@@ -1,17 +1,12 @@
-export type MunicipalityType = {
-  id: string;
-  name: string;
-  provinceId: string;
-  provinceName: string;
-};
+import {RemoveMethods} from "../util/RemoveMethods";
 
 export class Municipality {
-  readonly id: string;
-  readonly name: string;
-  readonly provinceId: string;
-  readonly provinceName: string;
+  readonly id!: string;
+  readonly name!: string;
+  readonly provinceId!: string;
+  readonly provinceName!: string;
 
-  constructor(municipality: MunicipalityType) {
+  constructor(municipality: RemoveMethods<Municipality>) {
     this.id = municipality.id;
     this.name = municipality.name;
     this.provinceId = municipality.provinceId;
@@ -21,7 +16,7 @@ export class Municipality {
 
 export const municipalityFixture = ({
   ...props
-}: Partial<MunicipalityType> = {}): Municipality => {
+}: Partial<Municipality> = {}): Municipality => {
   const defaults = new Municipality({
     id: "00001",
     name: "Some municipality",

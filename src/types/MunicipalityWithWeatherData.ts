@@ -1,48 +1,32 @@
-import {Municipality, municipalityFixture, MunicipalityType} from "./Municipality";
-
-type TemperatureType = {
-  actual: string;
-  max: string;
-  min: string;
-};
+import {Municipality, municipalityFixture} from "./Municipality";
+import {RemoveMethods} from "../util/RemoveMethods";
 
 class Temperature {
-  readonly actual: string;
-  readonly max: string;
-  readonly min: string;
+  readonly actual!: string;
+  readonly max!: string;
+  readonly min!: string;
 
-  constructor(temperature: TemperatureType) {
-    this.actual = temperature.actual;
-    this.max = temperature.max;
-    this.min = temperature.min;
+  constructor(temperature: RemoveMethods<Temperature>) {
+    Object.assign(this, temperature);
   }
 }
 
-const temperatureFixture = ({...props}: Partial<TemperatureType> = {}): Temperature => {
+const temperatureFixture = ({...props}: Partial<Temperature> = {}): Temperature => {
   const defaults = new Temperature({
     actual: "5",
     max: "10",
     min: "2",
   });
-  return {...defaults, ...props};
+  return new Temperature({...defaults, ...props});
 };
-
-export type WeatherDataType = {
-  temperature: TemperatureType;
-  humidity: string;
-  wind: string;
-  rainProbability: string;
-};
-
-export type MunicipalityWithWeatherDataType = MunicipalityType & WeatherDataType;
 
 export class MunicipalityWithWeatherData extends Municipality {
-  readonly temperature: Temperature;
-  readonly humidity: string;
-  readonly wind: string;
-  readonly rainProbability: string;
+  readonly temperature!: Temperature;
+  readonly humidity!: string;
+  readonly wind!: string;
+  readonly rainProbability!: string;
 
-  constructor(municipalityWithWeatherData: MunicipalityWithWeatherDataType) {
+  constructor(municipalityWithWeatherData: RemoveMethods<MunicipalityWithWeatherData>) {
     super(municipalityWithWeatherData);
     this.temperature = new Temperature(municipalityWithWeatherData.temperature);
     this.humidity = municipalityWithWeatherData.humidity;
@@ -53,7 +37,7 @@ export class MunicipalityWithWeatherData extends Municipality {
 
 export const municipalityWithWeatherDataFixture = ({
   ...props
-}: Partial<MunicipalityWithWeatherDataType> = {}): MunicipalityWithWeatherData => {
+}: Partial<MunicipalityWithWeatherData> = {}): MunicipalityWithWeatherData => {
   const defaults = new MunicipalityWithWeatherData({
     ...municipalityFixture(),
     temperature: {...temperatureFixture()},
