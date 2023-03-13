@@ -28,10 +28,7 @@ export class MunicipalityWithWeatherData extends Municipality {
 
   constructor(municipalityWithWeatherData: RemoveMethods<MunicipalityWithWeatherData>) {
     super(municipalityWithWeatherData);
-    this.temperature = new Temperature(municipalityWithWeatherData.temperature);
-    this.humidity = municipalityWithWeatherData.humidity;
-    this.wind = municipalityWithWeatherData.wind;
-    this.rainProbability = municipalityWithWeatherData.rainProbability;
+    Object.assign(this, municipalityWithWeatherData);
   }
 }
 

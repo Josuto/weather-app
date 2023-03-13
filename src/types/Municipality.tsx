@@ -7,10 +7,7 @@ export class Municipality {
   readonly provinceName!: string;
 
   constructor(municipality: RemoveMethods<Municipality>) {
-    this.id = municipality.id;
-    this.name = municipality.name;
-    this.provinceId = municipality.provinceId;
-    this.provinceName = municipality.provinceName;
+    Object.assign(this, municipality);
   }
 }
 
