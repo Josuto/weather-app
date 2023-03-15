@@ -4,14 +4,14 @@ import {municipalityFixture} from "../types/Municipality";
 import userEvent from "@testing-library/user-event";
 import {get, remove} from "../util/BrowserStorage";
 
-async function clickOnSaveCardButton(): Promise<void> {
+async function addMunicipalityToFavorites(): Promise<void> {
   const saveButton = screen.getByRole("button", {name: "Save"});
   userEvent.click(saveButton);
 }
 
-async function clickOnDiscardCardButton(): Promise<void> {
-  const discardButton = await screen.findByRole("button", {name: "Discard"});
-  userEvent.click(discardButton);
+async function removeMunicipalityFromFavorites(): Promise<void> {
+  const removeButton = await screen.findByRole("button", {name: "Remove"});
+  userEvent.click(removeButton);
 }
 
 function closeMunicipalityCard(): void {
@@ -36,31 +36,32 @@ describe("Given a municipality card", () => {
       remove(municipality.id);
     });
 
-    it("should change the button to a discard card button and save the municipality from the local storage", async () => {
+    it("should change the button to a remove card button and save the municipality from the local storage", async () => {
       render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
 
-      await clickOnSaveCardButton();
+      await addMunicipalityToFavorites();
 
-      const discardButton = await screen.findByRole("button", {name: "Discard"});
-      expect(discardButton).toBeInTheDocument();
+      const removeButton = await screen.findByRole("button", {name: "Remove"});
+      expect(removeButton).toBeInTheDocument();
+
       const saveButton = screen.queryByRole("button", {name: "Save"});
       expect(saveButton).not.toBeInTheDocument();
 
       expect(get(municipality.id)).toEqual(municipality);
     });
 
-    describe("and the user clicks on the discard button", () => {
+    describe("and the user clicks on the remove card button", () => {
       it("should change the button back to a save card button and delete the municipality from the local storage", async () => {
         render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
 
-        await clickOnSaveCardButton();
-        await clickOnDiscardCardButton();
+        await addMunicipalityToFavorites();
+        await removeMunicipalityFromFavorites();
 
         const saveButton = await screen.findByRole("button", {name: "Save"});
         expect(saveButton).toBeInTheDocument();
 
-        const discardButton = screen.queryByRole("button", {name: "Discard"});
-        expect(discardButton).not.toBeInTheDocument();
+        const removeButton = screen.queryByRole("button", {name: "Remove"});
+        expect(removeButton).not.toBeInTheDocument();
 
         expect(get(municipality.id)).toBeNull();
       });
@@ -70,7 +71,7 @@ describe("Given a municipality card", () => {
       it("should delete the municipality from the local storage", async () => {
         render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
 
-        await clickOnSaveCardButton();
+        await addMunicipalityToFavorites();
         closeMunicipalityCard();
 
         expect(get(municipality.id)).toBeNull();

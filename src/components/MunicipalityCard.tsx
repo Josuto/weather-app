@@ -31,7 +31,7 @@ type AMunicipality = {
   municipality: Municipality;
 };
 
-function MunicipalityCardStoreButton({municipality}: AMunicipality) {
+function MunicipalityCardFavoriteButton({municipality}: AMunicipality) {
   const [isSaved, setSaved] = useState(!!get(municipality.id));
 
   function handleMunicipalityStorage(isSaved: boolean, municipality: Municipality): void {
@@ -44,7 +44,7 @@ function MunicipalityCardStoreButton({municipality}: AMunicipality) {
 
   return (
     <IconButton
-      aria-label={isSaved ? "Discard" : "Save"}
+      aria-label={isSaved ? "Remove" : "Save"}
       onClick={() => {
         handleMunicipalityStorage(isSaved, municipality);
         setSaved(!isSaved);
@@ -188,7 +188,7 @@ export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps)
         sx={{pb: 0, backgroundColor: "primary.main"}}
         action={
           <>
-            <MunicipalityCardStoreButton municipality={municipality} />
+            <MunicipalityCardFavoriteButton municipality={municipality} />
             <IconButton
               aria-label={"Close"}
               onClick={() => {

@@ -22,7 +22,7 @@ function clickOnMunicipalitySearchBar(): void {
   userEvent.click(municipalitySearch);
 }
 
-async function selectMunicipalityFromSearchBar(): Promise<void> {
+async function pickMunicipalityAtSearchBar(): Promise<void> {
   clickOnMunicipalitySearchBar();
   const [municipalityOption] = await screen.findAllByRole("option");
   userEvent.click(municipalityOption);
@@ -76,7 +76,7 @@ describe("Given the weather app", () => {
     it("should add a municipality card to the page", async () => {
       render(<App />);
 
-      await selectMunicipalityFromSearchBar();
+      await pickMunicipalityAtSearchBar();
 
       const municipalityCards = screen.queryAllByText("Some municipality");
       expect(municipalityCards).toHaveLength(1);
@@ -85,7 +85,7 @@ describe("Given the weather app", () => {
     it("should remove the municipality from the search bar options", async () => {
       render(<App />);
 
-      await selectMunicipalityFromSearchBar();
+      await pickMunicipalityAtSearchBar();
       clickOnMunicipalitySearchBar();
 
       const municipalities = screen.queryAllByRole("option");
@@ -97,7 +97,7 @@ describe("Given the weather app", () => {
     it("should remove the municipality card from the page", async () => {
       render(<App />);
 
-      await selectMunicipalityFromSearchBar();
+      await pickMunicipalityAtSearchBar();
       closeMunicipalityCard();
 
       const municipalityCards = screen.queryAllByText("Some municipality");
@@ -107,7 +107,7 @@ describe("Given the weather app", () => {
     it("should add the municipality back to the search bar options", async () => {
       render(<App />);
 
-      await selectMunicipalityFromSearchBar();
+      await pickMunicipalityAtSearchBar();
       closeMunicipalityCard();
       clickOnMunicipalitySearchBar();
 

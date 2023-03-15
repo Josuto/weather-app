@@ -3,12 +3,15 @@ import {useFetchMunicipalities} from "../hooks/UseFetchMunicipalities";
 import React from "react";
 import {Municipality} from "../types/Municipality";
 
-type MunicipalitySearchProps = {
+type MunicipalitySearchBarProps = {
   onChange: Function;
   municipalities: Municipality[];
 };
 
-export function MunicipalitySearch({onChange, municipalities}: MunicipalitySearchProps) {
+export function MunicipalitySearchBar({
+  onChange,
+  municipalities,
+}: MunicipalitySearchBarProps) {
   const municipalityIds = municipalities.reduce(
     (municipalityIds: string[], municipality) => {
       if (municipality) municipalityIds.push(municipality.id);

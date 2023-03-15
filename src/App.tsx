@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {MunicipalitySearch} from "./components/MunicipalitySearch";
+import {MunicipalitySearchBar} from "./components/MunicipalitySearchBar";
 import {MunicipalityCard} from "./components/MunicipalityCard";
 import {Municipality} from "./types/Municipality";
 import {Container, Grid} from "@mui/material";
@@ -30,7 +30,10 @@ function App() {
   return (
     <>
       <Container maxWidth={"sm"} sx={{pt: 5, pb: {xs: 5, sm: 10}}}>
-        <MunicipalitySearch onChange={addMunicipality} municipalities={municipalities} />
+        <MunicipalitySearchBar
+          onChange={addMunicipality}
+          municipalities={municipalities}
+        />
       </Container>
       <Grid
         container
