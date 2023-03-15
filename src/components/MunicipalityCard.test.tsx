@@ -14,6 +14,13 @@ async function clickOnDiscardCardButton(): Promise<void> {
   userEvent.click(discardButton);
 }
 
+function closeMunicipalityCard(): void {
+  const municipalityCardCloseButton = screen.getByRole("button", {
+    name: "Close",
+  });
+  userEvent.click(municipalityCardCloseButton);
+}
+
 describe("Given a municipality card", () => {
   const municipality = municipalityFixture();
 
@@ -29,7 +36,7 @@ describe("Given a municipality card", () => {
       remove(municipality.id);
     });
 
-    it("should change the button to a discard card button and save the municipality identifiers from the local storage", async () => {
+    it("should change the button to a discard card button and save the municipality from the local storage", async () => {
       render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
 
       await clickOnSaveCardButton();
@@ -43,7 +50,7 @@ describe("Given a municipality card", () => {
     });
 
     describe("and the user clicks on the discard button", () => {
-      it("should change the button back to a save card button and delete the municipality identifiers from the local storage", async () => {
+      it("should change the button back to a save card button and delete the municipality from the local storage", async () => {
         render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
 
         await clickOnSaveCardButton();
@@ -54,6 +61,17 @@ describe("Given a municipality card", () => {
 
         const discardButton = screen.queryByRole("button", {name: "Discard"});
         expect(discardButton).not.toBeInTheDocument();
+
+        expect(get(municipality.id)).toBeNull();
+      });
+    });
+
+    describe("and the user clicks on the close button", () => {
+      it("should delete the municipality from the local storage", async () => {
+        render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+
+        await clickOnSaveCardButton();
+        closeMunicipalityCard();
 
         expect(get(municipality.id)).toBeNull();
       });

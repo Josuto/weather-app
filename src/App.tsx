@@ -30,7 +30,7 @@ function App() {
   return (
     <>
       <Container maxWidth={"sm"} sx={{pt: 5, pb: {xs: 5, sm: 10}}}>
-        <MunicipalitySearch onChange={addMunicipality} />
+        <MunicipalitySearch onChange={addMunicipality} municipalities={municipalities} />
       </Container>
       <Grid
         container

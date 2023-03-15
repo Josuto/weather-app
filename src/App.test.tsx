@@ -17,11 +17,22 @@ jest.mock("./hooks/UseFetchMunicipalityWithWeatherData", () => ({
   useFetchMunicipalityWithWeatherData: () => mockMunicipalityWithWeatherDataOrError,
 }));
 
-async function selectMunicipalityFromSearchBar(): Promise<void> {
+function clickOnMunicipalitySearchBar(): void {
   const municipalitySearch = screen.getByRole("combobox");
   userEvent.click(municipalitySearch);
+}
+
+async function selectMunicipalityFromSearchBar(): Promise<void> {
+  clickOnMunicipalitySearchBar();
   const [municipalityOption] = await screen.findAllByRole("option");
   userEvent.click(municipalityOption);
+}
+
+function closeMunicipalityCard(): void {
+  const municipalityCardCloseButton = screen.getByRole("button", {
+    name: "Close",
+  });
+  userEvent.click(municipalityCardCloseButton);
 }
 
 describe("Given the weather app", () => {
@@ -70,6 +81,16 @@ describe("Given the weather app", () => {
       const municipalityCards = screen.queryAllByText("Some municipality");
       expect(municipalityCards).toHaveLength(1);
     });
+
+    it("should remove the municipality from the search bar options", async () => {
+      render(<App />);
+
+      await selectMunicipalityFromSearchBar();
+      clickOnMunicipalitySearchBar();
+
+      const municipalities = screen.queryAllByRole("option");
+      expect(municipalities).toHaveLength(0);
+    });
   });
 
   describe("when the user closes a municipality card", () => {
@@ -77,13 +98,21 @@ describe("Given the weather app", () => {
       render(<App />);
 
       await selectMunicipalityFromSearchBar();
-      const municipalityCardCloseButton = screen.getByRole("button", {
-        name: "Close",
-      });
-      userEvent.click(municipalityCardCloseButton);
+      closeMunicipalityCard();
 
       const municipalityCards = screen.queryAllByText("Some municipality");
       expect(municipalityCards).toHaveLength(0);
+    });
+
+    it("should add the municipality back to the search bar options", async () => {
+      render(<App />);
+
+      await selectMunicipalityFromSearchBar();
+      closeMunicipalityCard();
+      clickOnMunicipalitySearchBar();
+
+      const municipalities = screen.queryAllByRole("option");
+      expect(municipalities).toHaveLength(1);
     });
   });
 });

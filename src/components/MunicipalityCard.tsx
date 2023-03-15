@@ -189,7 +189,13 @@ export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps)
         action={
           <>
             <MunicipalityCardStoreButton municipality={municipality} />
-            <IconButton aria-label={"Close"} onClick={() => onClose(municipality)}>
+            <IconButton
+              aria-label={"Close"}
+              onClick={() => {
+                remove(municipality.id);
+                onClose(municipality);
+              }}
+            >
               <Close color={"secondary"} />
             </IconButton>
           </>
