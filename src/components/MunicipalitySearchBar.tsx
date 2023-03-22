@@ -27,7 +27,7 @@ export function MunicipalitySearchBar({
       sx={{width: 1}}
       renderInput={(params) => <TextField {...params} label="Municipality" />}
       options={useFetchMunicipalities()}
-      getOptionLabel={(option) => `${option.name} - ${option.provinceName}`}
+      getOptionLabel={(option) => `${option.name} (${option.provinceName})`}
       filterOptions={(options: Municipality[], {inputValue}) =>
         options.filter((option) => {
           return (
