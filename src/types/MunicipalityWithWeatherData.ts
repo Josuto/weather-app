@@ -19,11 +19,29 @@ const temperatureFixture = ({...props}: Partial<Temperature> = {}): Temperature 
   return new Temperature({...defaults, ...props});
 };
 
-export class MunicipalityWithWeatherData extends Municipality {
+class WeatherData {
   readonly temperature!: Temperature;
   readonly humidity!: string;
   readonly wind!: string;
   readonly rainProbability!: string;
+
+  constructor(weatherData: WeatherData) {
+    Object.assign(this, weatherData);
+  }
+}
+
+const weatherDataFixture = ({...props}: Partial<WeatherData> = {}): WeatherData => {
+  const defaults = new WeatherData({
+    temperature: {...temperatureFixture()},
+    humidity: "47",
+    wind: "30",
+    rainProbability: "5",
+  });
+  return new WeatherData({...defaults, ...props});
+};
+
+export class MunicipalityWithWeatherData extends Municipality {
+  readonly weatherData?: WeatherData;
 
   constructor(municipalityWithWeatherData: MunicipalityWithWeatherData) {
     super(municipalityWithWeatherData);
@@ -36,16 +54,13 @@ export const municipalityWithWeatherDataFixture = ({
 }: Partial<MunicipalityWithWeatherData> = {}): MunicipalityWithWeatherData => {
   const defaults = new MunicipalityWithWeatherData({
     ...municipalityFixture(),
-    temperature: {...temperatureFixture()},
-    humidity: "47",
-    wind: "30",
-    rainProbability: "5",
+    weatherData: weatherDataFixture(),
   });
   return new MunicipalityWithWeatherData({...defaults, ...props});
 };
 
 export type MunicipalityWithWeatherDataOrError = {
-  data: MunicipalityWithWeatherData | undefined;
+  data: Municipality | MunicipalityWithWeatherData;
   error: any;
 };
 

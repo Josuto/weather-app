@@ -56,15 +56,19 @@ function MunicipalityCardFavoriteButton({municipality}: AMunicipality) {
   );
 }
 
-function MunicipalityCardContentHeader(data: MunicipalityWithWeatherData) {
+function MunicipalityCardContentHeader(data: Municipality) {
   return (
     <>
-      <Typography variant={"h1"} color={"primary.contrastText"}>
-        {data.name}
-      </Typography>
-      <Typography variant={"h2"} color={"primary.contrastText"}>
-        {data.provinceName}
-      </Typography>
+      <Box>
+        <Typography variant={"h1"} color={"primary.contrastText"}>
+          {data.name}
+        </Typography>
+      </Box>
+      <Box>
+        <Typography variant={"h2"} color={"primary.contrastText"}>
+          {data.provinceName}
+        </Typography>
+      </Box>
     </>
   );
 }
@@ -85,7 +89,7 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
             <Opacity />
           </Box>
           <Box>
-            <Typography variant={"body1"}>{data.humidity}%</Typography>
+            <Typography variant={"body1"}>{data.weatherData?.humidity}%</Typography>
           </Box>
         </Box>
         <Box>
@@ -93,7 +97,7 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
             <Air />
           </Box>
           <Box>
-            <Typography variant={"body1"}>{data.wind} km/h</Typography>
+            <Typography variant={"body1"}>{data.weatherData?.wind} km/h</Typography>
           </Box>
         </Box>
         <Box>
@@ -101,7 +105,9 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
             <Umbrella />
           </Box>
           <Box>
-            <Typography variant={"body1"}>{data.rainProbability || 0}%</Typography>
+            <Typography variant={"body1"}>
+              {data.weatherData?.rainProbability || 0}%
+            </Typography>
           </Box>
         </Box>
       </Stack>
@@ -119,7 +125,9 @@ function MunicipalityCardContentRightContent(data: MunicipalityWithWeatherData) 
           </Box>
           <Box>
             <Box>
-              <Typography variant={"h3"}>{data.temperature.actual}&#176;</Typography>
+              <Typography variant={"h3"}>
+                {data.weatherData?.temperature.actual}&#176;
+              </Typography>
             </Box>
             <Stack
               direction={"row"}
@@ -129,12 +137,12 @@ function MunicipalityCardContentRightContent(data: MunicipalityWithWeatherData) 
             >
               <Box>
                 <Typography variant={"body1"} sx={{color: "#ff9800"}}>
-                  {data.temperature.max}&#176;
+                  {data.weatherData?.temperature.max}&#176;
                 </Typography>
               </Box>
               <Box>
                 <Typography variant={"body1"} sx={{color: "#757ce8"}}>
-                  {data.temperature.min}&#176;
+                  {data.weatherData?.temperature.min}&#176;
                 </Typography>
               </Box>
             </Stack>
@@ -146,29 +154,30 @@ function MunicipalityCardContentRightContent(data: MunicipalityWithWeatherData) 
 }
 
 function MunicipalityCardContent({data, error}: MunicipalityWithWeatherDataOrError) {
-  if (error || !data) {
+  if (error || !(data instanceof MunicipalityWithWeatherData)) {
     return (
       <>
         <Box pb={4} bgcolor={"primary.main"}>
           <Typography variant={"h1"} color={"primary.contrastText"}>
-            No data
+            <MunicipalityCardContentHeader {...data} />
           </Typography>
         </Box>
         <Box pt={4} alignItems={"center"}>
           {error && <Typography variant={"h1"}>Loading error</Typography>}
-          {!error && !data && <CircularProgress />}
+          {!error && <CircularProgress />}
         </Box>
       </>
     );
   }
+  const municipalityWithWeatherData = data as MunicipalityWithWeatherData;
   return (
     <>
       <Box pb={4} bgcolor={"primary.main"}>
-        <MunicipalityCardContentHeader {...data} />
+        <MunicipalityCardContentHeader {...municipalityWithWeatherData} />
       </Box>
       <Stack pt={4} direction={{xs: "column", sm: "row"}} alignItems={"center"}>
-        <MunicipalityCardContentLeftContent {...data} />
-        <MunicipalityCardContentRightContent {...data} />
+        <MunicipalityCardContentLeftContent {...municipalityWithWeatherData} />
+        <MunicipalityCardContentRightContent {...municipalityWithWeatherData} />
       </Stack>
     </>
   );

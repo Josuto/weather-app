@@ -26,21 +26,23 @@ export function useFetchMunicipalityWithWeatherData(
   if (data) {
     return {
       data: new MunicipalityWithWeatherData({
-        temperature: {
-          actual: data?.temperatura_actual,
-          max: data?.temperaturas.max,
-          min: data?.temperaturas.min,
+        weatherData: {
+          temperature: {
+            actual: data?.temperatura_actual,
+            max: data?.temperaturas.max,
+            min: data?.temperaturas.min,
+          },
+          humidity: data?.humedad,
+          wind: data?.viento,
+          rainProbability: data?.lluvia,
         },
-        humidity: data?.humedad,
-        wind: data?.viento,
-        rainProbability: data?.lluvia,
         ...municipality,
       }),
       error: error,
     };
   }
   return {
-    data: undefined,
+    data: municipality,
     error: error,
   };
 }
