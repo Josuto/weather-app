@@ -2,19 +2,18 @@ import {render, screen} from "@testing-library/react";
 import App from "./App";
 import {municipalityFixture} from "./types/Municipality";
 import userEvent from "@testing-library/user-event";
-import {municipalityWithWeatherDataOrErrorFixture} from "./types/MunicipalityWithWeatherData";
+import {municipalityDataOrErrorFixture} from "./types/MunicipalityWithWeatherData";
 import {remove, save} from "./util/BrowserStorage";
 
 const mockMunicipalities = [municipalityFixture()];
-const mockMunicipalityWithWeatherDataOrError =
-  municipalityWithWeatherDataOrErrorFixture();
+const mockMunicipalityDataOrError = municipalityDataOrErrorFixture();
 
 jest.mock("./hooks/UseFetchMunicipalities", () => ({
   useFetchMunicipalities: () => mockMunicipalities,
 }));
 
 jest.mock("./hooks/UseFetchMunicipalityWithWeatherData", () => ({
-  useFetchMunicipalityWithWeatherData: () => mockMunicipalityWithWeatherDataOrError,
+  useFetchMunicipalityWithWeatherData: () => mockMunicipalityDataOrError,
 }));
 
 function clickOnMunicipalitySearchBar(): void {

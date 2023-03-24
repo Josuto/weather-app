@@ -1,8 +1,8 @@
 import {Municipality} from "../types/Municipality";
 import useSWR from "swr";
 import {
+  MunicipalityDataOrError,
   MunicipalityWithWeatherData,
-  MunicipalityWithWeatherDataOrError,
 } from "../types/MunicipalityWithWeatherData";
 
 const MUNICIPALITY_WEATHER_DATA_URL =
@@ -12,7 +12,7 @@ const fetcher = (url: string) => fetch(url).then((result) => result.json());
 
 export function useFetchMunicipalityWithWeatherData(
   municipality: Municipality
-): MunicipalityWithWeatherDataOrError {
+): MunicipalityDataOrError {
   const municipalityWeatherDataFetchUrl = MUNICIPALITY_WEATHER_DATA_URL.replace(
     "{provinceId}",
     municipality.provinceId

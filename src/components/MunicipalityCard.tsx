@@ -22,8 +22,8 @@ import {
 } from "@mui/icons-material";
 import {useFetchMunicipalityWithWeatherData} from "../hooks/UseFetchMunicipalityWithWeatherData";
 import {
+  MunicipalityDataOrError,
   MunicipalityWithWeatherData,
-  MunicipalityWithWeatherDataOrError,
 } from "../types/MunicipalityWithWeatherData";
 import {get, remove, save} from "../util/BrowserStorage";
 
@@ -153,7 +153,7 @@ function MunicipalityCardContentRightContent(data: MunicipalityWithWeatherData) 
   );
 }
 
-function MunicipalityCardContent({data, error}: MunicipalityWithWeatherDataOrError) {
+function MunicipalityCardContent({data, error}: MunicipalityDataOrError) {
   if (error || !(data instanceof MunicipalityWithWeatherData)) {
     return (
       <>

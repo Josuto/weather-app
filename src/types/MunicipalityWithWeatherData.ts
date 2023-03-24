@@ -59,17 +59,16 @@ export const municipalityWithWeatherDataFixture = ({
   return new MunicipalityWithWeatherData({...defaults, ...props});
 };
 
-export type MunicipalityWithWeatherDataOrError = {
-  data: Municipality | MunicipalityWithWeatherData;
-  error: any;
+export type MunicipalityDataOrError = {
+  data: Municipality;
+  error?: any;
 };
 
-export const municipalityWithWeatherDataOrErrorFixture = ({
+export const municipalityDataOrErrorFixture = ({
   ...props
-}: Partial<MunicipalityWithWeatherDataOrError> = {}): MunicipalityWithWeatherDataOrError => {
-  const defaults: MunicipalityWithWeatherDataOrError = {
+}: Partial<MunicipalityDataOrError> = {}): MunicipalityDataOrError => {
+  const defaults: MunicipalityDataOrError = {
     data: municipalityWithWeatherDataFixture(),
-    error: undefined,
   };
   return {...defaults, ...props};
 };
