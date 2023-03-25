@@ -22,16 +22,31 @@ import {
 } from "@mui/icons-material";
 import {useFetchMunicipalityWithWeatherData} from "../hooks/UseFetchMunicipalityWithWeatherData";
 import {
-  MunicipalityDataOrError,
+  MunicipalityPayload,
   MunicipalityWithWeatherData,
 } from "../types/MunicipalityWithWeatherData";
 import {get, remove, save} from "../util/BrowserStorage";
 
-type AMunicipality = {
+type MunicipalityCardProps = {
   municipality: Municipality;
+  onClose: Function;
 };
 
-function MunicipalityCardFavoriteButton({municipality}: AMunicipality) {
+function MunicipalityCardCloseButton({municipality, onClose}: MunicipalityCardProps) {
+  return (
+    <IconButton
+      aria-label={"Close"}
+      onClick={() => {
+        remove(municipality.id);
+        onClose(municipality);
+      }}
+    >
+      <Close color={"secondary"} />
+    </IconButton>
+  );
+}
+
+function MunicipalityCardFavoriteButton(municipality: Municipality) {
   const [isSaved, setSaved] = useState(!!get(municipality.id));
 
   function handleMunicipalityStorage(isSaved: boolean, municipality: Municipality): void {
@@ -56,24 +71,7 @@ function MunicipalityCardFavoriteButton({municipality}: AMunicipality) {
   );
 }
 
-function MunicipalityCardContentHeader(data: Municipality) {
-  return (
-    <>
-      <Box>
-        <Typography variant={"h1"} color={"primary.contrastText"}>
-          {data.name}
-        </Typography>
-      </Box>
-      <Box>
-        <Typography variant={"h2"} color={"primary.contrastText"}>
-          {data.provinceName}
-        </Typography>
-      </Box>
-    </>
-  );
-}
-
-function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
+function MunicipalityCardContentLeftContent(municipality: MunicipalityWithWeatherData) {
   return (
     <>
       <Stack
@@ -89,7 +87,9 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
             <Opacity />
           </Box>
           <Box>
-            <Typography variant={"body1"}>{data.weatherData?.humidity}%</Typography>
+            <Typography variant={"body1"}>
+              {municipality.weatherData?.humidity}%
+            </Typography>
           </Box>
         </Box>
         <Box>
@@ -97,7 +97,9 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
             <Air />
           </Box>
           <Box>
-            <Typography variant={"body1"}>{data.weatherData?.wind} km/h</Typography>
+            <Typography variant={"body1"}>
+              {municipality.weatherData?.wind} km/h
+            </Typography>
           </Box>
         </Box>
         <Box>
@@ -106,7 +108,7 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
           </Box>
           <Box>
             <Typography variant={"body1"}>
-              {data.weatherData?.rainProbability || 0}%
+              {municipality.weatherData?.rainProbability || 0}%
             </Typography>
           </Box>
         </Box>
@@ -115,7 +117,7 @@ function MunicipalityCardContentLeftContent(data: MunicipalityWithWeatherData) {
   );
 }
 
-function MunicipalityCardContentRightContent(data: MunicipalityWithWeatherData) {
+function MunicipalityCardContentRightContent(municipality: MunicipalityWithWeatherData) {
   return (
     <>
       <Box sx={{width: {sm: "50%"}}}>
@@ -126,7 +128,7 @@ function MunicipalityCardContentRightContent(data: MunicipalityWithWeatherData) 
           <Box>
             <Box>
               <Typography variant={"h3"}>
-                {data.weatherData?.temperature.actual}&#176;
+                {municipality.weatherData?.temperature.actual}&#176;
               </Typography>
             </Box>
             <Stack
@@ -137,12 +139,12 @@ function MunicipalityCardContentRightContent(data: MunicipalityWithWeatherData) 
             >
               <Box>
                 <Typography variant={"body1"} sx={{color: "#ff9800"}}>
-                  {data.weatherData?.temperature.max}&#176;
+                  {municipality.weatherData?.temperature.max}&#176;
                 </Typography>
               </Box>
               <Box>
                 <Typography variant={"body1"} sx={{color: "#757ce8"}}>
-                  {data.weatherData?.temperature.min}&#176;
+                  {municipality.weatherData?.temperature.min}&#176;
                 </Typography>
               </Box>
             </Stack>
@@ -153,16 +155,11 @@ function MunicipalityCardContentRightContent(data: MunicipalityWithWeatherData) 
   );
 }
 
-function MunicipalityCardContent({data, error}: MunicipalityDataOrError) {
+function MunicipalityCardContent({data, error}: MunicipalityPayload) {
   if (error || !(data instanceof MunicipalityWithWeatherData)) {
     return (
       <>
-        <Box pb={4} bgcolor={"primary.main"}>
-          <Typography variant={"h1"} color={"primary.contrastText"}>
-            <MunicipalityCardContentHeader {...data} />
-          </Typography>
-        </Box>
-        <Box pt={4} alignItems={"center"}>
+        <Box pt={2} alignItems={"center"}>
           {error && <Typography variant={"h1"}>Loading error</Typography>}
           {!error && <CircularProgress />}
         </Box>
@@ -172,10 +169,7 @@ function MunicipalityCardContent({data, error}: MunicipalityDataOrError) {
   const municipalityWithWeatherData = data as MunicipalityWithWeatherData;
   return (
     <>
-      <Box pb={4} bgcolor={"primary.main"}>
-        <MunicipalityCardContentHeader {...municipalityWithWeatherData} />
-      </Box>
-      <Stack pt={4} direction={{xs: "column", sm: "row"}} alignItems={"center"}>
+      <Stack pt={2} direction={{xs: "column", sm: "row"}} alignItems={"center"}>
         <MunicipalityCardContentLeftContent {...municipalityWithWeatherData} />
         <MunicipalityCardContentRightContent {...municipalityWithWeatherData} />
       </Stack>
@@ -183,34 +177,35 @@ function MunicipalityCardContent({data, error}: MunicipalityDataOrError) {
   );
 }
 
-type MunicipalityCardProps = {
-  municipality: Municipality;
-  onClose: Function;
-};
-
 export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps) {
   const {data, error} = useFetchMunicipalityWithWeatherData(municipality);
 
   return (
     <Card>
       <CardHeader
-        sx={{pb: 0, backgroundColor: "primary.main"}}
+        sx={{backgroundColor: "primary.main"}}
         action={
-          <>
-            <MunicipalityCardFavoriteButton municipality={municipality} />
-            <IconButton
-              aria-label={"Close"}
-              onClick={() => {
-                remove(municipality.id);
-                onClose(municipality);
-              }}
-            >
-              <Close color={"secondary"} />
-            </IconButton>
-          </>
+          <Stack direction={"column"}>
+            <MunicipalityCardCloseButton municipality={municipality} onClose={onClose} />
+            <MunicipalityCardFavoriteButton {...municipality} />
+          </Stack>
+        }
+        title={
+          <Stack alignItems={"center"}>
+            <Typography variant={"h1"} color={"primary.contrastText"}>
+              {data.name}
+            </Typography>
+          </Stack>
+        }
+        subheader={
+          <Stack alignItems={"center"}>
+            <Typography variant={"h2"} color={"primary.contrastText"}>
+              {data.provinceName}
+            </Typography>
+          </Stack>
         }
       />
-      <CardContent sx={{textAlign: "center", p: 0}}>
+      <CardContent sx={{textAlign: "center"}}>
         <MunicipalityCardContent data={data} error={error} />
       </CardContent>
     </Card>
