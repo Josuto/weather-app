@@ -64,7 +64,7 @@ export type MunicipalityPayload = {
   error?: any;
 };
 
-export const municipalityDataOrErrorFixture = ({
+export const municipalityPayloadFixture = ({
   ...props
 }: Partial<MunicipalityPayload> = {}): MunicipalityPayload => {
   const defaults: MunicipalityPayload = {

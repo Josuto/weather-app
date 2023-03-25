@@ -3,6 +3,16 @@ import {MunicipalityCard} from "./MunicipalityCard";
 import {municipalityFixture} from "../types/Municipality";
 import userEvent from "@testing-library/user-event";
 import {get, remove} from "../util/BrowserStorage";
+import {
+  municipalityPayloadFixture,
+  MunicipalityWithWeatherData,
+} from "../types/MunicipalityWithWeatherData";
+
+const mockMunicipalityPayload = jest.fn();
+
+jest.mock("../hooks/UseFetchMunicipalityWithWeatherData", () => ({
+  useFetchMunicipalityWithWeatherData: () => mockMunicipalityPayload(),
+}));
 
 async function addMunicipalityToFavorites(): Promise<void> {
   const saveButton = screen.getByRole("button", {name: "Save"});
@@ -24,14 +34,85 @@ function closeMunicipalityCard(): void {
 describe("Given a municipality card", () => {
   const municipality = municipalityFixture();
 
-  it("should include a save card button", () => {
-    render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+  afterEach(() => {
+    mockMunicipalityPayload.mockReset();
+  });
 
-    const saveButton = screen.getByRole("button", {name: "Save"});
-    expect(saveButton).toBeInTheDocument();
+  describe("when there is a network error", () => {
+    it("should display a loading error warning as the card content", () => {
+      mockMunicipalityPayload.mockReturnValue({
+        data: municipalityFixture(),
+        error: new Error(),
+      });
+
+      render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+
+      const errorWarning = screen.getByText("Loading error");
+      expect(errorWarning).toBeInTheDocument();
+    });
+  });
+
+  describe("when the municipality weather data has not yet been loaded", () => {
+    it("should display a spinner as the card content", () => {
+      mockMunicipalityPayload.mockReturnValue({
+        data: municipalityFixture(),
+        error: undefined,
+      });
+
+      render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+
+      const spinner = screen.getByRole("progressbar");
+      expect(spinner).toBeInTheDocument();
+    });
+  });
+
+  describe("when the municipality weather data has been loaded", () => {
+    it("should display the weather data as the card content", () => {
+      const {data} = municipalityPayloadFixture();
+
+      mockMunicipalityPayload.mockReturnValue({
+        data: data,
+        error: undefined,
+      });
+
+      render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+
+      const municipalityWithWeatherData = data as MunicipalityWithWeatherData;
+      const humidityValue = screen.getByText(
+        municipalityWithWeatherData.weatherData!.humidity! + "%"
+      );
+      const windValue = screen.getByText(
+        municipalityWithWeatherData.weatherData!.wind! + " km/h"
+      );
+      const rainProbabilityValue = screen.getByText(
+        municipalityWithWeatherData.weatherData!.rainProbability! + "%"
+      );
+      const currentTemperatureValue = screen.getByText(
+        municipalityWithWeatherData.weatherData!.temperature!.actual + "°"
+      );
+      const maxTemperatureValue = screen.getByText(
+        municipalityWithWeatherData.weatherData!.temperature!.max + "°"
+      );
+      const minTemperatureValue = screen.getByText(
+        municipalityWithWeatherData.weatherData!.temperature!.min + "°"
+      );
+      expect(humidityValue).toBeInTheDocument();
+      expect(windValue).toBeInTheDocument();
+      expect(rainProbabilityValue).toBeInTheDocument();
+      expect(currentTemperatureValue).toBeInTheDocument();
+      expect(maxTemperatureValue).toBeInTheDocument();
+      expect(minTemperatureValue).toBeInTheDocument();
+    });
   });
 
   describe("when the user clicks on the save card button", () => {
+    beforeEach(() => {
+      mockMunicipalityPayload.mockReturnValue({
+        data: municipalityFixture(),
+        error: undefined,
+      });
+    });
+
     afterEach(() => {
       remove(municipality.id);
     });
@@ -50,7 +131,7 @@ describe("Given a municipality card", () => {
       expect(get(municipality.id)).toEqual(municipality);
     });
 
-    describe("and the user clicks on the remove card button", () => {
+    describe("and then the user clicks on the remove card button", () => {
       it("should change the button back to a save card button and delete the municipality from the local storage", async () => {
         render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
 
@@ -67,7 +148,7 @@ describe("Given a municipality card", () => {
       });
     });
 
-    describe("and the user clicks on the close button", () => {
+    describe("and then the user clicks on the close button", () => {
       it("should delete the municipality from the local storage", async () => {
         render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
 
