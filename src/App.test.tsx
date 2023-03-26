@@ -4,6 +4,9 @@ import {municipalityFixture} from "./types/Municipality";
 import userEvent from "@testing-library/user-event";
 import {municipalityPayloadFixture} from "./types/MunicipalityWithWeatherData";
 import {remove, save} from "./util/BrowserStorage";
+import theme from "./styles/theme";
+import {ThemeProvider} from "@mui/material";
+import React from "react";
 
 const mockMunicipalities = [municipalityFixture()];
 const mockMunicipalityPayload = municipalityPayloadFixture();
@@ -38,7 +41,11 @@ describe("Given the weather app", () => {
   describe("when the app is loaded for the first time", () => {
     describe("and no municipalities have been previously saved", () => {
       it("should include a municipalities search bar and no municipalities", async () => {
-        render(<App />);
+        render(
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        );
 
         const municipalitySearch = screen.getByRole("combobox");
         expect(municipalitySearch).toBeInTheDocument();
@@ -60,7 +67,11 @@ describe("Given the weather app", () => {
       });
 
       it("should include a municipalities search bar and one municipality", async () => {
-        render(<App />);
+        render(
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        );
 
         const municipalitySearch = screen.getByRole("combobox");
         expect(municipalitySearch).toBeInTheDocument();
@@ -73,7 +84,11 @@ describe("Given the weather app", () => {
 
   describe("when the user selects a municipality in the search bar", () => {
     it("should add a municipality card to the page", async () => {
-      render(<App />);
+      render(
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      );
 
       await pickMunicipalityAtSearchBar();
 
@@ -82,7 +97,11 @@ describe("Given the weather app", () => {
     });
 
     it("should remove the municipality from the search bar options", async () => {
-      render(<App />);
+      render(
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      );
 
       await pickMunicipalityAtSearchBar();
       clickOnMunicipalitySearchBar();
@@ -94,7 +113,11 @@ describe("Given the weather app", () => {
 
   describe("when the user closes a municipality card", () => {
     it("should remove the municipality card from the page", async () => {
-      render(<App />);
+      render(
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      );
 
       await pickMunicipalityAtSearchBar();
       closeMunicipalityCard();
@@ -104,7 +127,11 @@ describe("Given the weather app", () => {
     });
 
     it("should add the municipality back to the search bar options", async () => {
-      render(<App />);
+      render(
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      );
 
       await pickMunicipalityAtSearchBar();
       closeMunicipalityCard();

@@ -38,7 +38,7 @@ describe("Given a municipality card", () => {
     mockMunicipalityPayload.mockReset();
   });
 
-  describe("when there is a network error", () => {
+  describe("when the municipality weather data cannot be loaded due to e.g., a network error", () => {
     it("should display a loading error warning as the card content", () => {
       mockMunicipalityPayload.mockReturnValue({
         data: municipalityFixture(),

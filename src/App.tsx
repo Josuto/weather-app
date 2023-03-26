@@ -2,13 +2,14 @@ import React, {useState} from "react";
 import {MunicipalitySearchBar} from "./components/MunicipalitySearchBar";
 import {MunicipalityCard} from "./components/MunicipalityCard";
 import {Municipality} from "./types/Municipality";
-import {Container, Grid} from "@mui/material";
+import {Container, Grid, Theme, useMediaQuery} from "@mui/material";
 import {useBrowserStore} from "./hooks/UseBrowserStore";
 
 function App() {
   const savedMunicipalities = useBrowserStore();
   const [municipalities, setMunicipalities] =
     useState<Municipality[]>(savedMunicipalities);
+  const largeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   function addMunicipality(municipality: Municipality) {
     if (municipality) {
@@ -37,7 +38,7 @@ function App() {
       </Container>
       <Grid
         container
-        direction={{xs: "column", sm: "row"}}
+        direction={largeScreen ? "row" : "column"}
         spacing={2}
         sx={{px: {xs: 2.5, sm: 5}}}
       >

@@ -191,18 +191,14 @@ export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps)
           </Stack>
         }
         title={
-          <Stack alignItems={"center"}>
-            <Typography variant={"h1"} color={"primary.contrastText"}>
-              {data.name}
-            </Typography>
-          </Stack>
+          <Typography variant={"h1"} align={"center"} color={"primary.contrastText"}>
+            {data.name}
+          </Typography>
         }
         subheader={
-          <Stack alignItems={"center"}>
-            <Typography variant={"h2"} color={"primary.contrastText"}>
-              {data.provinceName}
-            </Typography>
-          </Stack>
+          <Typography variant={"h2"} align={"center"} color={"primary.contrastText"}>
+            {data.provinceName}
+          </Typography>
         }
       />
       <CardContent sx={{textAlign: "center"}}>

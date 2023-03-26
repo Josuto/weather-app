@@ -1,4 +1,7 @@
 import {createTheme} from "@mui/material";
+import {createBreakpoints} from "@mui/system";
+
+const breakpoints = createBreakpoints({});
 
 const theme = createTheme({
   palette: {
@@ -17,18 +20,36 @@ const theme = createTheme({
   },
   typography: {
     h1: {
-      fontSize: "1.5rem",
-      fontWeight: 550,
-      lineHeight: 1.3,
-      letterSpacing: 1,
-      paddingBottom: 5,
+      [breakpoints.up("sm")]: {
+        fontSize: "1.25rem",
+        fontWeight: 550,
+        lineHeight: 1.3,
+        letterSpacing: 1,
+        paddingBottom: 10,
+      },
+      [breakpoints.down("sm")]: {
+        fontSize: "1rem",
+        fontWeight: 500,
+        lineHeight: 1.3,
+        letterSpacing: 0.5,
+        paddingBottom: 10,
+      },
     },
     h2: {
-      fontSize: "1.25rem",
-      fontWeight: 550,
-      lineHeight: 1.2,
-      letterSpacing: 0.15,
-      paddingBottom: 3,
+      [breakpoints.up("sm")]: {
+        fontSize: "1rem",
+        fontWeight: 450,
+        lineHeight: 1.2,
+        letterSpacing: 0.15,
+        paddingBottom: 3,
+      },
+      [breakpoints.down("sm")]: {
+        fontSize: "0.85rem",
+        fontWeight: 300,
+        lineHeight: 1.1,
+        letterSpacing: 0.15,
+        paddingBottom: 1,
+      },
     },
     h3: {
       fontSize: "1.125rem",
