@@ -9,7 +9,8 @@ function App() {
   const savedMunicipalities = useBrowserStore();
   const [municipalities, setMunicipalities] =
     useState<Municipality[]>(savedMunicipalities);
-  const largeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
+  const largeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
+  const mediumScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
 
   function addMunicipality(municipality: Municipality) {
     if (municipality) {
@@ -38,12 +39,12 @@ function App() {
       </Container>
       <Grid
         container
-        direction={largeScreen ? "row" : "column"}
+        direction={largeScreen || mediumScreen ? "row" : "column"}
         spacing={2}
         sx={{px: {xs: 2.5, sm: 5}}}
       >
         {municipalities.map((municipality, index) => (
-          <Grid key={index} item xs={4}>
+          <Grid key={index} item xs={largeScreen ? 4 : 6}>
             <MunicipalityCard
               key={municipality.id}
               municipality={municipality}

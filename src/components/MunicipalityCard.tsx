@@ -7,7 +7,9 @@ import {
   Divider,
   IconButton,
   Stack,
+  Theme,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React, {useState} from "react";
 import {Municipality} from "../types/Municipality";
@@ -71,46 +73,38 @@ function MunicipalityCardFavoriteButton(municipality: Municipality) {
   );
 }
 
-function MunicipalityCardContentLeftContent(municipality: MunicipalityWithWeatherData) {
+type MunicipalityCardContentLeftContentProps = {
+  municipality: MunicipalityWithWeatherData;
+  largeScreen: boolean;
+};
+
+function MunicipalityCardContentLeftContent({
+  municipality,
+  largeScreen,
+}: MunicipalityCardContentLeftContentProps) {
   return (
     <>
       <Stack
-        sx={{width: {sm: "50%"}}}
+        sx={{width: "50%"}}
         direction={"row"}
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
         justifyContent={"center"}
-        pb={{xs: 2, sm: 0}}
+        pb={largeScreen ? 0 : 2}
       >
         <Box>
-          <Box>
-            <Opacity />
-          </Box>
-          <Box>
-            <Typography variant={"body1"}>
-              {municipality.weatherData?.humidity}%
-            </Typography>
-          </Box>
+          <Opacity />
+          <Typography variant={"body1"}>{municipality.weatherData?.humidity}%</Typography>
         </Box>
         <Box>
-          <Box>
-            <Air />
-          </Box>
-          <Box>
-            <Typography variant={"body1"}>
-              {municipality.weatherData?.wind} km/h
-            </Typography>
-          </Box>
+          <Air />
+          <Typography variant={"body1"}>{municipality.weatherData?.wind} km/h</Typography>
         </Box>
         <Box>
-          <Box>
-            <Umbrella />
-          </Box>
-          <Box>
-            <Typography variant={"body1"}>
-              {municipality.weatherData?.rainProbability || 0}%
-            </Typography>
-          </Box>
+          <Umbrella />
+          <Typography variant={"body1"}>
+            {municipality.weatherData?.rainProbability || 0}%
+          </Typography>
         </Box>
       </Stack>
     </>
@@ -119,43 +113,44 @@ function MunicipalityCardContentLeftContent(municipality: MunicipalityWithWeathe
 
 function MunicipalityCardContentRightContent(municipality: MunicipalityWithWeatherData) {
   return (
-    <>
-      <Box sx={{width: {sm: "50%"}}}>
-        <Stack direction={"row"} spacing={1} justifyContent={"center"}>
+    <Box sx={{width: "50%"}}>
+      <Stack direction={"row"} spacing={1} justifyContent={"center"}>
+        <Box>
+          <Thermostat />
+        </Box>
+        <Box>
           <Box>
-            <Thermostat />
+            <Typography variant={"h3"}>
+              {municipality.weatherData?.temperature.actual}&#176;
+            </Typography>
           </Box>
-          <Box>
+          <Stack
+            direction={"row"}
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+            justifyContent={"center"}
+          >
             <Box>
-              <Typography variant={"h3"}>
-                {municipality.weatherData?.temperature.actual}&#176;
+              <Typography variant={"body1"} sx={{color: "#ff9800"}}>
+                {municipality.weatherData?.temperature.max}&#176;
               </Typography>
             </Box>
-            <Stack
-              direction={"row"}
-              divider={<Divider orientation="vertical" flexItem />}
-              spacing={2}
-              justifyContent={"center"}
-            >
-              <Box>
-                <Typography variant={"body1"} sx={{color: "#ff9800"}}>
-                  {municipality.weatherData?.temperature.max}&#176;
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant={"body1"} sx={{color: "#757ce8"}}>
-                  {municipality.weatherData?.temperature.min}&#176;
-                </Typography>
-              </Box>
-            </Stack>
-          </Box>
-        </Stack>
-      </Box>
-    </>
+            <Box>
+              <Typography variant={"body1"} sx={{color: "#757ce8"}}>
+                {municipality.weatherData?.temperature.min}&#176;
+              </Typography>
+            </Box>
+          </Stack>
+        </Box>
+      </Stack>
+    </Box>
   );
 }
 
 function MunicipalityCardContent({data, error}: MunicipalityPayload) {
+  const largeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
+  const mediumScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
+
   if (error || !(data instanceof MunicipalityWithWeatherData)) {
     return (
       <>
@@ -169,8 +164,15 @@ function MunicipalityCardContent({data, error}: MunicipalityPayload) {
   const municipalityWithWeatherData = data as MunicipalityWithWeatherData;
   return (
     <>
-      <Stack pt={2} direction={{xs: "column", sm: "row"}} alignItems={"center"}>
-        <MunicipalityCardContentLeftContent {...municipalityWithWeatherData} />
+      <Stack
+        pt={2}
+        direction={largeScreen || mediumScreen ? "row" : "column"}
+        alignItems={"center"}
+      >
+        <MunicipalityCardContentLeftContent
+          municipality={municipalityWithWeatherData}
+          largeScreen={largeScreen}
+        />
         <MunicipalityCardContentRightContent {...municipalityWithWeatherData} />
       </Stack>
     </>

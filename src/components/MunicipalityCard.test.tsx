@@ -7,6 +7,8 @@ import {
   municipalityPayloadFixture,
   MunicipalityWithWeatherData,
 } from "../types/MunicipalityWithWeatherData";
+import theme from "../styles/theme";
+import {ThemeProvider} from "@mui/material";
 
 const mockMunicipalityPayload = jest.fn();
 
@@ -45,7 +47,11 @@ describe("Given a municipality card", () => {
         error: new Error(),
       });
 
-      render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+      render(
+        <ThemeProvider theme={theme}>
+          <MunicipalityCard municipality={municipality} onClose={() => {}} />
+        </ThemeProvider>
+      );
 
       const errorWarning = screen.getByText("Loading error");
       expect(errorWarning).toBeInTheDocument();
@@ -59,7 +65,11 @@ describe("Given a municipality card", () => {
         error: undefined,
       });
 
-      render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+      render(
+        <ThemeProvider theme={theme}>
+          <MunicipalityCard municipality={municipality} onClose={() => {}} />
+        </ThemeProvider>
+      );
 
       const spinner = screen.getByRole("progressbar");
       expect(spinner).toBeInTheDocument();
@@ -75,7 +85,11 @@ describe("Given a municipality card", () => {
         error: undefined,
       });
 
-      render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+      render(
+        <ThemeProvider theme={theme}>
+          <MunicipalityCard municipality={municipality} onClose={() => {}} />
+        </ThemeProvider>
+      );
 
       const municipalityWithWeatherData = data as MunicipalityWithWeatherData;
       const humidityValue = screen.getByText(
@@ -118,7 +132,11 @@ describe("Given a municipality card", () => {
     });
 
     it("should change the button to a remove card button and save the municipality from the local storage", async () => {
-      render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+      render(
+        <ThemeProvider theme={theme}>
+          <MunicipalityCard municipality={municipality} onClose={() => {}} />
+        </ThemeProvider>
+      );
 
       await addMunicipalityToFavorites();
 
@@ -133,7 +151,11 @@ describe("Given a municipality card", () => {
 
     describe("and then the user clicks on the remove card button", () => {
       it("should change the button back to a save card button and delete the municipality from the local storage", async () => {
-        render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+        render(
+          <ThemeProvider theme={theme}>
+            <MunicipalityCard municipality={municipality} onClose={() => {}} />
+          </ThemeProvider>
+        );
 
         await addMunicipalityToFavorites();
         await removeMunicipalityFromFavorites();
@@ -150,7 +172,11 @@ describe("Given a municipality card", () => {
 
     describe("and then the user clicks on the close button", () => {
       it("should delete the municipality from the local storage", async () => {
-        render(<MunicipalityCard municipality={municipality} onClose={() => {}} />);
+        render(
+          <ThemeProvider theme={theme}>
+            <MunicipalityCard municipality={municipality} onClose={() => {}} />
+          </ThemeProvider>
+        );
 
         await addMunicipalityToFavorites();
         closeMunicipalityCard();
