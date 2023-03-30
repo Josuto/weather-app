@@ -73,83 +73,79 @@ function MunicipalityCardFavoriteButton(municipality: Municipality) {
   );
 }
 
-type MunicipalityCardContentLeftContentProps = {
-  municipality: MunicipalityWithWeatherData;
-  largeScreen: boolean;
-};
+function MunicipalityCardContentLeftContent(municipality: MunicipalityWithWeatherData) {
+  const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
 
-function MunicipalityCardContentLeftContent({
-  municipality,
-  largeScreen,
-}: MunicipalityCardContentLeftContentProps) {
   return (
-    <>
-      <Stack
-        sx={{width: "50%"}}
-        direction={"row"}
-        divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
-        justifyContent={"center"}
-        pb={largeScreen ? 0 : 2}
-      >
-        <Box>
-          <Opacity />
-          <Typography variant={"body1"}>{municipality.weatherData?.humidity}%</Typography>
-        </Box>
-        <Box>
-          <Air />
-          <Typography variant={"body1"}>{municipality.weatherData?.wind} km/h</Typography>
-        </Box>
-        <Box>
-          <Umbrella />
-          <Typography variant={"body1"}>
-            {municipality.weatherData?.rainProbability || 0}%
-          </Typography>
-        </Box>
-      </Stack>
-    </>
+    <Stack
+      sx={smallScreen ? {width: "100%"} : {width: "50%"}}
+      direction={"row"}
+      divider={<Divider orientation="vertical" flexItem />}
+      spacing={2}
+      justifyContent={"center"}
+      pb={smallScreen ? 2 : 0}
+    >
+      <Box>
+        <Opacity />
+        <Typography variant={"body1"}>{municipality.weatherData?.humidity}%</Typography>
+      </Box>
+      <Box>
+        <Air />
+        <Typography variant={"body1"}>{municipality.weatherData?.wind} km/h</Typography>
+      </Box>
+      <Box>
+        <Umbrella />
+        <Typography variant={"body1"}>
+          {municipality.weatherData?.rainProbability || 0}%
+        </Typography>
+      </Box>
+    </Stack>
   );
 }
 
 function MunicipalityCardContentRightContent(municipality: MunicipalityWithWeatherData) {
+  const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
+
   return (
-    <Box sx={{width: "50%"}}>
-      <Stack direction={"row"} spacing={1} justifyContent={"center"}>
+    <Stack
+      sx={smallScreen ? {width: "100%"} : {width: "50%"}}
+      direction={"row"}
+      spacing={1}
+      justifyContent={"center"}
+    >
+      <Box>
+        <Thermostat />
+      </Box>
+      <Box>
         <Box>
-          <Thermostat />
+          <Typography variant={"h3"}>
+            {municipality.weatherData?.temperature.actual}&#176;
+          </Typography>
         </Box>
-        <Box>
+        <Stack
+          direction={"row"}
+          divider={<Divider orientation="vertical" flexItem />}
+          spacing={2}
+          justifyContent={"center"}
+        >
           <Box>
-            <Typography variant={"h3"}>
-              {municipality.weatherData?.temperature.actual}&#176;
+            <Typography variant={"body1"} sx={{color: "#ff9800"}}>
+              {municipality.weatherData?.temperature.max}&#176;
             </Typography>
           </Box>
-          <Stack
-            direction={"row"}
-            divider={<Divider orientation="vertical" flexItem />}
-            spacing={2}
-            justifyContent={"center"}
-          >
-            <Box>
-              <Typography variant={"body1"} sx={{color: "#ff9800"}}>
-                {municipality.weatherData?.temperature.max}&#176;
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant={"body1"} sx={{color: "#757ce8"}}>
-                {municipality.weatherData?.temperature.min}&#176;
-              </Typography>
-            </Box>
-          </Stack>
-        </Box>
-      </Stack>
-    </Box>
+          <Box>
+            <Typography variant={"body1"} sx={{color: "#757ce8"}}>
+              {municipality.weatherData?.temperature.min}&#176;
+            </Typography>
+          </Box>
+        </Stack>
+      </Box>
+    </Stack>
   );
 }
 
 function MunicipalityCardContent({data, error}: MunicipalityPayload) {
-  const largeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
-  const mediumScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
+  const mediumScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   if (error || !(data instanceof MunicipalityWithWeatherData)) {
     return (
@@ -164,15 +160,8 @@ function MunicipalityCardContent({data, error}: MunicipalityPayload) {
   const municipalityWithWeatherData = data as MunicipalityWithWeatherData;
   return (
     <>
-      <Stack
-        pt={2}
-        direction={largeScreen || mediumScreen ? "row" : "column"}
-        alignItems={"center"}
-      >
-        <MunicipalityCardContentLeftContent
-          municipality={municipalityWithWeatherData}
-          largeScreen={largeScreen}
-        />
+      <Stack pt={2} direction={mediumScreen ? "row" : "column"} alignItems={"center"}>
+        <MunicipalityCardContentLeftContent {...municipalityWithWeatherData} />
         <MunicipalityCardContentRightContent {...municipalityWithWeatherData} />
       </Stack>
     </>

@@ -29,7 +29,7 @@ const theme = createTheme({
       },
       [breakpoints.down("sm")]: {
         fontSize: "1.15rem",
-        fontWeight: 500,
+        fontWeight: 550,
         lineHeight: 1.3,
         letterSpacing: 0.5,
         paddingBottom: 10,
@@ -45,7 +45,7 @@ const theme = createTheme({
       },
       [breakpoints.down("sm")]: {
         fontSize: "0.85rem",
-        fontWeight: 300,
+        fontWeight: 450,
         lineHeight: 1.1,
         letterSpacing: 0.15,
         paddingBottom: 1,

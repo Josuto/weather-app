@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import {MunicipalitySearchBar} from "./components/MunicipalitySearchBar";
-import {MunicipalityCard} from "./components/MunicipalityCard";
-import {Municipality} from "./types/Municipality";
+import {MunicipalitySearchBar} from "./MunicipalitySearchBar";
+import {MunicipalityCard} from "./MunicipalityCard";
+import {Municipality} from "../types/Municipality";
 import {Container, Grid, Theme, useMediaQuery} from "@mui/material";
-import {useBrowserStore} from "./hooks/UseBrowserStore";
+import {useBrowserStore} from "../hooks/UseBrowserStore";
 
 function App() {
   const savedMunicipalities = useBrowserStore();
