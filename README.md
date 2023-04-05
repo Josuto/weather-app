@@ -26,9 +26,9 @@ municipalities around the world ;-)
 
 # Followed practices
 
-I used Test Driven-Development (TDD) to build this app. This means that before writing any
-new feature, I first focused on building a test that I expected the code to pass following
-the red-green-refactor loop. That
+I followed Test Driven-Development (TDD) to build this app. This means that before writing
+any new feature, I first focused on building a test that I expected the code to pass
+following the red-green-refactor loop. That
 way, [paraphrasing Dave Farley](https://twitter.com/davefarley77/status/1640382698207297536),
 I was able to work in small steps and getting really useful feedback on my endeavour.
 

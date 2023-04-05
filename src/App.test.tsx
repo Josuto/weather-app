@@ -1,10 +1,10 @@
 import {render, screen} from "@testing-library/react";
 import App from "./App";
-import {municipalityFixture} from "../types/Municipality";
+import {municipalityFixture} from "./types/Municipality";
 import userEvent from "@testing-library/user-event";
-import {municipalityPayloadFixture} from "../types/MunicipalityWithWeatherData";
-import {remove, save} from "../util/BrowserStorage";
-import theme from "../styles/theme";
+import {municipalityPayloadFixture} from "./types/MunicipalityWithWeatherData";
+import {remove, save} from "./util/BrowserStorage";
+import theme from "./styles/theme";
 import {ThemeProvider} from "@mui/material";
 import React from "react";
 
