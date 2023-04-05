@@ -24,7 +24,7 @@ Last but not least, the weather app only works for Spanish municipalities, but I
 sure that you are smart enough to update or even scale it to make it work with other
 municipalities around the world ;-)
 
-# Used practices
+# Followed practices
 
 I used Test Driven-Development (TDD) to build this app. This means that before writing any
 new feature, I first focused on building a test that I expected the code to pass following
