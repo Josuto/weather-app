@@ -1,6 +1,4 @@
-<div style="text-align: center;">
 [![Vercel Production Deployment](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
-</div>
 
 This is a simple single-page [weather app](https://weather-app-josuto.vercel.app/) made in
 React.
