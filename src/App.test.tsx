@@ -11,11 +11,11 @@ import React from "react";
 const mockMunicipalities = [municipalityFixture()];
 const mockMunicipalityPayload = municipalityPayloadFixture();
 
-jest.mock("../hooks/UseFetchMunicipalities", () => ({
+jest.mock("./hooks/UseFetchMunicipalities", () => ({
   useFetchMunicipalities: () => mockMunicipalities,
 }));
 
-jest.mock("../hooks/UseFetchMunicipalityWithWeatherData", () => ({
+jest.mock("./hooks/UseFetchMunicipalityWithWeatherData", () => ({
   useFetchMunicipalityWithWeatherData: () => mockMunicipalityPayload,
 }));
 
