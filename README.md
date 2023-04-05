@@ -1,13 +1,13 @@
-This is a simple single page [weather app](https://weather-app-josuto.vercel.app/) made in
-React
+This is a simple single-page [weather app](https://weather-app-josuto.vercel.app/) made in
+React.
 
 # How it works
 
 The intent of this app is purely academic; I created it to further practice my knowledge
 in web front-end app development in React. This weather app specifies a dropdown list that
-serves as a municipality search bar so that any user can pick one. When she does it, a
-card showing several weather data (max, min, and current temperature, rain probability,
-etc.) is displayed.
+serves as a municipality search bar so that any user can pick one at a time. When she does
+it, a card showing several weather data (max, min, and current temperature, rain
+probability, etc.) is displayed.
 
 Cards include a save and a close button. When clicking on the save
 button, some municipality identification data is stored at the local storage of the user's
@@ -35,6 +35,13 @@ I was able to work in small steps and getting really useful feedback on my endea
 On the topic of validation, it is also worth mentioning that I followed Kent C.Dodds'
 [Testing Trophy](https://testingjavascript.com/) methodology to write the right (mostly
 integration) tests to gain the required confidence on the validity of my code.
+
+Another important point to mention is that single-page is not synonym of putting all the
+code in one single file. Despite React is some fantastic library to build front-end
+applications, we (developers) should follow standard patterns and techniques to modularise
+our web apps, as mentioned by Juntao QIU
+in [this inspiring article](https://martinfowler.com/articles/modularizing-react-apps.html).
+So I did.
 
 Finally, I also followed the [trunk-base development](https://trunkbaseddevelopment.com/)
 methodology. Not to say that I needed
