@@ -19,6 +19,7 @@ jobs:
           node-version: 16.x
       - name: Run tests 🚦
         run: |
+          npm install
           npm ci
           npm test
       #          yarn install
