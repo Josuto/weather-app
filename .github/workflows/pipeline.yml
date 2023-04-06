@@ -19,11 +19,9 @@ jobs:
           node-version: 16.x
       - name: Run tests 🚦
         run: |
-          npm ci
-          npm test
-      #          yarn install
-      #          yarn test --watchAll=false
-      - name: Test Reporter 🖊️
+          yarn install
+          yarn test --watchAll=false
+      - name: Test Reporter
         uses: dorny/test-reporter@v1.6.0
         if: success() || failure()    # run this step even if previous step failed
         with:
