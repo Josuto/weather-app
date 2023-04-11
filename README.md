@@ -2,7 +2,8 @@ This is a simple single-page [weather app](https://weather-app-josuto.vercel.app
 React.
 
 [![CD](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
-![Tests](./test_reports/badge.svg)
+![Test Results](./badges/badge-test-results.svg)
+![Coverage](./badges/badge-test-coverage.svg)
 
 # How it works
 
