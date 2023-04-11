@@ -44,8 +44,8 @@
     ]
   },
   "jest-junit": {
-    "outputDirectory": "test_reports",
-    "outputName": "jest-junit.xml"
+    "outputDirectory": "test-results",
+    "outputName": "junit.xml"
   },
   "devDependencies": {
     "coverbadge": "^0.5.5",
