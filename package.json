@@ -17,7 +17,7 @@
     "@types/react-dom": "^18.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "swr": "^2.0.3",
     "typescript": "^4.4.2",
     "vercel": "^28.17.0",
@@ -26,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --reporters=default --reporters=jest-junit",
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
@@ -43,10 +43,15 @@
       "last 1 safari version"
     ]
   },
+  "jest-junit": {
+    "outputDirectory": "test_reports",
+    "outputName": "jest-junit.xml"
+  },
   "devDependencies": {
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.0",
+    "jest-junit": "^15.0.0",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.3"
   }

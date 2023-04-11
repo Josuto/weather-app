@@ -7,7 +7,7 @@ on:
     branches:
       - main
 jobs:
-  validate:
+  run-tests:
     runs-on: ubuntu-latest
     name: Validate code
     steps:
@@ -17,12 +17,23 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - name: Install dependencies 💾
+        run: yarn install
       - name: Run tests 🚦
+        run: yarn test --watchAll=false
+
+      - name: Generate badge
         run: |
-          yarn install
-          yarn test --watchAll=false
+          STATUS=$(grep -oP 'failures="[1-9]+"' ./test_reports/jest-junit.xml || echo 'failures="0"')
+          URL="https://img.shields.io/badge/tests-${STATUS}-brightgreen.svg"
+          curl -s -o ./test_reports/badge.svg $URL
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test_reports
+          path: ./test_reports
   deploy:
-    needs: [ validate ]
+    needs: [ run-tests ]
     runs-on: ubuntu-latest
     name: Deploy to Vercel
     steps:

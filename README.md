@@ -1,7 +1,8 @@
 This is a simple single-page [weather app](https://weather-app-josuto.vercel.app/) made in
 React.
 
-[![Vercel Production Deployment](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
+[![CD](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
+![Tests](./test_reports/badge.svg)
 
 # How it works
 
