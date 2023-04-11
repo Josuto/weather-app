@@ -48,6 +48,7 @@
     "outputName": "jest-junit.xml"
   },
   "devDependencies": {
+    "coverbadge": "^0.5.5",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.0",

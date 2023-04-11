@@ -1,0 +1,24 @@
+jobs:
+  generate-badges:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate test results badge 🥇
+        run: |
+          all_tests=$(grep -oP 'tests="\K\d+' ./test-results/junit.xml | head -1)
+          failed=$(grep -oP 'failures="\K\d+' ./test-results/junit.xml | head -1)
+          passed=$(($all_tests-$failed))
+          [ $failed = 0 ] && result="success" || result="red"
+          URL="https://img.shields.io/badge/tests-$passed%20passed,%20$failed%20failed-${result}.svg"
+          mkdir -p ./badges
+          curl -s -o ./badges/badge-test-results.svg $URL
+      - name: Generate test coverage badge 🥈
+        run: |
+          export PATH="$PATH:$(pwd)/node_modules/.bin"
+          cat ./coverage/lcov.info | coverbadge -o ./badges/badge-test-coverage.svg
+      - name: Commit generated badges ⬆️
+        run: |
+          git config --global user.name 'Automated CI'
+          git config --global user.email '6097850+Josuto@users.noreply.github.com'
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Updated test badges [skip ci]"
+          git push origin main --no-verify

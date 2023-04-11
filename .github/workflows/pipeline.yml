@@ -20,18 +20,8 @@ jobs:
       - name: Install dependencies 💾
         run: yarn install
       - name: Run tests 🚦
-        run: yarn test --watchAll=false
-
-      - name: Generate badge
-        run: |
-          STATUS=$(grep -oP 'failures="[1-9]+"' ./test_reports/jest-junit.xml || echo 'failures="0"')
-          URL="https://img.shields.io/badge/tests-${STATUS}-brightgreen.svg"
-          curl -s -o ./test_reports/badge.svg $URL
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: test_reports
-          path: ./test_reports
+        run: yarn test --ci --reporters=default --reporters=jest-junit --coverage
+      - include: ./badges.yml
   deploy:
     needs: [ run-tests ]
     runs-on: ubuntu-latest
@@ -39,11 +29,11 @@ jobs:
     steps:
       - name: Code Checkout 🛎️
         uses: actions/checkout@v3
-      - name: Install Vercel CLI
+      - name: Install Vercel CLI 💾
         run: npm install --global vercel@latest
-      - name: Pull Vercel Environment Information
+      - name: Pull Vercel Environment Information ⬇️
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Build Project Artifacts
+      - name: Build Project Artifacts 🔧
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Deploy Project Artifacts to Vercel
+      - name: Deploy Project Artifacts to Vercel ⬆️
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
