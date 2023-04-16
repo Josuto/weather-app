@@ -29,12 +29,11 @@ export function MunicipalitySearchBar({
       options={useFetchMunicipalities()}
       getOptionLabel={(option) => `${option.name} (${option.provinceName})`}
       filterOptions={(options: Municipality[], {inputValue}) =>
-        options.filter((option) => {
-          return (
+        options.filter(
+          (option) =>
             option.name.toLowerCase().startsWith(inputValue.toLowerCase()) &&
             !municipalityIds.includes(option.id)
-          );
-        })
+        )
       }
       isOptionEqualToValue={(option, value) => option.id === value.id}
       onChange={(event, value: Municipality | null) => {

@@ -20,13 +20,12 @@ jest.mock("./hooks/UseFetchMunicipalityWithWeatherData", () => ({
 }));
 
 function clickOnMunicipalitySearchBar(): void {
-  const municipalitySearch = screen.getByRole("combobox");
-  userEvent.click(municipalitySearch);
+  const municipalitySearchBar = screen.getByRole("combobox");
+  userEvent.click(municipalitySearchBar);
 }
 
-async function pickMunicipalityAtSearchBar(): Promise<void> {
-  clickOnMunicipalitySearchBar();
-  const [municipalityOption] = await screen.findAllByRole("option");
+function pickMunicipalityAtSearchBar(): void {
+  const [municipalityOption] = screen.queryAllByRole("option");
   userEvent.click(municipalityOption);
 }
 
@@ -47,8 +46,8 @@ describe("Given the weather app", () => {
           </ThemeProvider>
         );
 
-        const municipalitySearch = screen.getByRole("combobox");
-        expect(municipalitySearch).toBeInTheDocument();
+        const municipalitySearchBar = screen.getByRole("combobox");
+        expect(municipalitySearchBar).toBeInTheDocument();
 
         const municipalityCards = screen.queryAllByText("Some municipality");
         expect(municipalityCards).toHaveLength(0);
@@ -73,8 +72,8 @@ describe("Given the weather app", () => {
           </ThemeProvider>
         );
 
-        const municipalitySearch = screen.getByRole("combobox");
-        expect(municipalitySearch).toBeInTheDocument();
+        const municipalitySearchBar = screen.getByRole("combobox");
+        expect(municipalitySearchBar).toBeInTheDocument();
 
         const municipalityCards = screen.queryAllByText("Some municipality");
         expect(municipalityCards).toHaveLength(1);
@@ -83,27 +82,29 @@ describe("Given the weather app", () => {
   });
 
   describe("when the user selects a municipality in the search bar", () => {
-    it("should add a municipality card to the page", async () => {
+    it("should add a municipality card to the page", () => {
       render(
         <ThemeProvider theme={theme}>
           <App />
         </ThemeProvider>
       );
 
-      await pickMunicipalityAtSearchBar();
+      clickOnMunicipalitySearchBar();
+      pickMunicipalityAtSearchBar();
 
       const municipalityCards = screen.queryAllByText("Some municipality");
       expect(municipalityCards).toHaveLength(1);
     });
 
-    it("should remove the municipality from the search bar options", async () => {
+    it("should remove the municipality from the search bar options", () => {
       render(
         <ThemeProvider theme={theme}>
           <App />
         </ThemeProvider>
       );
 
-      await pickMunicipalityAtSearchBar();
+      clickOnMunicipalitySearchBar();
+      pickMunicipalityAtSearchBar();
       clickOnMunicipalitySearchBar();
 
       const municipalities = screen.queryAllByRole("option");
@@ -112,28 +113,30 @@ describe("Given the weather app", () => {
   });
 
   describe("when the user closes a municipality card", () => {
-    it("should remove the municipality card from the page", async () => {
+    it("should remove the municipality card from the page", () => {
       render(
         <ThemeProvider theme={theme}>
           <App />
         </ThemeProvider>
       );
 
-      await pickMunicipalityAtSearchBar();
+      clickOnMunicipalitySearchBar();
+      pickMunicipalityAtSearchBar();
       closeMunicipalityCard();
 
       const municipalityCards = screen.queryAllByText("Some municipality");
       expect(municipalityCards).toHaveLength(0);
     });
 
-    it("should add the municipality back to the search bar options", async () => {
+    it("should add the municipality back to the search bar options", () => {
       render(
         <ThemeProvider theme={theme}>
           <App />
         </ThemeProvider>
       );
 
-      await pickMunicipalityAtSearchBar();
+      clickOnMunicipalitySearchBar();
+      pickMunicipalityAtSearchBar();
       closeMunicipalityCard();
       clickOnMunicipalitySearchBar();
 
