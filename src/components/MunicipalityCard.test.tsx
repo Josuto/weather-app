@@ -43,7 +43,7 @@ describe("Given a municipality card", () => {
   describe("when the municipality weather data cannot be loaded due to e.g., a network error", () => {
     it("should display a loading error warning as the card content", () => {
       mockMunicipalityPayload.mockReturnValue({
-        data: municipalityFixture(),
+        data: municipality,
         error: new Error(),
       });
 
@@ -61,7 +61,7 @@ describe("Given a municipality card", () => {
   describe("when the municipality weather data has not yet been loaded", () => {
     it("should display a spinner as the card content", () => {
       mockMunicipalityPayload.mockReturnValue({
-        data: municipalityFixture(),
+        data: municipality,
         error: undefined,
       });
 
@@ -122,7 +122,7 @@ describe("Given a municipality card", () => {
   describe("when the user clicks on the save card button", () => {
     beforeEach(() => {
       mockMunicipalityPayload.mockReturnValue({
-        data: municipalityFixture(),
+        data: municipality,
         error: undefined,
       });
     });
