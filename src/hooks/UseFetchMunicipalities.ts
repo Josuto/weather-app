@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import {Municipality} from "../types/Municipality";
 
-type ExternalMunicipality = {
+export type ExternalMunicipality = {
   NOMBRE: string;
   NOMBRE_PROVINCIA: string;
   CODPROV: string;
@@ -13,9 +13,15 @@ const MUNICIPALITIES_URL = "https://www.el-tiempo.net/api/json/v2/municipios";
 const fetcher = (url: string) => fetch(url).then((result) => result.json());
 
 export function useFetchMunicipalities(): Municipality[] {
-  const municipalities: ExternalMunicipality[] = useSWR(MUNICIPALITIES_URL, fetcher, {
+  const {data, error} = useSWR(MUNICIPALITIES_URL, fetcher, {
     suspense: true,
-  }).data;
+  });
+
+  if (error) {
+    return [];
+  }
+
+  const municipalities: ExternalMunicipality[] = data;
 
   return municipalities
     .map(

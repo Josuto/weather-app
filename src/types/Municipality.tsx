@@ -20,3 +20,15 @@ export const municipalityFixture = ({
   });
   return new Municipality({...defaults, ...props});
 };
+
+export const anotherMunicipalityFixture = ({
+  ...props
+}: Partial<Municipality> = {}): Municipality => {
+  const defaults = new Municipality({
+    id: "00002",
+    name: "Another municipality",
+    provinceId: "01",
+    provinceName: "Some province",
+  });
+  return new Municipality({...defaults, ...props});
+};

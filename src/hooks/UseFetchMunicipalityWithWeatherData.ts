@@ -13,6 +13,10 @@ const fetcher = (url: string) => fetch(url).then((result) => result.json());
 export function useFetchMunicipalityWithWeatherData(
   municipality: Municipality
 ): MunicipalityPayload {
+  if (!municipality) {
+    throw new Error("The given municipality is invalid");
+  }
+
   const municipalityWeatherDataFetchUrl = MUNICIPALITY_WEATHER_DATA_URL.replace(
     "{provinceId}",
     municipality.provinceId
