@@ -22,7 +22,6 @@ export function useFetchMunicipalities(): Municipality[] {
   }
 
   const municipalities: ExternalMunicipality[] = data;
-
   return municipalities
     .map(
       (municipality) =>
