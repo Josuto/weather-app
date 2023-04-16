@@ -20,8 +20,8 @@ describe("Given the UseFetchMunicipalities hook", () => {
     });
   });
 
-  describe("when the external service the external service returns a list of unordered municipalities", () => {
-    it("should return a list of ordered municipalities", () => {
+  describe("when the external service the external service returns a list of (unordered) municipalities", () => {
+    it("should return a list of municipalities ordered by name", () => {
       const externalMunicipality: ExternalMunicipality = {
         CODIGOINE: "00001",
         CODPROV: "01",
