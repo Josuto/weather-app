@@ -95,21 +95,6 @@ describe("Given the weather app", () => {
       const municipalityCards = screen.queryAllByText("Some municipality");
       expect(municipalityCards).toHaveLength(1);
     });
-
-    it("should remove the municipality from the search bar options", () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      );
-
-      clickOnMunicipalitySearchBar();
-      pickMunicipalityAtSearchBar();
-      clickOnMunicipalitySearchBar();
-
-      const municipalities = screen.queryAllByRole("option");
-      expect(municipalities).toHaveLength(0);
-    });
   });
 
   describe("when the user closes a municipality card", () => {

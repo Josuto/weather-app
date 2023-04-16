@@ -14,7 +14,7 @@ export function MunicipalitySearchBar({
 }: MunicipalitySearchBarProps) {
   const municipalityIds = municipalities.reduce(
     (municipalityIds: string[], municipality) => {
-      if (municipality) municipalityIds.push(municipality.id);
+      municipalityIds.push(municipality.id);
       return municipalityIds;
     },
     []
