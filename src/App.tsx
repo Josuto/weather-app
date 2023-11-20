@@ -13,20 +13,16 @@ function App() {
   const mediumScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
 
   function addMunicipality(municipality: Municipality) {
-    if (municipality) {
-      const updatedMunicipalities = Array.from(municipalities);
-      updatedMunicipalities.push(municipality);
-      setMunicipalities(updatedMunicipalities);
-    }
+    const updatedMunicipalities = Array.from(municipalities);
+    updatedMunicipalities.push(municipality);
+    setMunicipalities(updatedMunicipalities);
   }
 
   function removeMunicipality(municipality: Municipality) {
-    if (municipality) {
-      const updatedMunicipalities = municipalities.filter(
-        (currentMunicipality) => currentMunicipality.id !== municipality.id
-      );
-      setMunicipalities(updatedMunicipalities);
-    }
+    const updatedMunicipalities = municipalities.filter(
+      (currentMunicipality) => currentMunicipality.id !== municipality.id
+    );
+    setMunicipalities(updatedMunicipalities);
   }
 
   return (

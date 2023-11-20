@@ -1,7 +1,7 @@
-import useSWR from "swr";
 import {renderHook} from "@testing-library/react";
+import useSWR from "swr";
+import {municipalityFixture} from "../types/Municipality";
 import {ExternalMunicipality, useFetchMunicipalities} from "./UseFetchMunicipalities";
-import {anotherMunicipalityFixture, municipalityFixture} from "../types/Municipality";
 
 jest.mock("swr");
 
@@ -45,7 +45,7 @@ describe("Given the UseFetchMunicipalities hook", () => {
       const {result} = renderHook(() => useFetchMunicipalities());
 
       expect(result.current).toEqual([
-        anotherMunicipalityFixture(),
+        municipalityFixture({id: "00002", name: "Another municipality"}),
         municipalityFixture(),
       ]);
     });

@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
-import {MunicipalitySearchBar} from "./MunicipalitySearchBar";
-import {anotherMunicipalityFixture, municipalityFixture} from "../types/Municipality";
 import userEvent from "@testing-library/user-event";
+import {municipalityFixture} from "../types/Municipality";
+import {MunicipalitySearchBar} from "./MunicipalitySearchBar";
 
 const mockMunicipalities = jest.fn();
 
@@ -37,7 +37,10 @@ describe("Given the municipality search bar component", () => {
     describe("and none has been selected yet", () => {
       it("should display all of them", () => {
         const municipality = municipalityFixture();
-        const anotherMunicipality = anotherMunicipalityFixture();
+        const anotherMunicipality = municipalityFixture({
+          id: "00002",
+          name: "Another municipality",
+        });
 
         mockMunicipalities.mockReturnValueOnce([municipality, anotherMunicipality]);
 
@@ -59,7 +62,10 @@ describe("Given the municipality search bar component", () => {
     describe("and one has already been selected", () => {
       it("should display all of them but the one selected", () => {
         const municipality = municipalityFixture();
-        const anotherMunicipality = anotherMunicipalityFixture();
+        const anotherMunicipality = municipalityFixture({
+          id: "00002",
+          name: "Another municipality",
+        });
 
         mockMunicipalities.mockReturnValueOnce([municipality, anotherMunicipality]);
 
