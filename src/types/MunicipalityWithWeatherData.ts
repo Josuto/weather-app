@@ -1,4 +1,4 @@
-import {Municipality, municipalityFixture} from "./Municipality";
+import { Municipality, municipalityFixture } from "./Municipality";
 
 class Temperature {
   readonly actual!: string;
@@ -10,13 +10,13 @@ class Temperature {
   }
 }
 
-const temperatureFixture = ({...props}: Partial<Temperature> = {}): Temperature => {
+const temperatureFixture = ({ ...props }: Partial<Temperature> = {}): Temperature => {
   const defaults = new Temperature({
     actual: "5",
     max: "10",
     min: "2",
   });
-  return new Temperature({...defaults, ...props});
+  return new Temperature({ ...defaults, ...props });
 };
 
 class WeatherData {
@@ -30,14 +30,14 @@ class WeatherData {
   }
 }
 
-const weatherDataFixture = ({...props}: Partial<WeatherData> = {}): WeatherData => {
+const weatherDataFixture = ({ ...props }: Partial<WeatherData> = {}): WeatherData => {
   const defaults = new WeatherData({
-    temperature: {...temperatureFixture()},
+    temperature: { ...temperatureFixture() },
     humidity: "47",
     wind: "30",
     rainProbability: "5",
   });
-  return new WeatherData({...defaults, ...props});
+  return new WeatherData({ ...defaults, ...props });
 };
 
 export class MunicipalityWithWeatherData extends Municipality {
@@ -56,7 +56,7 @@ export const municipalityWithWeatherDataFixture = ({
     ...municipalityFixture(),
     weatherData: weatherDataFixture(),
   });
-  return new MunicipalityWithWeatherData({...defaults, ...props});
+  return new MunicipalityWithWeatherData({ ...defaults, ...props });
 };
 
 export type MunicipalityPayload = {
@@ -70,5 +70,5 @@ export const municipalityPayloadFixture = ({
   const defaults: MunicipalityPayload = {
     data: municipalityWithWeatherDataFixture(),
   };
-  return {...defaults, ...props};
+  return { ...defaults, ...props };
 };

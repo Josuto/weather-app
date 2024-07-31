@@ -1,7 +1,7 @@
-import {renderHook} from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 import useSWR from "swr";
-import {municipalityFixture} from "../types/Municipality";
-import {ExternalMunicipality, useFetchMunicipalities} from "./UseFetchMunicipalities";
+import { municipalityFixture } from "../types/Municipality";
+import { ExternalMunicipality, useFetchMunicipalities } from "./UseFetchMunicipalities";
 
 jest.mock("swr");
 
@@ -14,7 +14,7 @@ describe("Given the UseFetchMunicipalities hook", () => {
         error: new Error("Service unavailable"),
       });
 
-      const {result} = renderHook(() => useFetchMunicipalities());
+      const { result } = renderHook(() => useFetchMunicipalities());
 
       expect(result.current.length).toBe(0);
     });
@@ -38,14 +38,14 @@ describe("Given the UseFetchMunicipalities hook", () => {
 
       // @ts-ignore
       useSWR.mockReturnValueOnce({
-        data: [externalMunicipality, anotherExternalMunicipality],
+        data: { municipios: [externalMunicipality, anotherExternalMunicipality] },
         error: undefined,
       });
 
-      const {result} = renderHook(() => useFetchMunicipalities());
+      const { result } = renderHook(() => useFetchMunicipalities());
 
       expect(result.current).toEqual([
-        municipalityFixture({id: "00002", name: "Another municipality"}),
+        municipalityFixture({ id: "00002", name: "Another municipality" }),
         municipalityFixture(),
       ]);
     });

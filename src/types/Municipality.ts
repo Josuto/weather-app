@@ -18,5 +18,5 @@ export const municipalityFixture = ({
     provinceId: "01",
     provinceName: "Some province",
   });
-  return new Municipality({...defaults, ...props});
+  return new Municipality({ ...defaults, ...props });
 };

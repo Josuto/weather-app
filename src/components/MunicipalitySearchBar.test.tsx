@@ -1,7 +1,8 @@
-import {render, screen} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {municipalityFixture} from "../types/Municipality";
-import {MunicipalitySearchBar} from "./MunicipalitySearchBar";
+import { Municipalities } from "types/Municipalities";
+import { municipalityFixture } from "../types/Municipality";
+import { MunicipalitySearchBar } from "./MunicipalitySearchBar";
 
 const mockMunicipalities = jest.fn();
 
@@ -24,7 +25,12 @@ describe("Given the municipality search bar component", () => {
     it("should not display any of them", () => {
       mockMunicipalities.mockReturnValueOnce([]);
 
-      render(<MunicipalitySearchBar onChange={() => {}} municipalities={[]} />);
+      render(
+        <MunicipalitySearchBar
+          onChange={() => {}}
+          municipalities={new Municipalities([])}
+        />
+      );
 
       clickOnMunicipalitySearchBar();
 
@@ -44,7 +50,12 @@ describe("Given the municipality search bar component", () => {
 
         mockMunicipalities.mockReturnValueOnce([municipality, anotherMunicipality]);
 
-        render(<MunicipalitySearchBar onChange={() => {}} municipalities={[]} />);
+        render(
+          <MunicipalitySearchBar
+            onChange={() => {}}
+            municipalities={new Municipalities()}
+          />
+        );
 
         clickOnMunicipalitySearchBar();
 
@@ -70,7 +81,10 @@ describe("Given the municipality search bar component", () => {
         mockMunicipalities.mockReturnValueOnce([municipality, anotherMunicipality]);
 
         render(
-          <MunicipalitySearchBar onChange={() => {}} municipalities={[municipality]} />
+          <MunicipalitySearchBar
+            onChange={() => {}}
+            municipalities={new Municipalities([municipality])}
+          />
         );
 
         clickOnMunicipalitySearchBar();
