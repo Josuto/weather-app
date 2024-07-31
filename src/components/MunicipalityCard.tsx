@@ -1,4 +1,13 @@
 import {
+  Air,
+  Close,
+  Favorite,
+  FavoriteBorder,
+  Opacity,
+  Thermostat,
+  Umbrella,
+} from "@mui/icons-material";
+import {
   Box,
   Card,
   CardContent,
@@ -11,30 +20,21 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React, {useState} from "react";
-import {Municipality} from "../types/Municipality";
-import {
-  Air,
-  Close,
-  Favorite,
-  FavoriteBorder,
-  Opacity,
-  Thermostat,
-  Umbrella,
-} from "@mui/icons-material";
-import {useFetchMunicipalityWithWeatherData} from "../hooks/UseFetchMunicipalityWithWeatherData";
+import { useState } from "react";
+import { useFetchMunicipalityWithWeatherData } from "../hooks/UseFetchMunicipalityWithWeatherData";
+import { Municipality } from "../types/Municipality";
 import {
   MunicipalityPayload,
   MunicipalityWithWeatherData,
 } from "../types/MunicipalityWithWeatherData";
-import {get, remove, save} from "../util/BrowserStorage";
+import { get, remove, save } from "../util/BrowserStorage";
 
 type MunicipalityCardProps = {
   municipality: Municipality;
-  onClose: Function;
+  onClose: (municipality: Municipality) => void;
 };
 
-function MunicipalityCardCloseButton({municipality, onClose}: MunicipalityCardProps) {
+function MunicipalityCardCloseButton({ municipality, onClose }: MunicipalityCardProps) {
   return (
     <IconButton
       aria-label={"Close"}
@@ -78,7 +78,7 @@ function MunicipalityCardContentLeftContent(municipality: MunicipalityWithWeathe
 
   return (
     <Stack
-      sx={smallScreen ? {width: "100%"} : {width: "50%"}}
+      sx={smallScreen ? { width: "100%" } : { width: "50%" }}
       direction={"row"}
       divider={<Divider orientation="vertical" flexItem />}
       spacing={2}
@@ -108,7 +108,7 @@ function MunicipalityCardContentRightContent(municipality: MunicipalityWithWeath
 
   return (
     <Stack
-      sx={smallScreen ? {width: "100%"} : {width: "50%"}}
+      sx={smallScreen ? { width: "100%" } : { width: "50%" }}
       direction={"row"}
       spacing={1}
       justifyContent={"center"}
@@ -129,12 +129,12 @@ function MunicipalityCardContentRightContent(municipality: MunicipalityWithWeath
           justifyContent={"center"}
         >
           <Box>
-            <Typography variant={"body1"} sx={{color: "#ff9800"}}>
+            <Typography variant={"body1"} sx={{ color: "#ff9800" }}>
               {municipality.weatherData?.temperature.max}&#176;
             </Typography>
           </Box>
           <Box>
-            <Typography variant={"body1"} sx={{color: "#757ce8"}}>
+            <Typography variant={"body1"} sx={{ color: "#757ce8" }}>
               {municipality.weatherData?.temperature.min}&#176;
             </Typography>
           </Box>
@@ -144,7 +144,7 @@ function MunicipalityCardContentRightContent(municipality: MunicipalityWithWeath
   );
 }
 
-function MunicipalityCardContent({data, error}: MunicipalityPayload) {
+function MunicipalityCardContent({ data, error }: MunicipalityPayload) {
   const mediumScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   if (error || !(data instanceof MunicipalityWithWeatherData)) {
@@ -168,13 +168,13 @@ function MunicipalityCardContent({data, error}: MunicipalityPayload) {
   );
 }
 
-export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps) {
-  const {data, error} = useFetchMunicipalityWithWeatherData(municipality);
+export function MunicipalityCard({ municipality, onClose }: MunicipalityCardProps) {
+  const { data, error } = useFetchMunicipalityWithWeatherData(municipality);
 
   return (
     <Card>
       <CardHeader
-        sx={{backgroundColor: "primary.main"}}
+        sx={{ backgroundColor: "primary.main" }}
         action={
           <Stack direction={"column"}>
             <MunicipalityCardCloseButton municipality={municipality} onClose={onClose} />
@@ -192,7 +192,7 @@ export function MunicipalityCard({municipality, onClose}: MunicipalityCardProps)
           </Typography>
         }
       />
-      <CardContent sx={{textAlign: "center"}}>
+      <CardContent sx={{ textAlign: "center" }}>
         <MunicipalityCardContent data={data} error={error} />
       </CardContent>
     </Card>

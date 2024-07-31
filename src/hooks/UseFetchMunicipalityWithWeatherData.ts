@@ -1,5 +1,5 @@
-import {Municipality} from "../types/Municipality";
 import useSWR from "swr";
+import { Municipality } from "../types/Municipality";
 import {
   MunicipalityPayload,
   MunicipalityWithWeatherData,
@@ -22,7 +22,7 @@ export function useFetchMunicipalityWithWeatherData(
     municipality.provinceId
   ).replace("{id}", municipality.id);
 
-  const {data, error} = useSWR(municipalityWeatherDataFetchUrl, fetcher, {
+  const { data, error } = useSWR(municipalityWeatherDataFetchUrl, fetcher, {
     revalidateOnMount: true, // re-fetch data when page is refreshed
     refreshInterval: 30000, // re-fetch data every 30 minutes
   });

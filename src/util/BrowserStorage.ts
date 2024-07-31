@@ -1,4 +1,4 @@
-import {Municipality} from "../types/Municipality";
+import { Municipality } from "../types/Municipality";
 
 export const MUNICIPALITY_ID_FORMAT = /^\d{5}$/;
 
