@@ -7,7 +7,9 @@ export function useBrowserStore(): Municipalities {
   for (let i = 0, length = localStorage.length; i < length; i++) {
     const municipalityId = localStorage.key(i);
     if (municipalityId && MUNICIPALITY_ID_FORMAT.exec(municipalityId)) {
-      municipalities.push(get(municipalityId)!);
+      const municipality = get(municipalityId);
+      if (municipality) municipalities.push(municipality);
+      // The alternative is not possible, so no need to throw any error here
     }
   }
   return new Municipalities(municipalities);
