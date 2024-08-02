@@ -42,6 +42,10 @@
       "last 1 safari version"
     ]
   },
+  "jest-junit": {
+    "outputDirectory": "test-results",
+    "outputName": "junit.xml"
+  },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@craco/craco": "^7.1.0",
@@ -53,6 +57,7 @@
     "eslint-config-prettier": "^8.10.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
+    "jest-junit": "^16.0.0",
     "lint-staged": "^13.3.0",
     "prettier": "^2.8.8"
   }
