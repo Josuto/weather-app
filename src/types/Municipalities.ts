@@ -15,28 +15,13 @@ import { Municipality } from "@type/Municipality";
  */
 export class Municipalities {
   private _getMunicipalities: () => Municipality[];
-  getLength: () => number;
-  private _setLength: (value: number) => void;
 
   constructor(municipalities?: Municipality[]) {
     const _municipalities: Municipality[] = municipalities ?? [];
-    let _length = municipalities?.length ?? 0;
-
-    this.getLength = function () {
-      return _length;
-    };
-
-    this._setLength = function (value: number) {
-      _length = value;
-    };
 
     this._getMunicipalities = function () {
       return _municipalities;
     };
-  }
-
-  get length() {
-    return this.getLength();
   }
 
   [Symbol.iterator](): Iterator<Municipality> {
@@ -73,7 +58,6 @@ export class Municipalities {
         (currentMunicipality) => currentMunicipality.id !== id
       )
     );
-    this._setLength(municipalities.length);
     return municipalities;
   }
 
@@ -81,5 +65,9 @@ export class Municipalities {
     const municipalities = this._getMunicipalities();
     if (municipality) municipalities.push(municipality);
     return new Municipalities(municipalities);
+  }
+
+  length(): number {
+    return this._getMunicipalities().length;
   }
 }
