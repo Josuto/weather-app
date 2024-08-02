@@ -1,4 +1,4 @@
-This is a simple single-page [weather app](https://weather-app-josuto.vercel.app/) made in
+This is a simple single-page [weather app](https://weather-app-bl3j-mj7uar3t4-josu-martinezs-projects.vercel.app) made in
 React.
 
 [![CD](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
