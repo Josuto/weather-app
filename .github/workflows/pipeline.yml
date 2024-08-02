@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies 💾
         run: yarn install
       - name: Run tests 🚦
-        run: yarn test --ci --reporters=default --reporters=jest-junit --coverage
+        run: yarn test --ci --reporters=default --reporters=jest-junit --coverage --watchAll=false
       - name: Generate test results badge 🥇
         run: |
           all_tests=$(grep -oP 'tests="\K\d+' ./test-results/junit.xml | head -1)
@@ -44,7 +44,7 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Updated test badges [skip ci]"
           git push origin main --no-verify
   deploy:
-    needs: [ run-tests ]
+    needs: [run-tests]
     runs-on: ubuntu-latest
     name: Deploy to Vercel
     steps:
