@@ -1,10 +1,10 @@
+import { MunicipalityCard } from "@components/MunicipalityCard";
+import { MunicipalitySearchBar } from "@components/MunicipalitySearchBar";
+import { useBrowserStore } from "@hooks/UseBrowserStore";
 import { Container, Grid, Theme, useMediaQuery } from "@mui/material";
+import { Municipalities } from "@type/Municipalities";
+import { Municipality } from "@type/Municipality";
 import { useState } from "react";
-import { Municipalities } from "types/Municipalities";
-import { MunicipalityCard } from "./components/MunicipalityCard";
-import { MunicipalitySearchBar } from "./components/MunicipalitySearchBar";
-import { useBrowserStore } from "./hooks/UseBrowserStore";
-import { Municipality } from "./types/Municipality";
 
 function App() {
   const savedMunicipalities = useBrowserStore();

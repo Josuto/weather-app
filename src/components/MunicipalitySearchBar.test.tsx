@@ -1,8 +1,8 @@
+import { MunicipalitySearchBar } from "@components/MunicipalitySearchBar";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Municipalities } from "types/Municipalities";
-import { municipalityFixture } from "../types/Municipality";
-import { MunicipalitySearchBar } from "./MunicipalitySearchBar";
+import { Municipalities } from "@type/Municipalities";
+import { municipalityFixture } from "@type/Municipality";
 
 const mockMunicipalities = jest.fn();
 

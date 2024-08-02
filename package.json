@@ -2,6 +2,9 @@
   "name": "weather-app",
   "version": "0.1.1",
   "private": true,
+  "engines": {
+    "node": ">=18.18.0"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -24,10 +27,10 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --reporters=default --reporters=jest-junit",
-    "eject": "react-scripts eject",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test --watchAll=true",
+    "eject": "craco eject",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
@@ -48,6 +51,8 @@
     "outputName": "junit.xml"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@craco/craco": "^7.1.0",
     "coverbadge": "^0.5.5",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",

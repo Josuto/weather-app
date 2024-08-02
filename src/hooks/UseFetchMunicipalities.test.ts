@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
+import { municipalityFixture } from "@type/Municipality";
 import useSWR from "swr";
-import { municipalityFixture } from "../types/Municipality";
 import { ExternalMunicipality, useFetchMunicipalities } from "./UseFetchMunicipalities";
 
 jest.mock("swr");

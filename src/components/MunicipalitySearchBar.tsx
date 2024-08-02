@@ -1,7 +1,7 @@
+import { useFetchMunicipalities } from "@hooks/UseFetchMunicipalities";
 import { Autocomplete, TextField } from "@mui/material";
-import { Municipalities } from "types/Municipalities";
-import { useFetchMunicipalities } from "../hooks/UseFetchMunicipalities";
-import { Municipality } from "../types/Municipality";
+import { Municipalities } from "@type/Municipalities";
+import { Municipality } from "@type/Municipality";
 
 type MunicipalitySearchBarProps = {
   onChange: (municipality: Municipality | null) => void;

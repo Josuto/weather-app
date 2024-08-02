@@ -1,5 +1,5 @@
+import { Municipality } from "@type/Municipality";
 import useSWR from "swr";
-import { Municipality } from "../types/Municipality";
 
 export type ExternalMunicipality = {
   NOMBRE: string;

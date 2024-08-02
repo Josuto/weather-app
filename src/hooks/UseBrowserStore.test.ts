@@ -1,7 +1,7 @@
-import {renderHook} from "@testing-library/react";
-import {useBrowserStore} from "./UseBrowserStore";
-import {remove, save} from "../util/BrowserStorage";
-import {municipalityFixture} from "../types/Municipality";
+import { useBrowserStore } from "@hooks/UseBrowserStore";
+import { renderHook } from "@testing-library/react";
+import { municipalityFixture } from "@type/Municipality";
+import { remove, save } from "@util/BrowserStorage";
 
 describe("Given the UseBrowserStore hook", () => {
   const municipality = municipalityFixture();
@@ -12,7 +12,7 @@ describe("Given the UseBrowserStore hook", () => {
 
   describe("when there are no municipalities stored in the browser local storage", () => {
     it("should return an empty list of municipalities", () => {
-      const {result} = renderHook(() => useBrowserStore());
+      const { result } = renderHook(() => useBrowserStore());
 
       expect(result.current.length).toBe(0);
     });
@@ -22,7 +22,7 @@ describe("Given the UseBrowserStore hook", () => {
     it("should return them", () => {
       save(municipality);
 
-      const {result} = renderHook(() => useBrowserStore());
+      const { result } = renderHook(() => useBrowserStore());
 
       expect(result.current.length).toBe(1);
     });
@@ -33,7 +33,7 @@ describe("Given the UseBrowserStore hook", () => {
       localStorage.setItem("hello", "world");
       save(municipality);
 
-      const {result} = renderHook(() => useBrowserStore());
+      const { result } = renderHook(() => useBrowserStore());
 
       expect(result.current.length).toBe(1);
     });

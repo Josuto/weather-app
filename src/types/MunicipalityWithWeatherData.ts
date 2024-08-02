@@ -1,4 +1,4 @@
-import { Municipality, municipalityFixture } from "./Municipality";
+import { Municipality, municipalityFixture } from "@type/Municipality";
 
 class Temperature {
   readonly actual!: string;

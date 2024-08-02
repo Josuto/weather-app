@@ -1,8 +1,8 @@
-import {Municipality, municipalityFixture} from "../types/Municipality";
+import { useFetchMunicipalityWithWeatherData } from "@hooks/UseFetchMunicipalityWithWeatherData";
+import { renderHook } from "@testing-library/react";
+import { Municipality, municipalityFixture } from "@type/Municipality";
+import { municipalityWithWeatherDataFixture } from "@type/MunicipalityWithWeatherData";
 import useSWR from "swr";
-import {renderHook} from "@testing-library/react";
-import {useFetchMunicipalityWithWeatherData} from "./UseFetchMunicipalityWithWeatherData";
-import {municipalityWithWeatherDataFixture} from "../types/MunicipalityWithWeatherData";
 
 jest.mock("swr");
 
@@ -38,7 +38,7 @@ describe("Given the UseFetchMunicipalityWithWeatherData hook", () => {
           error: new Error("Service unavailable"),
         });
 
-        const {result} = renderHook(() =>
+        const { result } = renderHook(() =>
           useFetchMunicipalityWithWeatherData(municipality)
         );
 
@@ -54,7 +54,7 @@ describe("Given the UseFetchMunicipalityWithWeatherData hook", () => {
         useSWR.mockReturnValueOnce({
           data: {
             temperatura_actual: "5",
-            temperaturas: {max: "10", min: "2"},
+            temperaturas: { max: "10", min: "2" },
             humedad: "47",
             viento: "30",
             lluvia: "5",
@@ -62,7 +62,7 @@ describe("Given the UseFetchMunicipalityWithWeatherData hook", () => {
           error: undefined,
         });
 
-        const {result} = renderHook(() =>
+        const { result } = renderHook(() =>
           useFetchMunicipalityWithWeatherData(municipality)
         );
 

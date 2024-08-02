@@ -1,14 +1,14 @@
-import {render, screen} from "@testing-library/react";
-import {MunicipalityCard} from "./MunicipalityCard";
-import {municipalityFixture} from "../types/Municipality";
+import { MunicipalityCard } from "@components/MunicipalityCard";
+import { ThemeProvider } from "@mui/material";
+import theme from "@styles/theme";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {get, remove} from "../util/BrowserStorage";
+import { municipalityFixture } from "@type/Municipality";
 import {
   municipalityPayloadFixture,
   MunicipalityWithWeatherData,
-} from "../types/MunicipalityWithWeatherData";
-import theme from "../styles/theme";
-import {ThemeProvider} from "@mui/material";
+} from "@type/MunicipalityWithWeatherData";
+import { get, remove } from "@util/BrowserStorage";
 
 const mockMunicipalityPayload = jest.fn();
 
@@ -17,12 +17,12 @@ jest.mock("../hooks/UseFetchMunicipalityWithWeatherData", () => ({
 }));
 
 async function addMunicipalityToFavorites(): Promise<void> {
-  const saveButton = screen.getByRole("button", {name: "Save"});
+  const saveButton = screen.getByRole("button", { name: "Save" });
   userEvent.click(saveButton);
 }
 
 async function removeMunicipalityFromFavorites(): Promise<void> {
-  const removeButton = await screen.findByRole("button", {name: "Remove"});
+  const removeButton = await screen.findByRole("button", { name: "Remove" });
   userEvent.click(removeButton);
 }
 
@@ -78,7 +78,7 @@ describe("Given a municipality card", () => {
 
   describe("when the municipality weather data has been loaded", () => {
     it("should display the weather data as the card content", () => {
-      const {data} = municipalityPayloadFixture();
+      const { data } = municipalityPayloadFixture();
 
       mockMunicipalityPayload.mockReturnValue({
         data: data,
@@ -140,10 +140,10 @@ describe("Given a municipality card", () => {
 
       await addMunicipalityToFavorites();
 
-      const removeButton = await screen.findByRole("button", {name: "Remove"});
+      const removeButton = await screen.findByRole("button", { name: "Remove" });
       expect(removeButton).toBeInTheDocument();
 
-      const saveButton = screen.queryByRole("button", {name: "Save"});
+      const saveButton = screen.queryByRole("button", { name: "Save" });
       expect(saveButton).not.toBeInTheDocument();
 
       expect(get(municipality.id)).toEqual(municipality);
@@ -160,10 +160,10 @@ describe("Given a municipality card", () => {
         await addMunicipalityToFavorites();
         await removeMunicipalityFromFavorites();
 
-        const saveButton = await screen.findByRole("button", {name: "Save"});
+        const saveButton = await screen.findByRole("button", { name: "Save" });
         expect(saveButton).toBeInTheDocument();
 
-        const removeButton = screen.queryByRole("button", {name: "Remove"});
+        const removeButton = screen.queryByRole("button", { name: "Remove" });
         expect(removeButton).not.toBeInTheDocument();
 
         expect(get(municipality.id)).toBeNull();

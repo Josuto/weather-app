@@ -1,3 +1,4 @@
+import { useFetchMunicipalityWithWeatherData } from "@hooks/UseFetchMunicipalityWithWeatherData";
 import {
   Air,
   Close,
@@ -20,14 +21,13 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useState } from "react";
-import { useFetchMunicipalityWithWeatherData } from "../hooks/UseFetchMunicipalityWithWeatherData";
-import { Municipality } from "../types/Municipality";
+import { Municipality } from "@type/Municipality";
 import {
   MunicipalityPayload,
   MunicipalityWithWeatherData,
-} from "../types/MunicipalityWithWeatherData";
-import { get, remove, save } from "../util/BrowserStorage";
+} from "@type/MunicipalityWithWeatherData";
+import { get, remove, save } from "@util/BrowserStorage";
+import { useState } from "react";
 
 type MunicipalityCardProps = {
   municipality: Municipality;

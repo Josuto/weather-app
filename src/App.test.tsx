@@ -1,12 +1,11 @@
-import {render, screen} from "@testing-library/react";
-import App from "./App";
-import {municipalityFixture} from "./types/Municipality";
+import { ThemeProvider } from "@mui/material";
+import theme from "@styles/theme";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {municipalityPayloadFixture} from "./types/MunicipalityWithWeatherData";
-import {remove, save} from "./util/BrowserStorage";
-import theme from "./styles/theme";
-import {ThemeProvider} from "@mui/material";
-import React from "react";
+import { municipalityFixture } from "@type/Municipality";
+import { municipalityPayloadFixture } from "@type/MunicipalityWithWeatherData";
+import { remove, save } from "@util/BrowserStorage";
+import App from "./App";
 
 const mockMunicipalities = [municipalityFixture()];
 const mockMunicipalityPayload = municipalityPayloadFixture();
