@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node 🕸️
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 20.x
       - name: Install dependencies 💾
         run: yarn install
       - name: Run tests 🚦
