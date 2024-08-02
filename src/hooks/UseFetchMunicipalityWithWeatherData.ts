@@ -1,9 +1,9 @@
-import useSWR from "swr";
-import { Municipality } from "../types/Municipality";
+import { Municipality } from "@type/Municipality";
 import {
   MunicipalityPayload,
   MunicipalityWithWeatherData,
-} from "../types/MunicipalityWithWeatherData";
+} from "@type/MunicipalityWithWeatherData";
+import useSWR from "swr";
 
 const MUNICIPALITY_WEATHER_DATA_URL =
   "https://www.el-tiempo.net/api/json/v2/provincias/{provinceId}/municipios/{id}";

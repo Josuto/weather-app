@@ -1,5 +1,5 @@
-import {get, remove, save} from "./BrowserStorage";
-import {Municipality, municipalityFixture} from "../types/Municipality";
+import { Municipality, municipalityFixture } from "@type/Municipality";
+import { get, remove, save } from "@util/BrowserStorage";
 
 describe("Browser storage utils", () => {
   const municipality = municipalityFixture();

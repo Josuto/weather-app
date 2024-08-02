@@ -1,6 +1,6 @@
-import { Municipalities } from "types/Municipalities";
-import { Municipality } from "types/Municipality";
-import { get, MUNICIPALITY_ID_FORMAT } from "../util/BrowserStorage";
+import { Municipalities } from "@type/Municipalities";
+import { Municipality } from "@type/Municipality";
+import { get, MUNICIPALITY_ID_FORMAT } from "@util/BrowserStorage";
 
 export function useBrowserStore(): Municipalities {
   const municipalities: Municipality[] = [];

@@ -1,4 +1,4 @@
-import { Municipality } from "./Municipality";
+import { Municipality } from "@type/Municipality";
 
 /**
  * Inspired in the Decorator design pattern, this class is a wrapper for an array of municipalities.
