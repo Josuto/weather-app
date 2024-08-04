@@ -14,7 +14,7 @@ describe("Given the UseBrowserStore hook", () => {
     it("should return an empty list of municipalities", () => {
       const { result } = renderHook(() => useBrowserStore());
 
-      expect(result.current.length).toBe(0);
+      expect(result.current.length()).toBe(0);
     });
   });
 
@@ -24,7 +24,7 @@ describe("Given the UseBrowserStore hook", () => {
 
       const { result } = renderHook(() => useBrowserStore());
 
-      expect(result.current.length).toBe(1);
+      expect(result.current.length()).toBe(1);
     });
   });
 
@@ -35,7 +35,7 @@ describe("Given the UseBrowserStore hook", () => {
 
       const { result } = renderHook(() => useBrowserStore());
 
-      expect(result.current.length).toBe(1);
+      expect(result.current.length()).toBe(1);
     });
   });
 });

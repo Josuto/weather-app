@@ -4,7 +4,7 @@ import { Municipality } from "@type/Municipality";
  * Inspired in the Decorator design pattern, this class is a wrapper for an array of municipalities.
  *
  * While instances of this class are iterable and include some JS Array logic, I was not very much
- * interested in implementing the such an interface. Actually, I just wanted to prove a friend of mine
+ * interested in implementing the Array interface. Actually, I just wanted to prove a friend of mine
  * (Aral Roca) the benefits of introducing OO concepts in React apps.
  *
  * JS classes are great to encapsulate the logic of the real world objects they model, and if assured
@@ -14,29 +14,22 @@ import { Municipality } from "@type/Municipality";
  * elsewhere.
  */
 export class Municipalities {
-  private _getMunicipalities: () => Municipality[];
-  getLength: () => number;
-  private _setLength: (value: number) => void;
+  private _getMunicipalities: () => ReadonlyArray<Municipality>;
 
   constructor(municipalities?: Municipality[]) {
-    const _municipalities: Municipality[] = municipalities ?? [];
-    let _length = municipalities?.length ?? 0;
-
-    this.getLength = function () {
-      return _length;
-    };
-
-    this._setLength = function (value: number) {
-      _length = value;
-    };
+    const _municipalities: ReadonlyArray<Municipality> = this.deepCopy(
+      municipalities || []
+    );
 
     this._getMunicipalities = function () {
       return _municipalities;
     };
   }
 
-  get length() {
-    return this.getLength();
+  private deepCopy(municipalities: Municipality[]): ReadonlyArray<Municipality> {
+    return Object.freeze(
+      municipalities.map((municipality) => new Municipality(municipality))
+    );
   }
 
   [Symbol.iterator](): Iterator<Municipality> {
@@ -55,7 +48,11 @@ export class Municipalities {
   }
 
   map<U>(
-    callbackfn: (value: Municipality, index: number, array: Municipality[]) => U
+    callbackfn: (
+      value: Municipality,
+      index: number,
+      array: ReadonlyArray<Municipality>
+    ) => U
   ): U[] {
     return this._getMunicipalities().map(callbackfn);
   }
@@ -73,13 +70,18 @@ export class Municipalities {
         (currentMunicipality) => currentMunicipality.id !== id
       )
     );
-    this._setLength(municipalities.length);
     return municipalities;
   }
 
   add(municipality: Municipality | null): Municipalities {
-    const municipalities = this._getMunicipalities();
-    if (municipality) municipalities.push(municipality);
-    return new Municipalities(municipalities);
+    if (municipality) {
+      return new Municipalities([...this._getMunicipalities(), municipality]);
+    } else {
+      return new Municipalities([...this._getMunicipalities()]);
+    }
+  }
+
+  length(): number {
+    return this._getMunicipalities().length;
   }
 }
