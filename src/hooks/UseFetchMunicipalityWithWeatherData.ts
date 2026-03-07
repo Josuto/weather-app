@@ -1,52 +1,30 @@
-import { Municipality } from "@type/Municipality";
 import {
   MunicipalityPayload,
   MunicipalityWithWeatherData,
 } from "@type/MunicipalityWithWeatherData";
 import useSWR from "swr";
 
-const MUNICIPALITY_WEATHER_DATA_URL =
-  "https://www.el-tiempo.net/api/json/v2/provincias/{provinceId}/municipios/{id}";
-
+const MUNICIPALITY_WEATHER_DATA_URL = "/api/weather-data/{municipalityId}";
 const fetcher = (url: string) => fetch(url).then((result) => result.json());
 
 export function useFetchMunicipalityWithWeatherData(
-  municipality: Municipality
+  municipalityId: string
 ): MunicipalityPayload {
-  if (!municipality) {
+  if (!municipalityId) {
     throw new Error("The given municipality is invalid");
   }
 
   const municipalityWeatherDataFetchUrl = MUNICIPALITY_WEATHER_DATA_URL.replace(
-    "{provinceId}",
-    municipality.provinceId
-  ).replace("{id}", municipality.id);
-
-  const { data, error } = useSWR(municipalityWeatherDataFetchUrl, fetcher, {
+    "{municipalityId}",
+    municipalityId
+  );
+  const {
+    data: municipalityWithWeatherData,
+    error,
+    isLoading,
+  } = useSWR<MunicipalityWithWeatherData>(municipalityWeatherDataFetchUrl, fetcher, {
     revalidateOnMount: true, // re-fetch data when page is refreshed
     refreshInterval: 30000, // re-fetch data every 30 minutes
   });
-
-  if (data) {
-    return {
-      data: new MunicipalityWithWeatherData({
-        weatherData: {
-          temperature: {
-            actual: data?.temperatura_actual,
-            max: data?.temperaturas.max,
-            min: data?.temperaturas.min,
-          },
-          humidity: data?.humedad,
-          wind: data?.viento,
-          rainProbability: data?.lluvia,
-        },
-        ...municipality,
-      }),
-      error: error,
-    };
-  }
-  return {
-    data: municipality,
-    error: error,
-  };
+  return { municipalityWithWeatherData, error, isLoading };
 }

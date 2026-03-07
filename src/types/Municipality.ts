@@ -1,8 +1,6 @@
 export class Municipality {
   readonly id!: string;
   readonly name!: string;
-  readonly provinceId!: string;
-  readonly provinceName!: string;
 
   constructor(municipality: Municipality) {
     Object.assign(this, municipality);
@@ -15,8 +13,6 @@ export const municipalityFixture = ({
   const defaults = new Municipality({
     id: "00001",
     name: "Some municipality",
-    provinceId: "01",
-    provinceName: "Some province",
   });
   return new Municipality({ ...defaults, ...props });
 };

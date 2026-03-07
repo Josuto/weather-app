@@ -1,3 +1,4 @@
+import { Municipalities } from "@type/Municipalities";
 import { Municipality } from "@type/Municipality";
 
 export const MUNICIPALITY_ID_FORMAT = /^\d{5}$/;
@@ -18,4 +19,17 @@ export function remove(municipalityId: string): boolean {
   if (!get(municipalityId)) return false;
   localStorage.removeItem(`${municipalityId}`);
   return true;
+}
+
+export function fetchMunicipalities(): Municipalities {
+  const municipalities: Municipality[] = [];
+  for (let i = 0, length = localStorage.length; i < length; i++) {
+    const municipalityId = localStorage.key(i);
+    if (municipalityId) {
+      const municipality = get(municipalityId);
+      if (municipality) municipalities.push(municipality);
+      // The alternative is not possible, so no need to throw any error here
+    }
+  }
+  return new Municipalities(municipalities);
 }

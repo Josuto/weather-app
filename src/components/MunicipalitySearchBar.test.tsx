@@ -41,14 +41,16 @@ describe("Given the municipality search bar component", () => {
 
   describe("when there are municipalities to select from", () => {
     describe("and none has been selected yet", () => {
-      it("should display all of them", () => {
+      it("should display all of them", async () => {
         const municipality = municipalityFixture();
         const anotherMunicipality = municipalityFixture({
           id: "00002",
           name: "Another municipality",
         });
 
-        mockMunicipalities.mockReturnValueOnce([municipality, anotherMunicipality]);
+        mockMunicipalities.mockReturnValueOnce({
+          municipalities: [municipality, anotherMunicipality],
+        });
 
         render(
           <MunicipalitySearchBar
@@ -59,26 +61,24 @@ describe("Given the municipality search bar component", () => {
 
         clickOnMunicipalitySearchBar();
 
-        const municipalityOptions = screen.queryAllByRole("option");
+        const municipalityOptions = await screen.findAllByRole("option");
         expect(municipalityOptions).toHaveLength(2);
-        expect(municipalityOptions[0]).toHaveTextContent(
-          `${municipality.name} (${municipality.provinceName})`
-        );
-        expect(municipalityOptions[1]).toHaveTextContent(
-          `${anotherMunicipality.name} (${anotherMunicipality.provinceName})`
-        );
+        expect(municipalityOptions[0]).toHaveTextContent(municipality.name);
+        expect(municipalityOptions[1]).toHaveTextContent(anotherMunicipality.name);
       });
     });
 
     describe("and one has already been selected", () => {
-      it("should display all of them but the one selected", () => {
+      it("should display all of them but the one selected", async () => {
         const municipality = municipalityFixture();
         const anotherMunicipality = municipalityFixture({
           id: "00002",
           name: "Another municipality",
         });
 
-        mockMunicipalities.mockReturnValueOnce([municipality, anotherMunicipality]);
+        mockMunicipalities.mockReturnValueOnce({
+          municipalities: [municipality, anotherMunicipality],
+        });
 
         render(
           <MunicipalitySearchBar
@@ -91,11 +91,9 @@ describe("Given the municipality search bar component", () => {
         pickMunicipalityAtSearchBar();
         clickOnMunicipalitySearchBar();
 
-        const municipalityOptions = screen.queryAllByRole("option");
+        const municipalityOptions = await screen.findAllByRole("option");
         expect(municipalityOptions).toHaveLength(1);
-        expect(municipalityOptions[0]).toHaveTextContent(
-          `${anotherMunicipality.name} (${anotherMunicipality.provinceName})`
-        );
+        expect(municipalityOptions[0]).toHaveTextContent(anotherMunicipality.name);
       });
     });
   });

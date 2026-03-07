@@ -1,3 +1,5 @@
+"use client";
+
 import { useFetchMunicipalities } from "@hooks/UseFetchMunicipalities";
 import { Autocomplete, TextField } from "@mui/material";
 import { Municipalities } from "@type/Municipalities";
@@ -12,14 +14,18 @@ export function MunicipalitySearchBar({
   onChange,
   municipalities,
 }: MunicipalitySearchBarProps) {
+  const { municipalities: options, error, isLoading } = useFetchMunicipalities();
+  if (error) return <div>Error loading municipalities</div>;
+  if (isLoading) return <div>Loading municipalities...</div>;
+
   return (
     <Autocomplete
       color={"primary.main"}
       disablePortal
       sx={{ width: 1 }}
       renderInput={(params) => <TextField {...params} label="Municipality" />}
-      options={useFetchMunicipalities()}
-      getOptionLabel={(option) => `${option.name} (${option.provinceName})`}
+      options={options || []}
+      getOptionLabel={(option) => option.name}
       filterOptions={(options: Municipality[], { inputValue }) =>
         options.filter(
           (option) =>

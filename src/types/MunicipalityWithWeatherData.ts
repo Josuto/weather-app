@@ -41,6 +41,7 @@ const weatherDataFixture = ({ ...props }: Partial<WeatherData> = {}): WeatherDat
 };
 
 export class MunicipalityWithWeatherData extends Municipality {
+  readonly province!: string;
   readonly weatherData?: WeatherData;
 
   constructor(municipalityWithWeatherData: MunicipalityWithWeatherData) {
@@ -54,21 +55,23 @@ export const municipalityWithWeatherDataFixture = ({
 }: Partial<MunicipalityWithWeatherData> = {}): MunicipalityWithWeatherData => {
   const defaults = new MunicipalityWithWeatherData({
     ...municipalityFixture(),
+    province: "Madrid",
     weatherData: weatherDataFixture(),
   });
   return new MunicipalityWithWeatherData({ ...defaults, ...props });
 };
 
 export type MunicipalityPayload = {
-  data: Municipality;
-  error?: any;
+  municipalityWithWeatherData?: MunicipalityWithWeatherData;
+  error?: Error;
+  isLoading?: boolean;
 };
 
 export const municipalityPayloadFixture = ({
   ...props
 }: Partial<MunicipalityPayload> = {}): MunicipalityPayload => {
   const defaults: MunicipalityPayload = {
-    data: municipalityWithWeatherDataFixture(),
+    municipalityWithWeatherData: municipalityWithWeatherDataFixture(),
   };
   return { ...defaults, ...props };
 };

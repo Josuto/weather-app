@@ -1,5 +1,5 @@
 import { Municipality, municipalityFixture } from "@type/Municipality";
-import { get, remove, save } from "@util/BrowserStorage";
+import { fetchMunicipalities, get, remove, save } from "@util/BrowserStorage";
 
 describe("Browser storage utils", () => {
   const municipality = municipalityFixture();
@@ -47,13 +47,13 @@ describe("Browser storage utils", () => {
   describe("given the save municipality function", () => {
     describe("when it receives an undefined value", () => {
       it("should throw an error", () => {
-        expect(() => save(undefined as unknown as Municipality)).toThrowError();
+        expect(() => save(undefined as unknown as Municipality)).toThrow();
       });
     });
 
     describe("when it receives a null value", () => {
       it("should throw an error", () => {
-        expect(() => save(null as unknown as Municipality)).toThrowError();
+        expect(() => save(null as unknown as Municipality)).toThrow();
       });
     });
 
@@ -96,6 +96,43 @@ describe("Browser storage utils", () => {
 
       it("should return true", () => {
         expect(remove(municipality.id)).toBe(true);
+      });
+    });
+  });
+
+  describe("Given the fetchMunicipalities function", () => {
+    const municipality = municipalityFixture();
+
+    beforeEach(() => {
+      remove(municipality.id);
+    });
+
+    describe("when there are no municipalities stored in the browser local storage", () => {
+      it("should return an empty list of municipalities", () => {
+        const result = fetchMunicipalities();
+
+        expect(result.length()).toBe(0);
+      });
+    });
+
+    describe("when there are only municipalities stored in the browser local storage", () => {
+      it("should return them", () => {
+        save(municipality);
+
+        const result = fetchMunicipalities();
+
+        expect(result.length()).toBe(1);
+      });
+    });
+
+    describe("when there are municipalities altogether with other data stored in the browser local storage", () => {
+      it("should only return the list of municipalities", () => {
+        localStorage.setItem("hello", "world");
+        save(municipality);
+
+        const result = fetchMunicipalities();
+
+        expect(result.length()).toBe(1);
       });
     });
   });

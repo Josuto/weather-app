@@ -14,32 +14,26 @@ import { Municipality } from "@type/Municipality";
  * elsewhere.
  */
 export class Municipalities {
-  private _getMunicipalities: () => ReadonlyArray<Municipality>;
+  // Use a private property. Jest's toEqual can inspect this during deep equality checks.
+  private readonly _municipalities: ReadonlyArray<Municipality>;
 
-  constructor(municipalities?: Municipality[]) {
-    const _municipalities: ReadonlyArray<Municipality> = this.deepCopy(
-      municipalities || []
-    );
-
-    this._getMunicipalities = function () {
-      return _municipalities;
-    };
+  constructor(items?: Municipality[]) {
+    this._municipalities = this.deepCopy(items || []);
   }
 
-  private deepCopy(municipalities: Municipality[]): ReadonlyArray<Municipality> {
-    return Object.freeze(
-      municipalities.map((municipality) => new Municipality(municipality))
-    );
+  private deepCopy(items: Municipality[]): ReadonlyArray<Municipality> {
+    // Ensure the array and its objects are immutable
+    return Object.freeze(items.map((item) => new Municipality(item)));
   }
 
   [Symbol.iterator](): Iterator<Municipality> {
     let index = 0;
-    const municipalities = this._getMunicipalities();
+    const items = this._municipalities;
 
     return {
       next(): IteratorResult<Municipality> {
-        if (index < municipalities.length) {
-          return { value: municipalities[index++], done: false };
+        if (index < items.length) {
+          return { value: items[index++], done: false };
         } else {
           return { value: undefined, done: true };
         }
@@ -54,34 +48,28 @@ export class Municipalities {
       array: ReadonlyArray<Municipality>
     ) => U
   ): U[] {
-    return this._getMunicipalities().map(callbackfn);
+    return this._municipalities.map(callbackfn);
   }
 
   getIds(): string[] {
-    return this._getMunicipalities().reduce((municipalityIds: string[], municipality) => {
-      municipalityIds.push(municipality.id);
-      return municipalityIds;
-    }, []);
+    return this._municipalities.map((municipality) => municipality.id);
   }
 
   removeById(id: string): Municipalities {
-    const municipalities = new Municipalities(
-      this._getMunicipalities().filter(
-        (currentMunicipality) => currentMunicipality.id !== id
-      )
+    const filtered = this._municipalities.filter(
+      (municipality) => municipality.id !== id
     );
-    return municipalities;
+    return new Municipalities(filtered as Municipality[]);
   }
 
   add(municipality: Municipality | null): Municipalities {
     if (municipality) {
-      return new Municipalities([...this._getMunicipalities(), municipality]);
-    } else {
-      return new Municipalities([...this._getMunicipalities()]);
+      return new Municipalities([...this._municipalities, municipality]);
     }
+    return new Municipalities([...this._municipalities]);
   }
 
   length(): number {
-    return this._getMunicipalities().length;
+    return this._municipalities.length;
   }
 }

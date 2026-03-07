@@ -1,3 +1,5 @@
+"use client";
+
 import { useFetchMunicipalityWithWeatherData } from "@hooks/UseFetchMunicipalityWithWeatherData";
 import {
   Air,
@@ -22,10 +24,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { Municipality } from "@type/Municipality";
-import {
-  MunicipalityPayload,
-  MunicipalityWithWeatherData,
-} from "@type/MunicipalityWithWeatherData";
+import { MunicipalityWithWeatherData } from "@type/MunicipalityWithWeatherData";
 import { get, remove, save } from "@util/BrowserStorage";
 import { useState } from "react";
 
@@ -144,20 +143,11 @@ function MunicipalityCardContentRightContent(municipality: MunicipalityWithWeath
   );
 }
 
-function MunicipalityCardContent({ data, error }: MunicipalityPayload) {
+function MunicipalityCardContent(
+  municipalityWithWeatherData: MunicipalityWithWeatherData
+) {
   const mediumScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
-  if (error || !(data instanceof MunicipalityWithWeatherData)) {
-    return (
-      <>
-        <Box pt={2} alignItems={"center"}>
-          {error && <Typography variant={"h1"}>Loading error</Typography>}
-          {!error && <CircularProgress />}
-        </Box>
-      </>
-    );
-  }
-  const municipalityWithWeatherData = data as MunicipalityWithWeatherData;
   return (
     <>
       <Stack pt={2} direction={mediumScreen ? "row" : "column"} alignItems={"center"}>
@@ -169,32 +159,49 @@ function MunicipalityCardContent({ data, error }: MunicipalityPayload) {
 }
 
 export function MunicipalityCard({ municipality, onClose }: MunicipalityCardProps) {
-  const { data, error } = useFetchMunicipalityWithWeatherData(municipality);
+  const { municipalityWithWeatherData, error, isLoading } =
+    useFetchMunicipalityWithWeatherData(municipality.id);
 
-  return (
-    <Card>
-      <CardHeader
-        sx={{ backgroundColor: "primary.main" }}
-        action={
-          <Stack direction={"column"}>
-            <MunicipalityCardCloseButton municipality={municipality} onClose={onClose} />
-            <MunicipalityCardFavoriteButton {...municipality} />
-          </Stack>
-        }
-        title={
-          <Typography variant={"h1"} align={"center"} color={"primary.contrastText"}>
-            {data.name}
-          </Typography>
-        }
-        subheader={
-          <Typography variant={"h2"} align={"center"} color={"primary.contrastText"}>
-            {data.provinceName}
-          </Typography>
-        }
-      />
-      <CardContent sx={{ textAlign: "center" }}>
-        <MunicipalityCardContent data={data} error={error} />
-      </CardContent>
-    </Card>
-  );
+  if (error || isLoading) {
+    return (
+      <>
+        <Box pt={2} alignItems={"center"}>
+          {error && <Typography variant={"h1"}>Loading error</Typography>}
+          {isLoading && <CircularProgress />}
+        </Box>
+      </>
+    );
+  }
+
+  if (municipalityWithWeatherData) {
+    return (
+      <Card>
+        <CardHeader
+          sx={{ backgroundColor: "primary.main" }}
+          action={
+            <Stack direction={"column"}>
+              <MunicipalityCardCloseButton
+                municipality={municipality}
+                onClose={onClose}
+              />
+              <MunicipalityCardFavoriteButton {...municipality} />
+            </Stack>
+          }
+          title={
+            <Typography variant={"h1"} align={"center"} color={"primary.contrastText"}>
+              {municipalityWithWeatherData.name}
+            </Typography>
+          }
+          subheader={
+            <Typography variant={"h2"} align={"center"} color={"primary.contrastText"}>
+              {municipalityWithWeatherData.province}
+            </Typography>
+          }
+        />
+        <CardContent sx={{ textAlign: "center" }}>
+          <MunicipalityCardContent {...municipalityWithWeatherData} />
+        </CardContent>
+      </Card>
+    );
+  }
 }

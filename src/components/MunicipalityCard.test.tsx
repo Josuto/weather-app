@@ -3,11 +3,9 @@ import { ThemeProvider } from "@mui/material";
 import theme from "@styles/theme";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom";
 import { municipalityFixture } from "@type/Municipality";
-import {
-  municipalityPayloadFixture,
-  MunicipalityWithWeatherData,
-} from "@type/MunicipalityWithWeatherData";
+import { municipalityPayloadFixture } from "@type/MunicipalityWithWeatherData";
 import { get, remove } from "@util/BrowserStorage";
 
 const mockMunicipalityPayload = jest.fn();
@@ -63,6 +61,7 @@ describe("Given a municipality card", () => {
       mockMunicipalityPayload.mockReturnValue({
         data: municipality,
         error: undefined,
+        isLoading: true,
       });
 
       render(
@@ -78,10 +77,10 @@ describe("Given a municipality card", () => {
 
   describe("when the municipality weather data has been loaded", () => {
     it("should display the weather data as the card content", () => {
-      const { data } = municipalityPayloadFixture();
+      const { municipalityWithWeatherData } = municipalityPayloadFixture();
 
       mockMunicipalityPayload.mockReturnValue({
-        data: data,
+        municipalityWithWeatherData: municipalityWithWeatherData,
         error: undefined,
       });
 
@@ -91,24 +90,23 @@ describe("Given a municipality card", () => {
         </ThemeProvider>
       );
 
-      const municipalityWithWeatherData = data as MunicipalityWithWeatherData;
       const humidityValue = screen.getByText(
-        municipalityWithWeatherData.weatherData!.humidity! + "%"
+        municipalityWithWeatherData!.weatherData!.humidity! + "%"
       );
       const windValue = screen.getByText(
-        municipalityWithWeatherData.weatherData!.wind! + " km/h"
+        municipalityWithWeatherData!.weatherData!.wind! + " km/h"
       );
       const rainProbabilityValue = screen.getByText(
-        municipalityWithWeatherData.weatherData!.rainProbability! + "%"
+        municipalityWithWeatherData!.weatherData!.rainProbability! + "%"
       );
       const currentTemperatureValue = screen.getByText(
-        municipalityWithWeatherData.weatherData!.temperature!.actual + "°"
+        municipalityWithWeatherData!.weatherData!.temperature!.actual + "°"
       );
       const maxTemperatureValue = screen.getByText(
-        municipalityWithWeatherData.weatherData!.temperature!.max + "°"
+        municipalityWithWeatherData!.weatherData!.temperature!.max + "°"
       );
       const minTemperatureValue = screen.getByText(
-        municipalityWithWeatherData.weatherData!.temperature!.min + "°"
+        municipalityWithWeatherData!.weatherData!.temperature!.min + "°"
       );
       expect(humidityValue).toBeInTheDocument();
       expect(windValue).toBeInTheDocument();
@@ -120,9 +118,11 @@ describe("Given a municipality card", () => {
   });
 
   describe("when the user clicks on the save card button", () => {
+    const { municipalityWithWeatherData } = municipalityPayloadFixture();
+
     beforeEach(() => {
       mockMunicipalityPayload.mockReturnValue({
-        data: municipality,
+        municipalityWithWeatherData: municipalityWithWeatherData,
         error: undefined,
       });
     });
