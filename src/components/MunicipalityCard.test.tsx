@@ -16,19 +16,19 @@ jest.mock("../hooks/UseFetchMunicipalityWithWeatherData", () => ({
 
 async function addMunicipalityToFavorites(): Promise<void> {
   const saveButton = screen.getByRole("button", { name: "Save" });
-  userEvent.click(saveButton);
+  await userEvent.click(saveButton);
 }
 
 async function removeMunicipalityFromFavorites(): Promise<void> {
   const removeButton = await screen.findByRole("button", { name: "Remove" });
-  userEvent.click(removeButton);
+  await userEvent.click(removeButton);
 }
 
-function closeMunicipalityCard(): void {
+async function closeMunicipalityCard(): Promise<void> {
   const municipalityCardCloseButton = screen.getByRole("button", {
     name: "Close",
   });
-  userEvent.click(municipalityCardCloseButton);
+  await userEvent.click(municipalityCardCloseButton);
 }
 
 describe("Given a municipality card", () => {
@@ -179,7 +179,7 @@ describe("Given a municipality card", () => {
         );
 
         await addMunicipalityToFavorites();
-        closeMunicipalityCard();
+        await closeMunicipalityCard();
 
         expect(get(municipality.id)).toBeNull();
       });

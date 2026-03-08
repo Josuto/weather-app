@@ -10,14 +10,14 @@ jest.mock("../hooks/UseFetchMunicipalities", () => ({
   useFetchMunicipalities: () => mockMunicipalities(),
 }));
 
-function clickOnMunicipalitySearchBar(): void {
+async function clickOnMunicipalitySearchBar(): Promise<void> {
   const municipalitySearchBar = screen.getByRole("combobox");
-  userEvent.click(municipalitySearchBar);
+  await userEvent.click(municipalitySearchBar);
 }
 
-function pickMunicipalityAtSearchBar(): void {
+async function pickMunicipalityAtSearchBar(): Promise<void> {
   const [municipalityOption] = screen.queryAllByRole("option");
-  userEvent.click(municipalityOption);
+  await userEvent.click(municipalityOption);
 }
 
 describe("Given the municipality search bar component", () => {
