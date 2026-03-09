@@ -46,12 +46,16 @@ const customJestConfig = {
       displayName: 'api',
       testEnvironment: 'node',
       // Run this project for your API routes
-      testMatch: ['<rootDir>/src/app/api/**/*.test.{ts,tsx}'],
+      testMatch: [
+        '<rootDir>/src/app/api/**/*.test.{ts,tsx}',
+        '<rootDir>/src/infrastructure/**/*.test.{ts,tsx}',
+      ],
       // You can use a separate setup file if the API needs different globals
       setupFilesAfterEnv: ['<rootDir>/jest.setup.api.js'], 
       transform: { '^.+\\.(t|j)sx?$': ['@swc/jest'] },
       moduleNameMapper: {
         '^@type/(.*)$': '<rootDir>/src/types/$1',
+        '^@infrastructure/(.*)$': '<rootDir>/src/infrastructure/$1',
       },
     }
   ],

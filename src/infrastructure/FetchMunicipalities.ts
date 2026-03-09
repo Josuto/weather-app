@@ -1,16 +1,15 @@
 import { Municipality } from "@type/Municipality";
-import { getInitialLink, decode, ExternalMunicipality } from "../helper";
+import { getInitialLink, decode, ExternalMunicipality } from "../app/api/helper";
 
 const AEMET_MUNICIPALITIES_URL =
   "https://opendata.aemet.es/opendata/api/maestro/municipios";
 
-export async function GET(): Promise<Response> {
+export async function fetchMunicipalities(): Promise<Municipality[]> {
   try {
     const initialLink = await getInitialLink(AEMET_MUNICIPALITIES_URL);
-    const municipalities = await getMunicipalities(initialLink);
-    return Response.json(municipalities);
+    return await getMunicipalities(initialLink);
   } catch (error) {
-    return new Response(`Failed to fetch municipalities: ${error}`, { status: 500 });
+    throw new Error(`Failed to fetch municipalities: ${error}`);
   }
 }
 

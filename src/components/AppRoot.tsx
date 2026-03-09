@@ -8,7 +8,7 @@ import { Municipality } from "@type/Municipality";
 import { fetchMunicipalities } from "@util/BrowserStorage";
 import { useEffect, useState } from "react";
 
-function AppRoot() {
+function AppRoot({ allMunicipalities }: { allMunicipalities: Municipality[] }) {
   // The following block is needed to avoid server-vs-client initial render mismatch;
   // the server doesn't have access to the browser storage, so it will always return
   // an empty array, while the client will return the actual saved municipalities
@@ -34,7 +34,8 @@ function AppRoot() {
       <Container maxWidth={"sm"} sx={{ pt: 5, pb: { xs: 5, sm: 10 } }}>
         <MunicipalitySearchBar
           onChange={addMunicipality}
-          municipalities={municipalities}
+          allMunicipalities={allMunicipalities}
+          savedMunicipalities={municipalities}
         />
       </Container>
       <Grid

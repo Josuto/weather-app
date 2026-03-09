@@ -4,12 +4,6 @@ import userEvent from "@testing-library/user-event";
 import { Municipalities } from "@type/Municipalities";
 import { municipalityFixture } from "@type/Municipality";
 
-const mockMunicipalities = jest.fn();
-
-jest.mock("../hooks/UseFetchMunicipalities", () => ({
-  useFetchMunicipalities: () => mockMunicipalities(),
-}));
-
 async function clickOnMunicipalitySearchBar(): Promise<void> {
   const municipalitySearchBar = screen.getByRole("combobox");
   await userEvent.click(municipalitySearchBar);
@@ -23,12 +17,11 @@ async function pickMunicipalityAtSearchBar(): Promise<void> {
 describe("Given the municipality search bar component", () => {
   describe("when there are no municipalities to select from", () => {
     it("should not display any of them", () => {
-      mockMunicipalities.mockReturnValueOnce([]);
-
       render(
         <MunicipalitySearchBar
           onChange={() => {}}
-          municipalities={new Municipalities([])}
+          allMunicipalities={[]}
+          savedMunicipalities={new Municipalities([])}
         />
       );
 
@@ -48,14 +41,11 @@ describe("Given the municipality search bar component", () => {
           name: "Another municipality",
         });
 
-        mockMunicipalities.mockReturnValueOnce({
-          municipalities: [municipality, anotherMunicipality],
-        });
-
         render(
           <MunicipalitySearchBar
             onChange={() => {}}
-            municipalities={new Municipalities()}
+            allMunicipalities={[municipality, anotherMunicipality]}
+            savedMunicipalities={new Municipalities()}
           />
         );
 
@@ -76,14 +66,11 @@ describe("Given the municipality search bar component", () => {
           name: "Another municipality",
         });
 
-        mockMunicipalities.mockReturnValueOnce({
-          municipalities: [municipality, anotherMunicipality],
-        });
-
         render(
           <MunicipalitySearchBar
             onChange={() => {}}
-            municipalities={new Municipalities([municipality])}
+            allMunicipalities={[municipality, anotherMunicipality]}
+            savedMunicipalities={new Municipalities([municipality])}
           />
         );
 
