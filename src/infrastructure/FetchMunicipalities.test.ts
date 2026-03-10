@@ -6,6 +6,10 @@ import { ExternalMunicipality } from "../app/api/helper";
 // Mock the fetch function
 global.fetch = jest.fn();
 
+jest.mock('next/cache', () => ({
+  cacheLife: jest.fn(),
+}));
+
 describe("Given the fetch municipalities function", () => {
   let mockMunicipalities: ExternalMunicipality[];
   const mockApiKey = "test-api-key";
@@ -66,7 +70,7 @@ describe("Given the fetch municipalities function", () => {
 
       expect(municipalities).toHaveLength(2);
       expect(
-        municipalities.map((municipality: Municipality) => municipality.name)
+        municipalities.map((municipality) => municipality.name)
       ).toEqual(["Madrid", "Barcelona"]);
     });
 

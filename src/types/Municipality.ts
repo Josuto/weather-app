@@ -2,8 +2,15 @@ export class Municipality {
   readonly id!: string;
   readonly name!: string;
 
-  constructor(municipality: Municipality) {
+  constructor(municipality: Pick<Municipality, "id" | "name">) {
     Object.assign(this, municipality);
+  }
+
+  toPlainObject() {
+    return {
+      id: this.id,
+      name: this.name,
+    };
   }
 }
 

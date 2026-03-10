@@ -1,12 +1,20 @@
 import { Municipality, municipalityFixture } from "@type/Municipality";
 
-class Temperature {
+export class Temperature {
   readonly actual!: string;
   readonly max!: string;
   readonly min!: string;
 
-  constructor(temperature: Temperature) {
+  constructor(temperature: Pick<Temperature, "actual" | "max" | "min">) {
     Object.assign(this, temperature);
+  }
+
+  toPlainObject() {
+    return {
+      actual: this.actual,
+      max: this.max,
+      min: this.min,
+    };
   }
 }
 
@@ -19,20 +27,29 @@ const temperatureFixture = ({ ...props }: Partial<Temperature> = {}): Temperatur
   return new Temperature({ ...defaults, ...props });
 };
 
-class WeatherData {
+export class WeatherData {
   readonly temperature!: Temperature;
   readonly humidity!: string;
   readonly wind!: string;
   readonly rainProbability!: string;
 
-  constructor(weatherData: WeatherData) {
+  constructor(weatherData: Pick<WeatherData, "temperature" | "humidity" | "wind" | "rainProbability">) {
     Object.assign(this, weatherData);
+  }
+
+  toPlainObject() {
+    return {
+      temperature: this.temperature.toPlainObject(),
+      humidity: this.humidity,
+      wind: this.wind,
+      rainProbability: this.rainProbability,
+    };
   }
 }
 
 const weatherDataFixture = ({ ...props }: Partial<WeatherData> = {}): WeatherData => {
   const defaults = new WeatherData({
-    temperature: { ...temperatureFixture() },
+    temperature: temperatureFixture(),
     humidity: "47",
     wind: "30",
     rainProbability: "5",
@@ -44,9 +61,17 @@ export class MunicipalityWithWeatherData extends Municipality {
   readonly province!: string;
   readonly weatherData?: WeatherData;
 
-  constructor(municipalityWithWeatherData: MunicipalityWithWeatherData) {
+  constructor(municipalityWithWeatherData: Pick<MunicipalityWithWeatherData, "id" | "name" | "province" | "weatherData">) {
     super(municipalityWithWeatherData);
     Object.assign(this, municipalityWithWeatherData);
+  }
+
+  toPlainObject() {
+    return {
+      ...super.toPlainObject(),
+      province: this.province,
+      weatherData: this.weatherData?.toPlainObject(),
+    };
   }
 }
 

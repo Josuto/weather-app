@@ -1,13 +1,22 @@
 import { Municipality } from "@type/Municipality";
 import { getInitialLink, decode, ExternalMunicipality } from "../app/api/helper";
+import { cacheLife } from "next/cache";
 
 const AEMET_MUNICIPALITIES_URL =
   "https://opendata.aemet.es/opendata/api/maestro/municipios";
 
-export async function fetchMunicipalities(): Promise<Municipality[]> {
+type MunicipalityPlainObject = {
+  id: string;
+  name: string;
+};
+
+export async function fetchMunicipalities(): Promise<MunicipalityPlainObject[]> {
+  "use cache"
+
   try {
+    cacheLife("max");
     const initialLink = await getInitialLink(AEMET_MUNICIPALITIES_URL);
-    return await getMunicipalities(initialLink);
+    return (await getMunicipalities(initialLink)).map((municipality) => municipality.toPlainObject());
   } catch (error) {
     throw new Error(`Failed to fetch municipalities: ${error}`);
   }
@@ -17,7 +26,7 @@ async function getMunicipalities(url: string): Promise<Municipality[]> {
   let response;
   try {
     response = await fetch(url, {
-      next: { revalidate: 1800 } /* 30 minutes in seconds*/,
+      cache: "no-store",
     });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : JSON.stringify(error);

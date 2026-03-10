@@ -41,6 +41,7 @@ export async function getInitialLink(url: string): Promise<string> {
   let response;
   try {
     response = await fetch(url, {
+      cache: "no-store",
       headers: {
         Authorization: `Bearer ${process.env.AEMET_API_KEY}`,
       },
