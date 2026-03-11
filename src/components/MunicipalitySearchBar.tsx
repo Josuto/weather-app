@@ -7,13 +7,13 @@ import { Municipality } from "@type/Municipality";
 type MunicipalitySearchBarProps = {
   onChange: (municipality: Municipality | null) => void;
   allMunicipalities: Municipality[];
-  savedMunicipalities: Municipalities;
+  storedMunicipalities: Municipalities;
 };
 
 export function MunicipalitySearchBar({
   onChange,
   allMunicipalities,
-  savedMunicipalities,
+  storedMunicipalities,
 }: MunicipalitySearchBarProps) {
   return (
     <Autocomplete
@@ -27,7 +27,7 @@ export function MunicipalitySearchBar({
         options.filter(
           (option) =>
             option.name.toLowerCase().startsWith(inputValue.toLowerCase()) &&
-            !savedMunicipalities.getIds().includes(option.id)
+            !storedMunicipalities.getIds().includes(option.id)
         )
       }
       isOptionEqualToValue={(option, value) => option.id === value.id}

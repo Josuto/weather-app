@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { municipalityFixture } from "@type/Municipality";
 import { municipalityPayloadFixture } from "@type/MunicipalityWithWeatherData";
-import { get, remove } from "@util/BrowserStorage";
+import { fetchFromBrowserStorage, removeFromBrowserStorage } from "@util/BrowserStorage";
 
 const mockMunicipalityPayload = jest.fn();
 
@@ -128,7 +128,7 @@ describe("Given a municipality card", () => {
     });
 
     afterEach(() => {
-      remove(municipality.id);
+      removeFromBrowserStorage(municipality.id);
     });
 
     it("should change the button to a remove card button and save the municipality from the local storage", async () => {
@@ -146,7 +146,7 @@ describe("Given a municipality card", () => {
       const saveButton = screen.queryByRole("button", { name: "Save" });
       expect(saveButton).not.toBeInTheDocument();
 
-      expect(get(municipality.id)).toEqual(municipality);
+      expect(fetchFromBrowserStorage(municipality.id)).toEqual(municipality);
     });
 
     describe("and then the user clicks on the remove card button", () => {
@@ -166,7 +166,7 @@ describe("Given a municipality card", () => {
         const removeButton = screen.queryByRole("button", { name: "Remove" });
         expect(removeButton).not.toBeInTheDocument();
 
-        expect(get(municipality.id)).toBeNull();
+        expect(fetchFromBrowserStorage(municipality.id)).toBeNull();
       });
     });
 
@@ -181,7 +181,7 @@ describe("Given a municipality card", () => {
         await addMunicipalityToFavorites();
         await closeMunicipalityCard();
 
-        expect(get(municipality.id)).toBeNull();
+        expect(fetchFromBrowserStorage(municipality.id)).toBeNull();
       });
     });
   });

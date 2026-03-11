@@ -5,37 +5,37 @@ import { MunicipalitySearchBar } from "@components/MunicipalitySearchBar";
 import { Container, Grid } from "@mui/material";
 import { Municipalities } from "@type/Municipalities";
 import { Municipality } from "@type/Municipality";
-import { fetchMunicipalities } from "@util/BrowserStorage";
+import { fetchStoredMunicipalities } from "@util/BrowserStorage";
 import { useEffect, useState } from "react";
 
 function AppRoot({ allMunicipalities }: { allMunicipalities: Municipality[] }) {
   // The following block is needed to avoid server-vs-client initial render mismatch;
   // the server doesn't have access to the browser storage, so it will always return
   // an empty array, while the client will return the actual saved municipalities
-  const [municipalities, setMunicipalities] = useState<Municipalities>(
+  const [storedMunicipalities, setStoredMunicipalities] = useState<Municipalities>(
     new Municipalities([])
   );
   useEffect(() => {
-    const savedMunicipalities = fetchMunicipalities();
+    const storedMunicipalities = fetchStoredMunicipalities();
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMunicipalities(savedMunicipalities);
+    setStoredMunicipalities(storedMunicipalities);
   }, []);
 
-  function addMunicipality(municipality: Municipality | null) {
-    setMunicipalities(municipalities.add(municipality));
+  function addMunicipalityToStorage(municipality: Municipality | null) {
+    setStoredMunicipalities(storedMunicipalities.add(municipality));
   }
 
-  function removeMunicipality(municipality: Municipality) {
-    setMunicipalities(municipalities.removeById(municipality.id));
+  function removeMunicipalityFromStorage(municipality: Municipality) {
+    setStoredMunicipalities(storedMunicipalities.removeById(municipality.id));
   }
 
   return (
     <>
       <Container maxWidth={"sm"} sx={{ pt: 5, pb: { xs: 5, sm: 10 } }}>
         <MunicipalitySearchBar
-          onChange={addMunicipality}
+          onChange={addMunicipalityToStorage}
           allMunicipalities={allMunicipalities}
-          savedMunicipalities={municipalities}
+          storedMunicipalities={storedMunicipalities}
         />
       </Container>
       <Grid
@@ -44,11 +44,11 @@ function AppRoot({ allMunicipalities }: { allMunicipalities: Municipality[] }) {
         spacing={2}
         sx={{ px: { xs: 2.5, sm: 5 } }}
       >
-        {municipalities.map((municipality) => (
+        {storedMunicipalities.map((municipality) => (
           <MunicipalityCard
             key={municipality.id}
             municipality={municipality}
-            onClose={removeMunicipality}
+            onClose={removeMunicipalityFromStorage}
           />
         ))}
       </Grid>

@@ -21,7 +21,7 @@ describe("Given the municipality search bar component", () => {
         <MunicipalitySearchBar
           onChange={() => {}}
           allMunicipalities={[]}
-          savedMunicipalities={new Municipalities([])}
+          storedMunicipalities={new Municipalities([])}
         />
       );
 
@@ -45,7 +45,7 @@ describe("Given the municipality search bar component", () => {
           <MunicipalitySearchBar
             onChange={() => {}}
             allMunicipalities={[municipality, anotherMunicipality]}
-            savedMunicipalities={new Municipalities()}
+            storedMunicipalities={new Municipalities()}
           />
         );
 
@@ -70,7 +70,7 @@ describe("Given the municipality search bar component", () => {
           <MunicipalitySearchBar
             onChange={() => {}}
             allMunicipalities={[municipality, anotherMunicipality]}
-            savedMunicipalities={new Municipalities([municipality])}
+            storedMunicipalities={new Municipalities([municipality])}
           />
         );
 

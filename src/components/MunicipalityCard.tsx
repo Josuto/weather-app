@@ -25,7 +25,11 @@ import {
 } from "@mui/material";
 import { Municipality } from "@type/Municipality";
 import { MunicipalityWithWeatherData } from "@type/MunicipalityWithWeatherData";
-import { get, remove, save } from "@util/BrowserStorage";
+import {
+  fetchFromBrowserStorage,
+  removeFromBrowserStorage,
+  saveToBrowserStorage,
+} from "@util/BrowserStorage";
 import { useState } from "react";
 
 type MunicipalityCardProps = {
@@ -38,7 +42,7 @@ function MunicipalityCardCloseButton({ municipality, onClose }: MunicipalityCard
     <IconButton
       aria-label={"Close"}
       onClick={() => {
-        remove(municipality.id);
+        removeFromBrowserStorage(municipality.id);
         onClose(municipality);
       }}
     >
@@ -48,26 +52,29 @@ function MunicipalityCardCloseButton({ municipality, onClose }: MunicipalityCard
 }
 
 function MunicipalityCardFavoriteButton(municipality: Municipality) {
-  const [isSaved, setSaved] = useState(!!get(municipality.id));
+  const [isStored, setStored] = useState(!!fetchFromBrowserStorage(municipality.id));
 
-  function handleMunicipalityStorage(isSaved: boolean, municipality: Municipality): void {
-    if (!isSaved) {
-      save(municipality);
+  function handleMunicipalityStorage(
+    isStored: boolean,
+    municipality: Municipality
+  ): void {
+    if (!isStored) {
+      saveToBrowserStorage(municipality);
     } else {
-      remove(municipality.id);
+      removeFromBrowserStorage(municipality.id);
     }
   }
 
   return (
     <IconButton
-      aria-label={isSaved ? "Remove" : "Save"}
+      aria-label={isStored ? "Remove" : "Save"}
       onClick={() => {
-        handleMunicipalityStorage(isSaved, municipality);
-        setSaved(!isSaved);
+        handleMunicipalityStorage(isStored, municipality);
+        setStored(!isStored);
       }}
     >
-      {!isSaved && <FavoriteBorder color={"secondary"} />}
-      {isSaved && <Favorite color={"secondary"} />}
+      {!isStored && <FavoriteBorder color={"secondary"} />}
+      {isStored && <Favorite color={"secondary"} />}
     </IconButton>
   );
 }

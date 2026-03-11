@@ -1,5 +1,5 @@
-import { Municipalities } from "./Municipalities";
-import { municipalityFixture } from "./Municipality";
+import { Municipalities } from "@type/Municipalities";
+import { municipalityFixture } from "@type/Municipality";
 
 describe("Given the municipalities wrapper", () => {
   describe("when retrieving the list of municipality IDs", () => {
