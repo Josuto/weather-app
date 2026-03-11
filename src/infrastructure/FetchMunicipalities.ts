@@ -1,6 +1,7 @@
 import { Municipality } from "@type/Municipality";
-import { getInitialLink, decode, ExternalMunicipality } from "../app/api/helper";
+import { fetchInitialLink as fetchInitialLink, decode } from "../app/api/helper";
 import { cacheLife } from "next/cache";
+import { mapToMunicipalities } from "@infrastructure/ExternalMunicipality";
 
 const AEMET_MUNICIPALITIES_URL =
   "https://opendata.aemet.es/opendata/api/maestro/municipios";
@@ -10,14 +11,14 @@ export async function fetchMunicipalities(): Promise<Municipality[]> {
 
   try {
     cacheLife("max");
-    const initialLink = await getInitialLink(AEMET_MUNICIPALITIES_URL);
-    return await getMunicipalities(initialLink);
+    const initialLink = await fetchInitialLink(AEMET_MUNICIPALITIES_URL);
+    return await fetchMunicipalitiesFrom(initialLink);
   } catch (error) {
     throw new Error(`Failed to fetch municipalities: ${error}`);
   }
 }
 
-async function getMunicipalities(url: string): Promise<Municipality[]> {
+async function fetchMunicipalitiesFrom(url: string): Promise<Municipality[]> {
   let response;
   try {
     response = await fetch(url, {
@@ -33,23 +34,4 @@ async function getMunicipalities(url: string): Promise<Municipality[]> {
 
   const extMunicipalities = await decode(response);
   return mapToMunicipalities(extMunicipalities);
-}
-
-function mapToMunicipalities(extMunicipalities: ExternalMunicipality[]): Municipality[] {
-  // Deduplicate and clean in one linear pass (O(n))
-  const municipalityMap = new Map<string, Municipality>();
-  extMunicipalities.forEach((extMunicipality: ExternalMunicipality) => {
-    const municipalityKey = extMunicipality.nombre;
-    if (!municipalityMap.has(municipalityKey)) {
-      municipalityMap.set(municipalityKey, mapToMunicipality(extMunicipality));
-    }
-  });
-  return Array.from(municipalityMap.values());
-}
-
-function mapToMunicipality(extMunicipality: ExternalMunicipality): Municipality {
-  return {
-    id: extMunicipality.id.substring(2), // Remove 'id' prefix
-    name: extMunicipality.nombre.trim(), // Fixes trailing spaces like "Abadiño "
-  };
 }

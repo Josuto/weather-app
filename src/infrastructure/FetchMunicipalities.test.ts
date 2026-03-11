@@ -1,12 +1,10 @@
-import { Municipality } from "@type/Municipality";
 import { fetchMunicipalities } from "@infrastructure/FetchMunicipalities";
-import { TextEncoder } from "util";
-import { ExternalMunicipality } from "../app/api/helper";
+import { ExternalMunicipality } from "@infrastructure/ExternalMunicipality";
 
 // Mock the fetch function
 global.fetch = jest.fn();
 
-jest.mock('next/cache', () => ({
+jest.mock("next/cache", () => ({
   cacheLife: jest.fn(),
 }));
 
@@ -69,9 +67,10 @@ describe("Given the fetch municipalities function", () => {
       const municipalities = await fetchMunicipalities();
 
       expect(municipalities).toHaveLength(2);
-      expect(
-        municipalities.map((municipality) => municipality.name)
-      ).toEqual(["Madrid", "Barcelona"]);
+      expect(municipalities.map((municipality) => municipality.name)).toEqual([
+        "Madrid",
+        "Barcelona",
+      ]);
     });
 
     it("should trim whitespace from municipality names", async () => {

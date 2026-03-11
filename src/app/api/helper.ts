@@ -1,43 +1,4 @@
-export type ExternalMunicipality = {
-  id: string;
-  nombre: string;
-};
-
-export type ExternalMunicipalityWithWeatherData = ExternalMunicipality & {
-  provincia: string;
-  prediccion: {
-    dia: [
-      {
-        temperatura: [
-          {
-            value: string;
-            periodo: string;
-          },
-        ];
-        precipitacion: [
-          {
-            value: string;
-            periodo: string;
-          },
-        ];
-        vientoAndRachaMax: [
-          {
-            value: string;
-            periodo: string;
-          },
-        ];
-        humedadRelativa: [
-          {
-            value: string;
-            periodo: string;
-          },
-        ];
-      },
-    ];
-  };
-};
-
-export async function getInitialLink(url: string): Promise<string> {
+export async function fetchInitialLink(url: string): Promise<string> {
   let response;
   try {
     response = await fetch(url, {

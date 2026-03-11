@@ -1,12 +1,9 @@
-import {
-  getInitialLink,
-  decode,
-  ExternalMunicipalityWithWeatherData,
-} from "../../helper";
+import { fetchInitialLink, decode } from "../../helper";
 import { NextRequest } from "next/server";
 
 import { cacheLife } from "next/cache";
 import { MunicipalityWithWeatherData } from "@type/MunicipalityWithWeatherData";
+import { mapToMunicipalityWithWeatherData } from "@infrastructure/ExternalMunicipalityWithWeatherData";
 
 const AEMET_MUNICIPALITIES_URL =
   "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/";
@@ -31,11 +28,11 @@ async function fetchMunicipalityWithWeatherData(
   "use cache";
 
   cacheLife("hours");
-  const initialLink = await getInitialLink(AEMET_MUNICIPALITIES_URL + municipality);
-  return await getMunicipalityWithWeatherData(initialLink);
+  const initialLink = await fetchInitialLink(AEMET_MUNICIPALITIES_URL + municipality);
+  return await fetchMunicipalityWithWeatherDataFrom(initialLink);
 }
 
-async function getMunicipalityWithWeatherData(
+async function fetchMunicipalityWithWeatherDataFrom(
   url: string
 ): Promise<MunicipalityWithWeatherData> {
   let response;
@@ -55,41 +52,4 @@ async function getMunicipalityWithWeatherData(
 
   const decodedData = await decode(response);
   return mapToMunicipalityWithWeatherData(decodedData[0]);
-}
-
-function mapToMunicipalityWithWeatherData(
-  extMunicipality: ExternalMunicipalityWithWeatherData
-): MunicipalityWithWeatherData {
-  const temperatura = extMunicipality.prediccion.dia[0].temperatura;
-  const precipitacion = extMunicipality.prediccion.dia[0].precipitacion;
-  const humedadRelativa = extMunicipality.prediccion.dia[0].humedadRelativa;
-  const viento = extMunicipality.prediccion.dia[0].vientoAndRachaMax;
-
-  return {
-    id: extMunicipality.id.substring(2), // Remove 'id' prefix
-    name: extMunicipality.nombre.trim(), // Fixes trailing spaces like "Abadiño "
-    province: extMunicipality.provincia.trim(),
-    weatherData: {
-      temperature: {
-        actual: getCurrentValue(temperatura),
-        max: Math.max(...temperatura.map((t) => parseInt(t.value))).toString(),
-        min: Math.min(...temperatura.map((t) => parseInt(t.value))).toString(),
-      },
-      humidity: getCurrentValue(humedadRelativa),
-      rainProbability: getCurrentValue(precipitacion),
-      wind: getCurrentValue(viento.filter((item) => item.value && item.periodo)),
-    },
-  };
-}
-
-function getCurrentValue(dataArray: { value: string; periodo: string }[]): string {
-  const now = new Date().getHours();
-  return (
-    dataArray
-      .find((d) => {
-        const time = parseInt(d.periodo) == 24 ? 0 : parseInt(d.periodo);
-        return now >= time && time + 1 > now;
-      })
-      ?.value.toString() || "N/A"
-  );
 }
