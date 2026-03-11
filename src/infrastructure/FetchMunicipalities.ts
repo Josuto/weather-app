@@ -5,18 +5,13 @@ import { cacheLife } from "next/cache";
 const AEMET_MUNICIPALITIES_URL =
   "https://opendata.aemet.es/opendata/api/maestro/municipios";
 
-type MunicipalityPlainObject = {
-  id: string;
-  name: string;
-};
-
-export async function fetchMunicipalities(): Promise<MunicipalityPlainObject[]> {
-  "use cache"
+export async function fetchMunicipalities(): Promise<Municipality[]> {
+  "use cache";
 
   try {
     cacheLife("max");
     const initialLink = await getInitialLink(AEMET_MUNICIPALITIES_URL);
-    return (await getMunicipalities(initialLink)).map((municipality) => municipality.toPlainObject());
+    return await getMunicipalities(initialLink);
   } catch (error) {
     throw new Error(`Failed to fetch municipalities: ${error}`);
   }
@@ -53,8 +48,8 @@ function mapToMunicipalities(extMunicipalities: ExternalMunicipality[]): Municip
 }
 
 function mapToMunicipality(extMunicipality: ExternalMunicipality): Municipality {
-  return new Municipality({
+  return {
     id: extMunicipality.id.substring(2), // Remove 'id' prefix
     name: extMunicipality.nombre.trim(), // Fixes trailing spaces like "Abadiño "
-  });
+  };
 }

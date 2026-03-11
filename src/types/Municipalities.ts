@@ -23,7 +23,7 @@ export class Municipalities {
 
   private deepCopy(items: Municipality[]): ReadonlyArray<Municipality> {
     // Ensure the array and its objects are immutable
-    return Object.freeze(items.map((item) => new Municipality(item)));
+    return Object.freeze(items);
   }
 
   [Symbol.iterator](): Iterator<Municipality> {
