@@ -1,9 +1,11 @@
 import { fetchMunicipalityWithWeatherData } from "@infrastructure/FetchMunicipalityWithWeatherData";
 import { NextRequest } from "next/server";
 
+type Params = Promise<{ municipality: string }>;
+
 export async function GET(
   request: NextRequest,
-  context: RouteContext<"/api/weather-data/[municipality]">
+  context: { params: Params }
 ): Promise<Response> {
   try {
     const { municipality } = await context.params;

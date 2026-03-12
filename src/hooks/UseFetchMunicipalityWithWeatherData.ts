@@ -4,7 +4,7 @@ import {
 } from "@type/MunicipalityWithWeatherData";
 import useSWR from "swr";
 
-const MUNICIPALITY_WEATHER_DATA_URL = "/api/weather-data/{municipalityId}";
+const MUNICIPALITY_WEATHER_DATA_URL = "/api/municipalities/{municipalityId}/weather-data";
 const fetcher = (url: string) => fetch(url).then((result) => result.json());
 
 export function useFetchMunicipalityWithWeatherData(
