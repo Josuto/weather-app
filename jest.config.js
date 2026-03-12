@@ -55,6 +55,7 @@ const customJestConfig = {
       transform: { '^.+\\.(t|j)sx?$': ['@swc/jest'] },
       moduleNameMapper: {
         '^@type/(.*)$': '<rootDir>/src/types/$1',
+        '^@util/(.*)$': '<rootDir>/src/util/$1',
         '^@infrastructure/(.*)$': '<rootDir>/src/infrastructure/$1',
       },
     }

@@ -1,7 +1,8 @@
 import { Municipality } from "@type/Municipality";
-import { fetchInitialLink as fetchInitialLink, decode } from "../app/api/helper";
 import { cacheLife } from "next/cache";
 import { mapToMunicipalities } from "@infrastructure/ExternalMunicipality";
+import { fetchInitialLink } from "@infrastructure/FetchInitialLink";
+import { decode } from "@util/DecodeResult";
 
 const AEMET_MUNICIPALITIES_URL =
   "https://opendata.aemet.es/opendata/api/maestro/municipios";
