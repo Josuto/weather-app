@@ -1,47 +1,73 @@
 import { ExternalMunicipality } from "@infrastructure/ExternalMunicipality";
 import { MunicipalityWithWeatherData } from "@type/MunicipalityWithWeatherData";
 
+type ValueWithPeriod = {
+  value: string;
+  periodo: string;
+};
+
 export type ExternalMunicipalityWithWeatherData = ExternalMunicipality & {
   provincia: string;
   prediccion: {
-    dia: [
-      {
-        temperatura: [
-          {
-            value: string;
-            periodo: string;
-          },
-        ];
-        precipitacion: [
-          {
-            value: string;
-            periodo: string;
-          },
-        ];
-        vientoAndRachaMax: [
-          {
-            value: string;
-            periodo: string;
-          },
-        ];
-        humedadRelativa: [
-          {
-            value: string;
-            periodo: string;
-          },
-        ];
-      },
-    ];
+    dia: {
+      temperatura: ValueWithPeriod[];
+      precipitacion: ValueWithPeriod[];
+      vientoAndRachaMax: ValueWithPeriod[];
+      humedadRelativa: ValueWithPeriod[];
+    }[];
+  };
+};
+
+export const createMockExternalMunicipality = (
+  props: Partial<ExternalMunicipalityWithWeatherData> = {}
+): ExternalMunicipalityWithWeatherData => {
+  return {
+    id: "id28001",
+    nombre: "Madrid ",
+    provincia: "Madrid ",
+    prediccion: {
+      dia: [
+        {
+          temperatura: [{ value: "10", periodo: "00" }],
+          precipitacion: [{ value: "10", periodo: "00" }],
+          vientoAndRachaMax: [{ value: "15", periodo: "00" }],
+          humedadRelativa: [{ value: "60", periodo: "00" }],
+        },
+        {
+          temperatura: [
+            { value: "5", periodo: "00" },
+            { value: "8", periodo: "01" },
+            { value: "12", periodo: "02" },
+          ],
+          precipitacion: [
+            { value: "10", periodo: "00" },
+            { value: "5", periodo: "01" },
+            { value: "0", periodo: "02" },
+          ],
+          vientoAndRachaMax: [
+            { value: "15", periodo: "00" },
+            { value: "20", periodo: "01" },
+            { value: "18", periodo: "02" },
+          ],
+          humedadRelativa: [
+            { value: "60", periodo: "00" },
+            { value: "55", periodo: "01" },
+            { value: "50", periodo: "02" },
+          ],
+        },
+      ],
+    },
+    ...props,
   };
 };
 
 export function mapToMunicipalityWithWeatherData(
   extMunicipality: ExternalMunicipalityWithWeatherData
 ): MunicipalityWithWeatherData {
-  const temperatura = extMunicipality.prediccion.dia[0].temperatura;
-  const precipitacion = extMunicipality.prediccion.dia[0].precipitacion;
-  const humedadRelativa = extMunicipality.prediccion.dia[0].humedadRelativa;
-  const viento = extMunicipality.prediccion.dia[0].vientoAndRachaMax;
+  const temperatura = extMunicipality.prediccion.dia[1].temperatura;
+  const precipitacion = extMunicipality.prediccion.dia[1].precipitacion;
+  const humedadRelativa = extMunicipality.prediccion.dia[1].humedadRelativa;
+  const viento = extMunicipality.prediccion.dia[1].vientoAndRachaMax;
 
   return {
     id: extMunicipality.id.substring(2), // Remove 'id' prefix
