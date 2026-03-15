@@ -71,6 +71,18 @@ describe("Given the fetch initial link function", () => {
     });
   });
 
+  describe("Error cases - AEMET API key is undefined", () => {
+    beforeEach(() => {
+      delete process.env.AEMET_API_KEY;
+    });
+
+    it("should throw an error when AEMET_API_KEY is undefined", async () => {
+      await expect(fetchInitialLink(mockUrl)).rejects.toThrow(
+        "AEMET_API_KEY environment variable is undefined"
+      );
+    });
+  });
+
   describe("Error cases - fetch network errors", () => {
     it("should throw an error when fetch fails with network error", async () => {
       (global.fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));

@@ -134,7 +134,7 @@ describe("Given the fetch municipalities function", () => {
     });
   });
 
-  describe("Error cases - getMunicipalities", () => {
+  describe("Error cases - fetchMunicipalities", () => {
     it("should throw an error when municipalities data request fails with network error", async () => {
       (global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
