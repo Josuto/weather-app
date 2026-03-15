@@ -11,7 +11,7 @@ export function mapToMunicipalities(
   // Deduplicate and clean in one linear pass (O(n))
   const municipalityMap = new Map<string, Municipality>();
   extMunicipalities.forEach((extMunicipality: ExternalMunicipality) => {
-    const municipalityKey = extMunicipality.nombre;
+    const municipalityKey = extMunicipality.nombre.trim();
     if (!municipalityMap.has(municipalityKey)) {
       municipalityMap.set(municipalityKey, mapToMunicipality(extMunicipality));
     }
