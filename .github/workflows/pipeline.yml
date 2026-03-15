@@ -60,6 +60,8 @@ jobs:
     needs: [run-tests]
     runs-on: ubuntu-latest
     name: Deploy to Vercel
+    env:
+      AEMP_API_KEY: ${{ secrets.AEMP_API_KEY }}
     steps:
       - name: Code Checkout 🛎️
         uses: actions/checkout@v3
