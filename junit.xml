@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="114" failures="0" errors="0" time="6.195">
-  <testsuite name="Given the mapToMunicipalityWithWeatherData function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:11:58" time="0.772" tests="24">
-    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should remove &apos;id&apos; prefix from municipality ID" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should remove &apos;id&apos; prefix from municipality ID" time="0.009">
+<testsuites name="jest tests" tests="114" failures="0" errors="0" time="5.796">
+  <testsuite name="Given the fetch initial link function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:40" time="0.6" tests="17">
+    <testcase classname="Given the fetch initial link function Happy path should return datos URL when request succeeds" name="Given the fetch initial link function Happy path should return datos URL when request succeeds" time="0.006">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Happy path should include Authorization header with API key" name="Given the fetch initial link function Happy path should include Authorization header with API key" time="0.014">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Happy path should use cache: &apos;no-store&apos; option" name="Given the fetch initial link function Happy path should use cache: &apos;no-store&apos; option" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Happy path should extract and return the datos property from response" name="Given the fetch initial link function Happy path should extract and return the datos property from response" time="0">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - AEMET API key is undefined should throw an error when AEMET_API_KEY is undefined" name="Given the fetch initial link function Error cases - AEMET API key is undefined should throw an error when AEMET_API_KEY is undefined" time="0.012">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - fetch network errors should throw an error when fetch fails with network error" name="Given the fetch initial link function Error cases - fetch network errors should throw an error when fetch fails with network error" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - fetch network errors should throw an error when fetch fails with timeout" name="Given the fetch initial link function Error cases - fetch network errors should throw an error when fetch fails with timeout" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - fetch network errors should wrap non-Error exceptions as JSON strings" name="Given the fetch initial link function Error cases - fetch network errors should wrap non-Error exceptions as JSON strings" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when response is not ok" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when response is not ok" time="0.002">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 401 Unauthorized" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 401 Unauthorized" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 403 Forbidden" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 403 Forbidden" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 404 Not Found" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 404 Not Found" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 500 Internal Server Error" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 500 Internal Server Error" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - JSON parsing errors should throw an error when response JSON is invalid" name="Given the fetch initial link function Error cases - JSON parsing errors should throw an error when response JSON is invalid" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Error cases - JSON parsing errors should throw an error when response JSON lacks datos property" name="Given the fetch initial link function Error cases - JSON parsing errors should throw an error when response JSON lacks datos property" time="0">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Request configuration should call fetch with the correct URL" name="Given the fetch initial link function Request configuration should call fetch with the correct URL" time="0.001">
+    </testcase>
+    <testcase classname="Given the fetch initial link function Request configuration should not share API key in response URL" name="Given the fetch initial link function Request configuration should not share API key in response URL" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Given the mapToMunicipalityWithWeatherData function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:39" time="0.708" tests="24">
+    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should remove &apos;id&apos; prefix from municipality ID" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should remove &apos;id&apos; prefix from municipality ID" time="0.006">
     </testcase>
     <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should trim trailing spaces from municipality name" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should trim trailing spaces from municipality name" time="0.001">
     </testcase>
@@ -31,129 +67,93 @@
     </testcase>
     <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current rain probability for hour 23 (late evening) when now is 23" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current rain probability for hour 23 (late evening) when now is 23" time="0.001">
     </testcase>
-    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 0 (midnight) when now is 0" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 0 (midnight) when now is 0" time="0.001">
+    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 0 (midnight) when now is 0" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 0 (midnight) when now is 0" time="0">
     </testcase>
-    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 5 when now is 5" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 5 when now is 5" time="0.001">
+    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 5 when now is 5" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 5 when now is 5" time="0">
     </testcase>
     <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 12 (noon) when now is 12" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 12 (noon) when now is 12" time="0.001">
     </testcase>
-    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 23 (late evening) when now is 23" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 23 (late evening) when now is 23" time="0.002">
+    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 23 (late evening) when now is 23" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current wind for hour 23 (late evening) when now is 23" time="0.001">
     </testcase>
     <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 0 (midnight) when now is 0" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 0 (midnight) when now is 0" time="0.002">
     </testcase>
-    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 5 when now is 5" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 5 when now is 5" time="0.001">
+    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 5 when now is 5" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 5 when now is 5" time="0.004">
     </testcase>
     <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 12 (noon) when now is 12" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 12 (noon) when now is 12" time="0.001">
     </testcase>
-    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 23 (late evening) when now is 23" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 23 (late evening) when now is 23" time="0.001">
+    <testcase classname="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 23 (late evening) when now is 23" name="Given the mapToMunicipalityWithWeatherData function Happy path - data transformation should return current humidity for hour 23 (late evening) when now is 23" time="0">
     </testcase>
     <testcase classname="Given the mapToMunicipalityWithWeatherData function Edge cases - data filtering and handling should filter out wind data with empty value or missing periodo" name="Given the mapToMunicipalityWithWeatherData function Edge cases - data filtering and handling should filter out wind data with empty value or missing periodo" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Given the fetch initial link function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:11:58" time="0.767" tests="17">
-    <testcase classname="Given the fetch initial link function Happy path should return datos URL when request succeeds" name="Given the fetch initial link function Happy path should return datos URL when request succeeds" time="0.017">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Happy path should include Authorization header with API key" name="Given the fetch initial link function Happy path should include Authorization header with API key" time="0.005">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Happy path should use cache: &apos;no-store&apos; option" name="Given the fetch initial link function Happy path should use cache: &apos;no-store&apos; option" time="0.001">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Happy path should extract and return the datos property from response" name="Given the fetch initial link function Happy path should extract and return the datos property from response" time="0.002">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - AEMET API key is undefined should throw an error when AEMET_API_KEY is undefined" name="Given the fetch initial link function Error cases - AEMET API key is undefined should throw an error when AEMET_API_KEY is undefined" time="0.049">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - fetch network errors should throw an error when fetch fails with network error" name="Given the fetch initial link function Error cases - fetch network errors should throw an error when fetch fails with network error" time="0.001">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - fetch network errors should throw an error when fetch fails with timeout" name="Given the fetch initial link function Error cases - fetch network errors should throw an error when fetch fails with timeout" time="0.001">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - fetch network errors should wrap non-Error exceptions as JSON strings" name="Given the fetch initial link function Error cases - fetch network errors should wrap non-Error exceptions as JSON strings" time="0">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when response is not ok" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when response is not ok" time="0.001">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 401 Unauthorized" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 401 Unauthorized" time="0.001">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 403 Forbidden" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 403 Forbidden" time="0.001">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 404 Not Found" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 404 Not Found" time="0">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 500 Internal Server Error" name="Given the fetch initial link function Error cases - HTTP response errors should throw an error when API returns 500 Internal Server Error" time="0.001">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - JSON parsing errors should throw an error when response JSON is invalid" name="Given the fetch initial link function Error cases - JSON parsing errors should throw an error when response JSON is invalid" time="0">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Error cases - JSON parsing errors should throw an error when response JSON lacks datos property" name="Given the fetch initial link function Error cases - JSON parsing errors should throw an error when response JSON lacks datos property" time="0.001">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Request configuration should call fetch with the correct URL" name="Given the fetch initial link function Request configuration should call fetch with the correct URL" time="0.001">
-    </testcase>
-    <testcase classname="Given the fetch initial link function Request configuration should not share API key in response URL" name="Given the fetch initial link function Request configuration should not share API key in response URL" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="Given the fetch municipality with weather data function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:11:58" time="0.828" tests="12">
+  <testsuite name="Given the fetch municipality with weather data function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:40" time="0.768" tests="12">
     <testcase classname="Given the fetch municipality with weather data function Happy path should return municipality with weather data when request succeeds" name="Given the fetch municipality with weather data function Happy path should return municipality with weather data when request succeeds" time="0.008">
     </testcase>
     <testcase classname="Given the fetch municipality with weather data function Happy path should fetch weather data using the correct municipality ID" name="Given the fetch municipality with weather data function Happy path should fetch weather data using the correct municipality ID" time="0.001">
     </testcase>
-    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial link request fails with network error" name="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial link request fails with network error" time="0.019">
+    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial link request fails with network error" name="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial link request fails with network error" time="0.012">
     </testcase>
-    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial link request returns non-ok response" name="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial link request returns non-ok response" time="0">
+    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial link request returns non-ok response" name="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial link request returns non-ok response" time="0.001">
     </testcase>
     <testcase classname="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when API returns 403 Forbidden" name="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when API returns 403 Forbidden" time="0.001">
     </testcase>
-    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial response JSON is invalid" name="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial response JSON is invalid" time="0">
+    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial response JSON is invalid" name="Given the fetch municipality with weather data function Error cases - fetchInitialLink should throw an error when initial response JSON is invalid" time="0.001">
     </testcase>
-    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request fails with network error" name="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request fails with network error" time="0.003">
+    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request fails with network error" name="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request fails with network error" time="0.001">
     </testcase>
-    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request returns non-ok response" name="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request returns non-ok response" time="0">
+    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request returns non-ok response" name="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request returns non-ok response" time="0.001">
     </testcase>
-    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request returns 403 Forbidden" name="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request returns 403 Forbidden" time="0.003">
+    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request returns 403 Forbidden" name="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when weather data request returns 403 Forbidden" time="0.001">
     </testcase>
     <testcase classname="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when decode fails" name="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when decode fails" time="0.001">
     </testcase>
-    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when mapToMunicipalityWithWeatherData fails" name="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when mapToMunicipalityWithWeatherData fails" time="0">
+    <testcase classname="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when mapToMunicipalityWithWeatherData fails" name="Given the fetch municipality with weather data function Error cases - fetchMunicipalityWithWeatherDataFrom should throw an error when mapToMunicipalityWithWeatherData fails" time="0.001">
     </testcase>
     <testcase classname="Given the fetch municipality with weather data function Error cases - fetch with no-store cache should use cache: &apos;no-store&apos; when fetching weather data" name="Given the fetch municipality with weather data function Error cases - fetch with no-store cache should use cache: &apos;no-store&apos; when fetching weather data" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Given the fetch municipalities function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:11:59" time="0.137" tests="10">
-    <testcase classname="Given the fetch municipalities function Happy path should return municipalities when both requests succeed" name="Given the fetch municipalities function Happy path should return municipalities when both requests succeed" time="0.003">
+  <testsuite name="Given the fetch municipalities function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:40" time="0.143" tests="10">
+    <testcase classname="Given the fetch municipalities function Happy path should return municipalities when both requests succeed" name="Given the fetch municipalities function Happy path should return municipalities when both requests succeed" time="0.005">
     </testcase>
-    <testcase classname="Given the fetch municipalities function Happy path should deduplicate municipalities by name" name="Given the fetch municipalities function Happy path should deduplicate municipalities by name" time="0.001">
+    <testcase classname="Given the fetch municipalities function Happy path should deduplicate municipalities by name" name="Given the fetch municipalities function Happy path should deduplicate municipalities by name" time="0.003">
     </testcase>
     <testcase classname="Given the fetch municipalities function Happy path should trim whitespace from municipality names" name="Given the fetch municipalities function Happy path should trim whitespace from municipality names" time="0.001">
     </testcase>
-    <testcase classname="Given the fetch municipalities function Happy path should handle empty municipalities array" name="Given the fetch municipalities function Happy path should handle empty municipalities array" time="0">
+    <testcase classname="Given the fetch municipalities function Happy path should handle empty municipalities array" name="Given the fetch municipalities function Happy path should handle empty municipalities array" time="0.001">
     </testcase>
     <testcase classname="Given the fetch municipalities function Error cases - getInitialLink should throw an error when initial link request fails with network error" name="Given the fetch municipalities function Error cases - getInitialLink should throw an error when initial link request fails with network error" time="0.011">
     </testcase>
-    <testcase classname="Given the fetch municipalities function Error cases - getInitialLink should throw an error when initial link request returns non-ok response" name="Given the fetch municipalities function Error cases - getInitialLink should throw an error when initial link request returns non-ok response" time="0">
+    <testcase classname="Given the fetch municipalities function Error cases - getInitialLink should throw an error when initial link request returns non-ok response" name="Given the fetch municipalities function Error cases - getInitialLink should throw an error when initial link request returns non-ok response" time="0.001">
     </testcase>
     <testcase classname="Given the fetch municipalities function Error cases - getInitialLink should throw an error when API returns 403 Forbidden" name="Given the fetch municipalities function Error cases - getInitialLink should throw an error when API returns 403 Forbidden" time="0.001">
     </testcase>
     <testcase classname="Given the fetch municipalities function Error cases - getInitialLink should throw an error when initial response JSON is invalid" name="Given the fetch municipalities function Error cases - getInitialLink should throw an error when initial response JSON is invalid" time="0.001">
     </testcase>
-    <testcase classname="Given the fetch municipalities function Error cases - fetchMunicipalities should throw an error when municipalities data request fails with network error" name="Given the fetch municipalities function Error cases - fetchMunicipalities should throw an error when municipalities data request fails with network error" time="0">
+    <testcase classname="Given the fetch municipalities function Error cases - fetchMunicipalities should throw an error when municipalities data request fails with network error" name="Given the fetch municipalities function Error cases - fetchMunicipalities should throw an error when municipalities data request fails with network error" time="0.001">
     </testcase>
     <testcase classname="Given the fetch municipalities function Error cases - fetchMunicipalities should throw an error when municipalities data request returns non-ok response" name="Given the fetch municipalities function Error cases - fetchMunicipalities should throw an error when municipalities data request returns non-ok response" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Given the mapToMunicipalities function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:11:59" time="0.05" tests="8">
+  <testsuite name="Given the mapToMunicipalities function" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:40" time="0.053" tests="8">
     <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should map an array of external municipalities to municipalities" name="Given the mapToMunicipalities function Happy path - data transformation should map an array of external municipalities to municipalities" time="0.002">
     </testcase>
-    <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should remove &apos;id&apos; prefix from municipality IDs" name="Given the mapToMunicipalities function Happy path - data transformation should remove &apos;id&apos; prefix from municipality IDs" time="0">
+    <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should remove &apos;id&apos; prefix from municipality IDs" name="Given the mapToMunicipalities function Happy path - data transformation should remove &apos;id&apos; prefix from municipality IDs" time="0.001">
     </testcase>
-    <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should trim trailing spaces from municipality names" name="Given the mapToMunicipalities function Happy path - data transformation should trim trailing spaces from municipality names" time="0">
+    <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should trim trailing spaces from municipality names" name="Given the mapToMunicipalities function Happy path - data transformation should trim trailing spaces from municipality names" time="0.001">
     </testcase>
     <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should deduplicate municipalities by name in a single pass" name="Given the mapToMunicipalities function Happy path - data transformation should deduplicate municipalities by name in a single pass" time="0.001">
     </testcase>
-    <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should deduplicate municipalities with trailing spaces" name="Given the mapToMunicipalities function Happy path - data transformation should deduplicate municipalities with trailing spaces" time="0.001">
+    <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should deduplicate municipalities with trailing spaces" name="Given the mapToMunicipalities function Happy path - data transformation should deduplicate municipalities with trailing spaces" time="0">
     </testcase>
     <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should handle an empty array" name="Given the mapToMunicipalities function Happy path - data transformation should handle an empty array" time="0">
     </testcase>
-    <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should handle a single municipality" name="Given the mapToMunicipalities function Happy path - data transformation should handle a single municipality" time="0">
+    <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should handle a single municipality" name="Given the mapToMunicipalities function Happy path - data transformation should handle a single municipality" time="0.001">
     </testcase>
     <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should preserve order based on first occurrence" name="Given the mapToMunicipalities function Happy path - data transformation should preserve order based on first occurrence" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Browser storage utils" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:12:00" time="0.256" tests="16">
-    <testcase classname="Browser storage utils given the get municipality function when it receives an undefined value should return null" name="Browser storage utils given the get municipality function when it receives an undefined value should return null" time="0.001">
+  <testsuite name="Browser storage utils" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:41" time="0.274" tests="16">
+    <testcase classname="Browser storage utils given the get municipality function when it receives an undefined value should return null" name="Browser storage utils given the get municipality function when it receives an undefined value should return null" time="0.002">
     </testcase>
     <testcase classname="Browser storage utils given the get municipality function when it receives a null value should return null" name="Browser storage utils given the get municipality function when it receives a null value should return null" time="0.001">
     </testcase>
@@ -163,21 +163,21 @@
     </testcase>
     <testcase classname="Browser storage utils given the get municipality function when it receives an ID that matches a saved municipality should return the saved municipality" name="Browser storage utils given the get municipality function when it receives an ID that matches a saved municipality should return the saved municipality" time="0.001">
     </testcase>
-    <testcase classname="Browser storage utils given the save municipality function when it receives an undefined value should throw an error" name="Browser storage utils given the save municipality function when it receives an undefined value should throw an error" time="0.014">
+    <testcase classname="Browser storage utils given the save municipality function when it receives an undefined value should throw an error" name="Browser storage utils given the save municipality function when it receives an undefined value should throw an error" time="0.01">
     </testcase>
-    <testcase classname="Browser storage utils given the save municipality function when it receives a null value should throw an error" name="Browser storage utils given the save municipality function when it receives a null value should throw an error" time="0.002">
+    <testcase classname="Browser storage utils given the save municipality function when it receives a null value should throw an error" name="Browser storage utils given the save municipality function when it receives a null value should throw an error" time="0.001">
     </testcase>
-    <testcase classname="Browser storage utils given the save municipality function when it receives a valid municipality should return true" name="Browser storage utils given the save municipality function when it receives a valid municipality should return true" time="0">
+    <testcase classname="Browser storage utils given the save municipality function when it receives a valid municipality should return true" name="Browser storage utils given the save municipality function when it receives a valid municipality should return true" time="0.001">
     </testcase>
-    <testcase classname="Browser storage utils given the remove municipality function when it receives an undefined value should return false" name="Browser storage utils given the remove municipality function when it receives an undefined value should return false" time="0.001">
+    <testcase classname="Browser storage utils given the remove municipality function when it receives an undefined value should return false" name="Browser storage utils given the remove municipality function when it receives an undefined value should return false" time="0">
     </testcase>
-    <testcase classname="Browser storage utils given the remove municipality function when it receives a null value should return false" name="Browser storage utils given the remove municipality function when it receives a null value should return false" time="0.002">
+    <testcase classname="Browser storage utils given the remove municipality function when it receives a null value should return false" name="Browser storage utils given the remove municipality function when it receives a null value should return false" time="0.001">
     </testcase>
     <testcase classname="Browser storage utils given the remove municipality function when it receives an ID that does not conform to the format of municipality ID should return false" name="Browser storage utils given the remove municipality function when it receives an ID that does not conform to the format of municipality ID should return false" time="0">
     </testcase>
-    <testcase classname="Browser storage utils given the remove municipality function when it receives an ID that does not match a saved municipality should return false" name="Browser storage utils given the remove municipality function when it receives an ID that does not match a saved municipality should return false" time="0.001">
+    <testcase classname="Browser storage utils given the remove municipality function when it receives an ID that does not match a saved municipality should return false" name="Browser storage utils given the remove municipality function when it receives an ID that does not match a saved municipality should return false" time="0">
     </testcase>
-    <testcase classname="Browser storage utils given the remove municipality function when it receives an ID that matches a saved municipality should return true" name="Browser storage utils given the remove municipality function when it receives an ID that matches a saved municipality should return true" time="0.003">
+    <testcase classname="Browser storage utils given the remove municipality function when it receives an ID that matches a saved municipality should return true" name="Browser storage utils given the remove municipality function when it receives an ID that matches a saved municipality should return true" time="0.002">
     </testcase>
     <testcase classname="Browser storage utils Given the fetchMunicipalities function when there are no municipalities stored in the browser local storage should return an empty list of municipalities" name="Browser storage utils Given the fetchMunicipalities function when there are no municipalities stored in the browser local storage should return an empty list of municipalities" time="0.001">
     </testcase>
@@ -186,18 +186,18 @@
     <testcase classname="Browser storage utils Given the fetchMunicipalities function when there are municipalities altogether with other data stored in the browser local storage should only return the list of municipalities" name="Browser storage utils Given the fetchMunicipalities function when there are municipalities altogether with other data stored in the browser local storage should only return the list of municipalities" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Given the municipalities wrapper" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:12:00" time="0.209" tests="10">
-    <testcase classname="Given the municipalities wrapper when retrieving the list of municipality IDs of an empty list of municipalities should return an empty list of IDs" name="Given the municipalities wrapper when retrieving the list of municipality IDs of an empty list of municipalities should return an empty list of IDs" time="0.001">
+  <testsuite name="Given the municipalities wrapper" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:41" time="0.226" tests="10">
+    <testcase classname="Given the municipalities wrapper when retrieving the list of municipality IDs of an empty list of municipalities should return an empty list of IDs" name="Given the municipalities wrapper when retrieving the list of municipality IDs of an empty list of municipalities should return an empty list of IDs" time="0.002">
     </testcase>
-    <testcase classname="Given the municipalities wrapper when retrieving the list of municipality IDs of a list of municipalities should return a list of IDs" name="Given the municipalities wrapper when retrieving the list of municipality IDs of a list of municipalities should return a list of IDs" time="0.001">
+    <testcase classname="Given the municipalities wrapper when retrieving the list of municipality IDs of a list of municipalities should return a list of IDs" name="Given the municipalities wrapper when retrieving the list of municipality IDs of a list of municipalities should return a list of IDs" time="0">
     </testcase>
     <testcase classname="Given the municipalities wrapper when removing a municipality by municipality ID and the ID does not match any existing municipality should return a municipalities wrapper with same contents as the original" name="Given the municipalities wrapper when removing a municipality by municipality ID and the ID does not match any existing municipality should return a municipalities wrapper with same contents as the original" time="0.001">
     </testcase>
     <testcase classname="Given the municipalities wrapper when removing a municipality by municipality ID and the ID matches an existing municipality should return a municipalities wrapper not including such a municipality" name="Given the municipalities wrapper when removing a municipality by municipality ID and the ID matches an existing municipality should return a municipalities wrapper not including such a municipality" time="0.001">
     </testcase>
-    <testcase classname="Given the municipalities wrapper when adding a municipality that is null should return a municipalities wrapper with same contents as the original" name="Given the municipalities wrapper when adding a municipality that is null should return a municipalities wrapper with same contents as the original" time="0.001">
+    <testcase classname="Given the municipalities wrapper when adding a municipality that is null should return a municipalities wrapper with same contents as the original" name="Given the municipalities wrapper when adding a municipality that is null should return a municipalities wrapper with same contents as the original" time="0">
     </testcase>
-    <testcase classname="Given the municipalities wrapper when adding a municipality that is not null should return a municipalities wrapper including the new municipality" name="Given the municipalities wrapper when adding a municipality that is not null should return a municipalities wrapper including the new municipality" time="0">
+    <testcase classname="Given the municipalities wrapper when adding a municipality that is not null should return a municipalities wrapper including the new municipality" name="Given the municipalities wrapper when adding a municipality that is not null should return a municipalities wrapper including the new municipality" time="0.001">
     </testcase>
     <testcase classname="Given the municipalities wrapper when calculating the length of an empty list of wrapped municipalities should result in zero" name="Given the municipalities wrapper when calculating the length of an empty list of wrapped municipalities should result in zero" time="0.001">
     </testcase>
@@ -208,46 +208,46 @@
     <testcase classname="Given the municipalities wrapper should enable iterating through municipalities using the map function" name="Given the municipalities wrapper should enable iterating through municipalities using the map function" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Given the UseFetchMunicipalityWithWeatherData hook" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:12:00" time="0.349" tests="4">
-    <testcase classname="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is null should throw an error" name="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is null should throw an error" time="0.01">
+  <testsuite name="Given the UseFetchMunicipalityWithWeatherData hook" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:41" time="0.35" tests="4">
+    <testcase classname="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is null should throw an error" name="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is null should throw an error" time="0.009">
     </testcase>
     <testcase classname="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is undefined should throw an error" name="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is undefined should throw an error" time="0.001">
     </testcase>
-    <testcase classname="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is valid and the external service reports an error should return both the municipality and the error" name="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is valid and the external service reports an error should return both the municipality and the error" time="0.021">
+    <testcase classname="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is valid and the external service reports an error should return both the municipality and the error" name="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is valid and the external service reports an error should return both the municipality and the error" time="0.02">
     </testcase>
     <testcase classname="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is valid and the external service returns the weather data for the municipality should return the municipality with its associated weather data" name="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is valid and the external service returns the weather data for the municipality should return the municipality with its associated weather data" time="0.004">
     </testcase>
   </testsuite>
-  <testsuite name="decode" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:12:00" time="0.101" tests="4">
+  <testsuite name="decode" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:42" time="0.042" tests="4">
     <testcase classname="decode should decode a valid JSON response with Windows-1252 encoding" name="decode should decode a valid JSON response with Windows-1252 encoding" time="0.005">
     </testcase>
     <testcase classname="decode should decode special Spanish characters correctly" name="decode should decode special Spanish characters correctly" time="0.001">
     </testcase>
-    <testcase classname="decode should throw on invalid JSON" name="decode should throw on invalid JSON" time="0.01">
+    <testcase classname="decode should throw on invalid JSON" name="decode should throw on invalid JSON" time="0.005">
     </testcase>
-    <testcase classname="decode should throw on empty response" name="decode should throw on empty response" time="0.003">
-    </testcase>
-  </testsuite>
-  <testsuite name="Given the municipality search bar component" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:12:00" time="1.315" tests="3">
-    <testcase classname="Given the municipality search bar component when there are no municipalities to select from should not display any of them" name="Given the municipality search bar component when there are no municipalities to select from should not display any of them" time="0.168">
-    </testcase>
-    <testcase classname="Given the municipality search bar component when there are municipalities to select from and none has been selected yet should display all of them" name="Given the municipality search bar component when there are municipalities to select from and none has been selected yet should display all of them" time="0.137">
-    </testcase>
-    <testcase classname="Given the municipality search bar component when there are municipalities to select from and one has already been selected should display all of them but the one selected" name="Given the municipality search bar component when there are municipalities to select from and one has already been selected should display all of them but the one selected" time="0.136">
+    <testcase classname="decode should throw on empty response" name="decode should throw on empty response" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Given a municipality card" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:12:00" time="4.598" tests="6">
-    <testcase classname="Given a municipality card when the municipality weather data cannot be loaded due to e.g., a network error should display a loading error warning as the card content" name="Given a municipality card when the municipality weather data cannot be loaded due to e.g., a network error should display a loading error warning as the card content" time="0.029">
+  <testsuite name="Given the municipality search bar component" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:41" time="1.257" tests="3">
+    <testcase classname="Given the municipality search bar component when there are no municipalities to select from should not display any of them" name="Given the municipality search bar component when there are no municipalities to select from should not display any of them" time="0.167">
     </testcase>
-    <testcase classname="Given a municipality card when the municipality weather data has not yet been loaded should display a spinner as the card content" name="Given a municipality card when the municipality weather data has not yet been loaded should display a spinner as the card content" time="0.041">
+    <testcase classname="Given the municipality search bar component when there are municipalities to select from and none has been selected yet should display all of them" name="Given the municipality search bar component when there are municipalities to select from and none has been selected yet should display all of them" time="0.125">
+    </testcase>
+    <testcase classname="Given the municipality search bar component when there are municipalities to select from and one has already been selected should display all of them but the one selected" name="Given the municipality search bar component when there are municipalities to select from and one has already been selected should display all of them but the one selected" time="0.15">
+    </testcase>
+  </testsuite>
+  <testsuite name="Given a municipality card" errors="0" failures="0" skipped="0" timestamp="2026-03-15T23:25:41" time="4.389" tests="6">
+    <testcase classname="Given a municipality card when the municipality weather data cannot be loaded due to e.g., a network error should display a loading error warning as the card content" name="Given a municipality card when the municipality weather data cannot be loaded due to e.g., a network error should display a loading error warning as the card content" time="0.031">
+    </testcase>
+    <testcase classname="Given a municipality card when the municipality weather data has not yet been loaded should display a spinner as the card content" name="Given a municipality card when the municipality weather data has not yet been loaded should display a spinner as the card content" time="0.042">
     </testcase>
     <testcase classname="Given a municipality card when the municipality weather data has been loaded should display the weather data as the card content" name="Given a municipality card when the municipality weather data has been loaded should display the weather data as the card content" time="0.035">
     </testcase>
-    <testcase classname="Given a municipality card when the user clicks on the save card button should change the button to a remove card button and save the municipality from the local storage" name="Given a municipality card when the user clicks on the save card button should change the button to a remove card button and save the municipality from the local storage" time="0.1">
+    <testcase classname="Given a municipality card when the user clicks on the save card button should change the button to a remove card button and save the municipality from the local storage" name="Given a municipality card when the user clicks on the save card button should change the button to a remove card button and save the municipality from the local storage" time="0.098">
     </testcase>
-    <testcase classname="Given a municipality card when the user clicks on the save card button and then the user clicks on the remove card button should change the button back to a save card button and delete the municipality from the local storage" name="Given a municipality card when the user clicks on the save card button and then the user clicks on the remove card button should change the button back to a save card button and delete the municipality from the local storage" time="0.075">
+    <testcase classname="Given a municipality card when the user clicks on the save card button and then the user clicks on the remove card button should change the button back to a save card button and delete the municipality from the local storage" name="Given a municipality card when the user clicks on the save card button and then the user clicks on the remove card button should change the button back to a save card button and delete the municipality from the local storage" time="0.068">
     </testcase>
-    <testcase classname="Given a municipality card when the user clicks on the save card button and then the user clicks on the close button should delete the municipality from the local storage" name="Given a municipality card when the user clicks on the save card button and then the user clicks on the close button should delete the municipality from the local storage" time="0.054">
+    <testcase classname="Given a municipality card when the user clicks on the save card button and then the user clicks on the close button should delete the municipality from the local storage" name="Given a municipality card when the user clicks on the save card button and then the user clicks on the close button should delete the municipality from the local storage" time="0.071">
     </testcase>
   </testsuite>
 </testsuites>
