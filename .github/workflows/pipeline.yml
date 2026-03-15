@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to Vercel
     env:
-      AEMP_API_KEY: ${{ secrets.AEMP_API_KEY }}
+      AEMET_API_KEY: ${{ secrets.AEMET_API_KEY }}
     steps:
       - name: Code Checkout 🛎️
         uses: actions/checkout@v3
