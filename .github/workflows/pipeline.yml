@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node 🕸️
         uses: actions/setup-node@v3
         with:
-          node-version: 24.14.0
+          node-version: 24
           cache: 'pnpm'
 
       - name: Install dependencies 💾
@@ -78,7 +78,7 @@ jobs:
       - name: Setup Node 🕸️
         uses: actions/setup-node@v3
         with:
-          node-version: 24.14.0
+          node-version: 24
           cache: 'pnpm'
       
       - name: Install dependencies 💾
