@@ -38,11 +38,8 @@ describe("Given the fetch initial link function", () => {
 
       await fetchInitialLink(mockUrl);
 
-      expect(global.fetch).toHaveBeenCalledWith(mockUrl, {
+      expect(global.fetch).toHaveBeenCalledWith(mockUrl + `?api_key=${mockApiKey}`, {
         cache: "no-store",
-        headers: {
-          Authorization: `Bearer ${mockApiKey}`,
-        },
       });
     });
 
