@@ -18,7 +18,7 @@ jobs:
     name: Validate code
     steps:
       - name: Code Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PNPM 🕸️
         uses: pnpm/action-setup@v4
@@ -26,7 +26,7 @@ jobs:
           version: 10
 
       - name: Setup Node 🕸️
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'pnpm'
@@ -68,7 +68,7 @@ jobs:
       AEMET_API_KEY: ${{ secrets.AEMET_API_KEY }}
     steps:
       - name: Code Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PNPM 🕸️
         uses: pnpm/action-setup@v4
@@ -76,7 +76,7 @@ jobs:
           version: 10
 
       - name: Setup Node 🕸️
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'pnpm'
