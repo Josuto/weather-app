@@ -12,9 +12,13 @@ export async function fetchMunicipalityWithWeatherData(
 ): Promise<MunicipalityWithWeatherData> {
   "use cache";
 
-  cacheLife("hours");
-  const initialLink = await fetchInitialLink(AEMET_MUNICIPALITIES_URL + municipality);
-  return await fetchMunicipalityWithWeatherDataFrom(initialLink);
+  try {
+    cacheLife("hours");
+    const initialLink = await fetchInitialLink(AEMET_MUNICIPALITIES_URL + municipality);
+    return await fetchMunicipalityWithWeatherDataFrom(initialLink);
+  } catch (error) {
+    throw new Error(`Failed to fetch municipality with weather data: ${error}`);
+  }
 }
 
 async function fetchMunicipalityWithWeatherDataFrom(
