@@ -5,12 +5,19 @@ React.
 ![Test Results](./badges/badge-test-results.svg)
 ![Coverage](./badges/badge-test-coverage.svg)
 
+## Table of Contents
+1. [How it works](#how-it-works)
+2. [Followed practices](#followed-practices)
+3. [App Architecture](#app-architecture)
+4. [Commands](#commands)
+5. [Used technologies](#used-technologies)
+
 # How it works
 
 The intent of this app is purely academic; I created it to further practice my knowledge
-in web front-end app development in React. This weather app specifies a dropdown list that
-serves as a municipality search bar so that any user can pick one at a time. When she does
-it, a card showing several weather data (max, min, and current temperature, rain
+in web front-end app development in React and Next.js. This weather app specifies a dropdown 
+list that serves as a municipality search bar so that any user can pick one at a time. When 
+she does it, a card showing several weather data (max, min, and current temperature, rain
 probability, etc.) is displayed.
 
 Cards include a save and a close button. When clicking on the save
@@ -55,18 +62,39 @@ Besides, I truly believe that you do not need other branches when it comes to bu
 meant to provide users with new features (use feature toggles/flags if you are to
 incorporate experimental ones).
 
+# App Architecture
+
+The app’s core flow is:
+1. `src/app/page.tsx` is a server component (RSC). It fetches municipalities via a server-side function (`fetchMunicipalities`) and passes them as props to `AppRoot`.
+2. `AppRoot` renders `MunicipalitySearchBar` with all municipalities and keeps selected municipalities in a client state (`municipalities`).
+3. Selecting a municipality in the dropdown updates state in `AppRoot`, which re-renders and adds a new `MunicipalityCard`.
+4. Each `MunicipalityCard` loads weather data using `useSWR` and a route handler at `src/app/api/municipalities/[municipality]/weather-data/route.ts` (currently calling AEMET).
+5. The user can mark a municipality as favourite, which stores it in browser local storage, or unmark it to remove it from favourites.
+6. Closing a card removes it from the grid and from local storage.
+
+All user-initiated operations are marked by user actions (select municipality, mark/unmark favourite, close card). Component re-renders are intentionally not illustrated for clarity; they are implied by state updates.
+
+![Weather App Architecture](./app_architecture.svg)
+
+Additionally, data fetching and transformation to domain objects are decoupled in `src/infrastructure`. This acts as an anti-corruption layer and makes it easy to change the upstream municipality provider without affecting component logic.
+
+# Commands
+
+- `pnpm dev` — Run the app locally in development mode (hot reload). Open `http://localhost:3000`.
+- `pnpm start` — Start the production server after building, typically used after `pnpm build` in deployment.
+- `pnpm test` — Run tests (Jest + React Testing Library) to validate behavior and regression safety.
+
 # Used technologies
 
 Here is a list of the most outstanding technologies that I used to implement this app:
 
-- [Create React App](https://github.com/facebook/create-react-app) with React 18
+- [Next.js](https://nextjs.org/) with React 18
 - [Typescript](https://www.typescriptlang.org/)
 - [MUI](https://mui.com/) component library
 - [Custom MUI theme](https://mui.com/material-ui/customization/theming/)
   and React [useMediaQuery](https://mui.com/material-ui/react-use-media-query/) for
   responsive layouts
-- [useSRW](https://swr.vercel.app/) to automatically fetch weather data updates from an
-  external service
+- [useSRW](https://swr.vercel.app/) to automatically fetch weather data updates
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
   with [Jest](https://jestjs.io/) to validate the code
 - [Husky](https://github.com/typicode/husky) to define both a pre-commit hook to TS
@@ -75,51 +103,3 @@ Here is a list of the most outstanding technologies that I used to implement thi
 - [Vercel](https://vercel.com/) as a deployment and hosting infrastructure
 - CI/CD via [Github Actions](https://docs.github.com/en/actions)
 
-# Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section
-about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for
-more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best
-performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section
-about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more
-information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at
-any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (
-webpack, Babel, ESLint, etc) right into your project so you have full control over them.
-All of the commands except `eject` will still work, but they will point to the copied
-scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and
-middle deployments, and you shouldn’t feel obligated to use this feature. However we
-understand that this tool wouldn’t be useful if you couldn’t customize it when you are
-ready for it.
