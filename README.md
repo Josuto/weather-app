@@ -1,8 +1,7 @@
-This is a simple single-page [weather app](https://weather-app-bl3j-mj7uar3t4-josu-martinezs-projects.vercel.app) made in
-React.
+This is a simple single-page weather app made in Next.js and React.
 
+[![CI Status](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
 [![CD](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
-![Test Results](./badges/badge-test-results.svg)
 ![Coverage](./badges/badge-test-coverage.svg)
 
 ## Table of Contents
