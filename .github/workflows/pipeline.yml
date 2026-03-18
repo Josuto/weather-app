@@ -39,13 +39,26 @@ jobs:
 
       - name: Generate test results badge 🥇
         run: |
-          all_tests=$(grep -oP 'tests="\K\d+' ./test-results/junit.xml | head -1)
-          failed=$(grep -oP 'failures="\K\d+' ./test-results/junit.xml | head -1)
-          passed=$(($all_tests-$failed))
-          [ $failed = 0 ] && result="success" || result="red"
-          URL="https://img.shields.io/badge/tests-$passed%20passed,%20$failed%20failed-${result}.svg"
+          if [ ! -f ./test-results/junit.xml ]; then
+            echo "JUnit report not found; writing unknown badge."
+            mkdir -p ./badges
+            curl -s -o ./badges/badge-test-results.svg "https://img.shields.io/badge/tests-unknown-orange.svg"
+            exit 0
+          fi
+          all_tests=$(grep -oP 'tests="\K\d+' ./test-results/junit.xml | head -1 || echo "0")
+          failed=$(grep -oP 'failures="\K\d+' ./test-results/junit.xml | head -1 || echo "0")
+          if [ -z "$all_tests" ] || [ -z "$failed" ]; then
+            all_tests=0
+            failed=0
+          fi
+          passed=$((all_tests - failed))
+          if [ "$failed" -eq 0 ]; then
+            result="success"
+          else
+            result="red"
+          fi
           mkdir -p ./badges
-          curl -s -o ./badges/badge-test-results.svg $URL
+          curl -s -o ./badges/badge-test-results.svg "https://img.shields.io/badge/tests-${passed}%20passed,%20${failed}%20failed-${result}.svg"
 
       - name: Generate test coverage badge 🥈
         run: |
