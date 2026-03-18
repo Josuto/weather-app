@@ -3,7 +3,7 @@
   <testsuite name="Given the fetch initial link function" errors="0" failures="0" skipped="0" timestamp="2026-03-18T23:48:57" time="0.566" tests="17">
     <testcase classname="Given the fetch initial link function Happy path should return datos URL when request succeeds" name="Given the fetch initial link function Happy path should return datos URL when request succeeds" time="0.007">
     </testcase>
-    <testcase classname="Given the fetch initial link function Happy path should include Authorization header with API key" name="Given the fetch initial link function Happy path should include Authorization header with API key" time="0.002">
+    <testcase classname="Given the mapToMunicipalities function Happy path - data transformation should remove &apos;id&apos; prefix from municipality IDs" name="Given the mapToMunicipalities function Happy path - data transformation should remove &apos;id&apos; prefix from municipality IDs" time="0">
     </testcase>
     <testcase classname="Given the fetch initial link function Happy path should use cache: &apos;no-store&apos; option" name="Given the fetch initial link function Happy path should use cache: &apos;no-store&apos; option" time="0.001">
     </testcase>
@@ -177,9 +177,9 @@
   <testsuite name="Browser storage utils" errors="0" failures="0" skipped="0" timestamp="2026-03-18T23:48:58" time="0.212" tests="16">
     <testcase classname="Browser storage utils given the get municipality function when it receives an undefined value should return null" name="Browser storage utils given the get municipality function when it receives an undefined value should return null" time="0.001">
     </testcase>
-    <testcase classname="Browser storage utils given the get municipality function when it receives a null value should return null" name="Browser storage utils given the get municipality function when it receives a null value should return null" time="0.001">
+    <testcase classname="decode should decode special Spanish characters correctly" name="decode should decode special Spanish characters correctly" time="0.001">
     </testcase>
-    <testcase classname="Browser storage utils given the get municipality function when it receives an ID that does not conform to the format of municipality ID should return null" name="Browser storage utils given the get municipality function when it receives an ID that does not conform to the format of municipality ID should return null" time="0">
+    <testcase classname="decode should throw on invalid JSON" name="decode should throw on invalid JSON" time="0.001">
     </testcase>
     <testcase classname="Browser storage utils given the get municipality function when it receives an ID that does not match a saved municipality should return null" name="Browser storage utils given the get municipality function when it receives an ID that does not match a saved municipality should return null" time="0.001">
     </testcase>
@@ -211,7 +211,7 @@
   <testsuite name="Given the UseFetchMunicipalityWithWeatherData hook" errors="0" failures="0" skipped="0" timestamp="2026-03-18T23:48:58" time="0.318" tests="4">
     <testcase classname="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is null should throw an error" name="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is null should throw an error" time="0.007">
     </testcase>
-    <testcase classname="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is undefined should throw an error" name="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is undefined should throw an error" time="0.001">
+    <testcase classname="Browser storage utils given the get municipality function when it receives a null value should return null" name="Browser storage utils given the get municipality function when it receives a null value should return null" time="0">
     </testcase>
     <testcase classname="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is valid and the external service reports an error should return both the municipality and the error" name="Given the UseFetchMunicipalityWithWeatherData hook when the given municipality is valid and the external service reports an error should return both the municipality and the error" time="0.023">
     </testcase>

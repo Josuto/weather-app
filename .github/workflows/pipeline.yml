@@ -39,14 +39,18 @@ jobs:
 
       - name: Generate test results badge 🥇
         run: |
-          if [ ! -f ./test-results/junit.xml ]; then
+          if [ -f ./test-results/junit.xml ]; then
+            report=./test-results/junit.xml
+          elif [ -f ./junit.xml ]; then
+            report=./junit.xml
+          else
             echo "JUnit report not found; writing unknown badge."
             mkdir -p ./badges
             curl -s -o ./badges/badge-test-results.svg "https://img.shields.io/badge/tests-unknown-orange.svg"
             exit 0
           fi
-          all_tests=$(grep -oP 'tests="\K\d+' ./test-results/junit.xml | head -1 || echo "0")
-          failed=$(grep -oP 'failures="\K\d+' ./test-results/junit.xml | head -1 || echo "0")
+          all_tests=$(grep -oP 'tests="\K\d+' "$report" | head -1 || echo "0")
+          failed=$(grep -oP 'failures="\K\d+' "$report" | head -1 || echo "0")
           if [ -z "$all_tests" ] || [ -z "$failed" ]; then
             all_tests=0
             failed=0
