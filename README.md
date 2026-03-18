@@ -1,8 +1,8 @@
 This is a simple single-page weather app made in Next.js and React.
 
 [![CI Status](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
-[![CD](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
-![Coverage](./badges/badge-test-coverage.svg)
+[![Test results](./badges/badge-test-results.svg)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
+[![Coverage](./badges/badge-test-coverage.svg)](https://github.com/Josuto/weather-app/actions/workflows/pipeline.yml)
 
 ## Table of Contents
 1. [How it works](#how-it-works)
